@@ -1,16 +1,19 @@
 class LoginResponseModel {
   final String token;
   final String userId;
+  final String userName;
+  final String fullName;
 
-  LoginResponseModel({required this.token, required this.userId});
+  LoginResponseModel({required this.token, required this.userId, required this.userName, required this.fullName});
 
   factory LoginResponseModel.fromJson(Map<String, dynamic> json) {
-    // Extract token from the `data` field
     final data = json['data'];
     final user = data['user'];
     return LoginResponseModel(
-      token: data['token'], // Access token directly from `data`
-      userId: user['_id'],  // Access user ID from `user`
+      token: data['token'],
+      userId: user['_id'],
+      userName: user['userName'],
+      fullName: user['fullName'],
     );
   }
 
@@ -18,6 +21,8 @@ class LoginResponseModel {
     return {
       'token': token,
       'userId': userId,
+      'userName': userName,
+      'fullName': fullName,
     };
   }
 }
