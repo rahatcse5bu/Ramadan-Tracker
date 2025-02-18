@@ -1,15 +1,15 @@
 class RegisterRequestModel {
   final String fullName;
-  final String username;
+  final String userName;
   final String? email;
-  final String phone;
+  final String? phone;
   final String password;
 
   RegisterRequestModel({
     required this.fullName,
-    required this.username,
+    required this.userName,
      this.email,
-    required this.phone,
+     this.phone,
     required this.password,
   });
 
@@ -17,7 +17,7 @@ class RegisterRequestModel {
   Map<String, dynamic> toJson() {
     return {
       "fullName": fullName,
-      "username": username,
+      "username": userName,
       "email": email,
       "phone": phone,
       "password": password,
@@ -28,7 +28,7 @@ class RegisterRequestModel {
   factory RegisterRequestModel.fromJson(Map<String, dynamic> json) {
     return RegisterRequestModel(
       fullName: json['fullName'] ?? '',
-      username: json['username'] ?? '',
+      userName: json['username'] ?? '',
       email: json['email'] ?? '',
       phone: json['phone'] ?? '',
       password: json['password'] ?? '',
