@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 
+import '../../modules/dashboard/models/user_model.dart';
 import '../../modules/login/models/login_request_model.dart' show LoginRequestModel;
 import '../../modules/login/models/login_response_model.dart';
 import '../../modules/register/models/register_model.dart';
@@ -13,13 +14,8 @@ abstract class ApiHelper {
       LoginRequestModel payload);
 
   Future<Either<CustomError, Response>> register(RegisterRequestModel register);
-
-  // Future<Either<CustomError, List<ITWayBDTask>>> fetchAllTasks();
-
-  // Future<Either<CustomError, ITWayBDTask>> createTask(
-  //     String title, String description, String dueDate);
-  // Future<Either<CustomError, ITWayBDTask>> markTaskAsCompleted(String taskId);
-  //   Future<Either<CustomError, ITWayBDTask>> editTask(
-  //     String taskId, String title, String description, String status, String dueDate);
-  // Future<Either<CustomError, String>> deleteTask(String taskId);
+Future<Either<CustomError, String>> fetchAjkerAyat();
+Future<Either<CustomError, String>> fetchAjkerHadith();
+Future<Either<CustomError, String>> fetchAjkerSalafQuote();
+Future<Either<CustomError, List<UserModel>>> fetchUsers();
 }

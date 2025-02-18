@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:get/get_connect/connect.dart';
+import '../../modules/dashboard/models/user_model.dart';
 import '../../modules/login/models/login_request_model.dart';
 import '../../modules/login/models/login_response_model.dart';
 import '../../modules/register/models/register_model.dart';
@@ -60,34 +61,41 @@ class ApiHelperImpl extends GetConnect implements ApiHelper {
     final response = await post('users', register.toJson());
     return response.statusCode == 200 ? Right(response) : Left(CustomError(response.statusCode, message: response.statusText??''));
   }
-
-  Future<void> fetchAjkerHadith() async {
-    final response = await get('ajkerhadiths');
-    if (response.statusCode == 200) {
-      final data = response.body;
-      if (data["success"]) {
-        // log("Hadith: \${data["data"][0]["text"]}");
-      }
-    }
-  }
-
-  Future<void> fetchAjkerAyat() async {
+Future<Either<CustomError, String>> fetchAjkerAyat() async {
     final response = await get('ajkerqurans');
-    if (response.statusCode == 200) {
-      final data = response.body;
-      if (data["success"]) {
-        // log("Ayat: \${data["data"][0]["text"]}");
-      }
+    if (response.statusCode == 200 && response.body['success'] == true) {
+      return Right(response.body['data'][0]['text']);
+    } else {
+      return Left(CustomError(response.statusCode ?? 500, message: response.statusText ?? 'Failed to fetch Ayat'));
     }
   }
 
-  Future<void> fetchAjkerDua() async {
-    final response = await get('ajkerduas');
-    if (response.statusCode == 200) {
-      final data = response.body;
-      if (data["success"]) {
-        // log("Dua: \${data["data"][0]["title"]}");
-      }
+  Future<Either<CustomError, String>> fetchAjkerHadith() async {
+    final response = await get('ajkerhadiths');
+    if (response.statusCode == 200 && response.body['success'] == true) {
+      return Right(response.body['data'][0]['text']);
+    } else {
+      return Left(CustomError(response.statusCode ?? 500, message: response.statusText ?? 'Failed to fetch Hadith'));
+    }
+  }
+
+  Future<Either<CustomError, String>> fetchAjkerSalafQuote() async {
+    final response = await get('salafquotes');
+    if (response.statusCode == 200 && response.body['success'] == true) {
+      return Right(response.body['data'][0]['text']);
+    } else {
+      return Left(CustomError(response.statusCode ?? 500, message: response.statusText ?? 'Failed to fetch Salaf Quote'));
+    }
+  }
+
+  Future<Either<CustomError, List<UserModel>>> fetchUsers() async {
+    final response = await get('users');
+    if (response.statusCode == 200 && response.body['success'] == true) {
+      final List<dynamic> jsonList = response.body['data'];
+      final List<UserModel> users = jsonList.map((item) => UserModel.fromJson(item)).toList();
+      return Right(users);
+    } else {
+      return Left(CustomError(response.statusCode ?? 500, message: response.statusText ?? 'Failed to fetch users'));
     }
   }
 }

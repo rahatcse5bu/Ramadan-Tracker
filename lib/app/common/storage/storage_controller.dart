@@ -4,6 +4,8 @@ class StorageHelper {
   static const String _tokenKey = "auth_token";
   static const String _userKey = "user_data";
   static const String _userId = "userId";
+  static const String _userNameKey = "userName";
+  static const String _fullNameKey = "fullName";
 
   // Set token
   static Future<void> setToken(String token) async {
@@ -21,6 +23,40 @@ class StorageHelper {
   static Future<void> removeToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(_tokenKey);
+  }
+  // Set user name
+  static Future<void> setUserName(String name) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_userNameKey, name);
+  }
+
+  // Get username
+  static Future<String?> getUserName() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_userNameKey);
+  }
+
+  // Remove username (optional, for logout)
+  static Future<void> removeUserName() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_userNameKey);
+  }
+  // Set full name
+  static Future<void> setFullName(String name) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_fullNameKey, name);
+  }
+
+  // Get username
+  static Future<String?> getFullName() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_fullNameKey);
+  }
+
+  // Remove username (optional, for logout)
+  static Future<void> removeFullName() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_fullNameKey);
   }
 
   // Check if token exists
