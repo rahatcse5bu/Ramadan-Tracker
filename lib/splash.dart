@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:localstorage/localstorage.dart';
+import 'app/routes/app_pages.dart';
 import 'colors.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -29,9 +31,10 @@ class _SplashScreenState extends State<SplashScreen> {
     String? _id = storage.getItem('_id');
     if (userName != null && fullName !=null && _id !=null) {
       // Navigator.pushReplacementNamed(context, '/dashboard');
-      Navigator.pushReplacementNamed(context, '/koroniyo');
+      // Navigator.pushReplacementNamed(context, '/koroniyo');
+      Get.toNamed(Routes.dashboard);
     } else {
-      Navigator.pushReplacementNamed(context, '/login');
+     Get.toNamed(Routes.login);
     }
   }
 

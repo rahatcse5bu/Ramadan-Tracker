@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert'; // For JSON decoding
 
 import 'package:ramadan_tracker/colors.dart';
+import 'package:ramadan_tracker/login.dart';
 import 'package:ramadan_tracker/main.dart';
 
 class Borjoniyo extends StatefulWidget {
@@ -103,11 +104,17 @@ class _BorjoniyoState extends State<Borjoniyo> {
                         ),
                         onPressed: () {
                           // Navigator.pushNamed(context, '/dashboard');
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) =>
+                          //           Dashboard()), // Directly go to Borjoniyo class
+                          // ); // Replace '/nextPage' with your actual next page route
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    Dashboard()), // Directly go to Borjoniyo class
+                                    LoginScreen()), // Directly go to Borjoniyo class
                           ); // Replace '/nextPage' with your actual next page route
                         },
                         child: const Text(

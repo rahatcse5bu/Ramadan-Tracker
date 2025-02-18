@@ -34,7 +34,8 @@ class _InitDataState extends State<InitData> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return SplashScreen(); // Assuming this returns a splash screen widget
         } else if (snapshot.data == true) {
-          return Dashboard(); // Assuming Dashboard is your main screen when logged in
+          // return Dashboard(); // Assuming Dashboard is your main screen when logged in
+          return Wrap(); // Assuming Dashboard is your main screen when logged in
         } else {
           return LoginScreen(); // Your login screen widget
         }

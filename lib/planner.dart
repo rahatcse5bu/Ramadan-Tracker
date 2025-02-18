@@ -9,6 +9,7 @@ import 'package:flutter/widgets.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:ramadan_tracker/InputTracking.dart';
 import 'package:ramadan_tracker/Tracking-Old.dart';
+import 'package:ramadan_tracker/login.dart';
 import 'Credit.dart';
 import 'Data/data.dart';
 import 'PlannerController.dart';
@@ -190,11 +191,17 @@ class _RamadanPlannerState extends State<RamadanPlanner> {
                   plannerController.fetchCurrentUserPoints();
               Navigator.of(context).pop();
             
+                  //  Navigator.push(
+                  //           context,
+                  //           MaterialPageRoute(
+                  //               builder: (context) =>
+                  //                   Dashboard()), // Directly go to Borjoniyo class
+                  //         ); 
                    Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    Dashboard()), // Directly go to Borjoniyo class
+                                    LoginScreen()), // Directly go to Borjoniyo class
                           ); 
             },
           ),
