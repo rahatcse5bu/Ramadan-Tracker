@@ -15,23 +15,25 @@ class ApiHelperImpl extends GetConnect implements ApiHelper {
   @override
   void onInit() {
     super.onInit();
-    log("API Base URL: \${AppConfig.baseUrl}\${AppConfig.apiVersion}/");
-    httpClient.baseUrl = '\${AppConfig.baseUrl}\${AppConfig.apiVersion}/';
+
+    log("url: ${'${AppConfig.baseUrl}${AppConfig.apiVersion}/'}");
+    httpClient.baseUrl = '${AppConfig.baseUrl}${AppConfig.apiVersion}/';
     httpClient.timeout = const Duration(seconds: AppConfig.timeoutDuration);
+    log("ApiHelperImpl initialized with baseUrl: ${httpClient.baseUrl}");
     httpClient.defaultContentType = 'application/json';
 
     httpClient.addRequestModifier<Object?>((request) async {
       final token = await StorageHelper.getToken();
       if (token != null) {
-        request.headers['Authorization'] = 'Bearer \$token';
+        request.headers['Authorization'] = 'Bearer $token';
       }
-      log('Request: \${request.method} \${request.url}');
-      log('Headers: \${request.headers}');
+      log('Request: ${request.method} ${request.url}');
+      log('Headers: ${request.headers}');
       return request;
     });
 
     httpClient.addResponseModifier<Object?>((request, response) {
-      log('Response: \${response.statusCode}, Body: \${response.body}');
+      log('Response: ${response.statusCode}, Body: ${response.body}');
       return response;
     });
   }

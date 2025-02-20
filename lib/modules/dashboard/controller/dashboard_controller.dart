@@ -10,6 +10,7 @@ class DashboardController extends GetxController {
   var totalPoints = 0.obs;
   var userRank = 0.obs;
   var isLoading = true.obs;
+  // var isLoadingAjkerAyat = true.obs;
   var users = <UserModel>[].obs;
 
   var ajkerAyat = ''.obs;
