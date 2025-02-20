@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:get/get.dart';
+import 'package:hijri/hijri_calendar.dart';
 import '../../../app/apis/api_helper.dart';
 import '../../../app/common/storage/storage_controller.dart';
 import '../models/user_model.dart';
@@ -12,11 +13,13 @@ class DashboardController extends GetxController {
   var isLoading = true.obs;
   // var isLoadingAjkerAyat = true.obs;
   var users = <UserModel>[].obs;
-
+  List<int> ramadanList = List.generate(30, (index) => index + 1).obs;
   var ajkerAyat = ''.obs;
   var ajkerHadith = ''.obs;
   var ajkerSalafQuote = ''.obs;
-
+  var current_month = HijriCalendar.now().getLongMonthName();
+  var current_date = HijriCalendar.now().hDay;
+  // final _random = new Random();
   @override
   void onInit() {
     super.onInit();
