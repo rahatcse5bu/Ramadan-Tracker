@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:get/get_connect/connect.dart';
@@ -9,7 +10,6 @@ import '../common/storage/storage_controller.dart' show StorageHelper;
 import '../constants/app_config.dart';
 import 'api_helper.dart';
 import 'custom_error.dart';
-
 
 class ApiHelperImpl extends GetConnect implements ApiHelper {
   @override
@@ -44,10 +44,12 @@ class ApiHelperImpl extends GetConnect implements ApiHelper {
       try {
         return Right(fromJson(response.body));
       } catch (e) {
-        return Left(CustomError(response.statusCode, message: 'Parsing error: \$e'));
+        return Left(
+            CustomError(response.statusCode, message: 'Parsing error: \$e'));
       }
     } else {
-      return Left(CustomError(response.statusCode, message: '\${response.statusText}'));
+      return Left(
+          CustomError(response.statusCode, message: '\${response.statusText}'));
     }
   }
 
@@ -59,45 +61,99 @@ class ApiHelperImpl extends GetConnect implements ApiHelper {
   }
 
   @override
-  Future<Either<CustomError, Response>> register(RegisterRequestModel register) async {
+  Future<Either<CustomError, Response>> register(
+      RegisterRequestModel register) async {
     final response = await post('users', register.toJson());
-    return response.statusCode == 200 ? Right(response) : Left(CustomError(response.statusCode, message: response.statusText??''));
+    return response.statusCode == 200
+        ? Right(response)
+        : Left(CustomError(response.statusCode,
+            message: response.statusText ?? ''));
   }
-Future<Either<CustomError, String>> fetchAjkerAyat() async {
+
+  @override
+  Future<Either<CustomError, String>> fetchAjkerAyat() async {
     final response = await get('ajkerqurans');
     if (response.statusCode == 200 && response.body['success'] == true) {
       return Right(response.body['data'][0]['text']);
     } else {
-      return Left(CustomError(response.statusCode ?? 500, message: response.statusText ?? 'Failed to fetch Ayat'));
+      return Left(CustomError(response.statusCode ?? 500,
+          message: response.statusText ?? 'Failed to fetch Ayat'));
     }
   }
 
+  @override
   Future<Either<CustomError, String>> fetchAjkerHadith() async {
     final response = await get('ajkerhadiths');
     if (response.statusCode == 200 && response.body['success'] == true) {
       return Right(response.body['data'][0]['text']);
     } else {
-      return Left(CustomError(response.statusCode ?? 500, message: response.statusText ?? 'Failed to fetch Hadith'));
+      return Left(CustomError(response.statusCode ?? 500,
+          message: response.statusText ?? 'Failed to fetch Hadith'));
     }
   }
 
+  @override
   Future<Either<CustomError, String>> fetchAjkerSalafQuote() async {
     final response = await get('salafquotes');
     if (response.statusCode == 200 && response.body['success'] == true) {
       return Right(response.body['data'][0]['text']);
     } else {
-      return Left(CustomError(response.statusCode ?? 500, message: response.statusText ?? 'Failed to fetch Salaf Quote'));
+      return Left(CustomError(response.statusCode ?? 500,
+          message: response.statusText ?? 'Failed to fetch Salaf Quote'));
     }
   }
 
+  @override
   Future<Either<CustomError, List<UserModel>>> fetchUsers() async {
     final response = await get('users');
     if (response.statusCode == 200 && response.body['success'] == true) {
       final List<dynamic> jsonList = response.body['data'];
-      final List<UserModel> users = jsonList.map((item) => UserModel.fromJson(item)).toList();
+      final List<UserModel> users =
+          jsonList.map((item) => UserModel.fromJson(item)).toList();
       return Right(users);
     } else {
-      return Left(CustomError(response.statusCode ?? 500, message: response.statusText ?? 'Failed to fetch users'));
+      return Left(CustomError(response.statusCode ?? 500,
+          message: response.statusText ?? 'Failed to fetch users'));
+    }
+  }
+
+  @override
+  Future<Either<CustomError, int>> fetchTodaysPoint(
+      String userId, int ramadanDay) async {
+    final response = await get('users/points/$userId/day$ramadanDay');
+    if (response.statusCode == 200 && response.body['success'] == true) {
+      return Right(response.body['data']['total'] ?? 0);
+    } else {
+      return Left(CustomError(response.statusCode ?? 500,
+          message: response.statusText ?? 'Failed to fetch today\'s points'));
+    }
+  }
+
+  @override
+  Future<Either<CustomError, Map<String, dynamic>>> fetchUserRanking() async {
+    final response = await get('users');
+    if (response.statusCode == 200 && response.body['success'] == true) {
+      return Right(response.body);
+    } else {
+      return Left(CustomError(response.statusCode ?? 500,
+          message: response.statusText ?? 'Failed to fetch user ranking'));
+    }
+  }
+
+  @override 
+    Future<Either<CustomError, Map<String, dynamic>>> fetchCurrentUserPoints() async {
+    try {
+      final response = await get(
+      'users'
+      );
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        return Right(data);
+      }
+      return Left(CustomError(response.statusCode ?? 500, message: response.body ?? "Failed to fetch user points"));
+    } catch (e) {
+      return Left(CustomError(500, message: e.toString()));
     }
   }
 }

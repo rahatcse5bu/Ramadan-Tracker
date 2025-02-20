@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ramadan_tracker/app/common/storage/storage_controller.dart';
+import 'package:ramadan_tracker/modules/dashboard/controller/user_points_controller.dart';
 
 import '../../../app/constants/app_color.dart';
 import '../controller/dashboard_controller.dart';
 
-class LeaderboardWidget extends GetView<DashboardController> {
+class LeaderboardWidget extends GetView<UserPointsController> {
   @override
   Widget build(BuildContext context) {
     return        SingleChildScrollView(
@@ -42,7 +44,7 @@ class LeaderboardWidget extends GetView<DashboardController> {
                           color: AppColors.primary, size: 30),
 
                       children: [
-                        controller.isLoading.value
+                        controller.isLoadingUsers.value
                             ? SizedBox(
                                 height: 40,
                                 child: Center(child: SingleChildScrollView()))
@@ -79,16 +81,17 @@ class LeaderboardWidget extends GetView<DashboardController> {
                                     ],
                                     rows: List<DataRow>.generate(
                                       // users.length,
-                                      _showAll
-                                          ? users.length
-                                          : (_visibleItemCount < users.length
-                                              ? _visibleItemCount
-                                              : users.length),
+                                      controller.isShowAll.value
+                                          ? controller.users.length
+                                          : (controller.visibleCount.value < controller.users.length
+                                              ? controller.visibleCount.value
+                                              : controller.users.length),
                                       (index) {
-                                        final user = users[index][
+                                        final user = controller.users[index][
                                             'user']; // Adjust according to your actual structure
+                                            final currentUser= StorageHelper.getUserName();
                                         bool isCurrentUser = user['userName'] ==
-                                            userName; // Determine if this row represents the current user
+                                            currentUser; // Determine if this row represents the current user
                                         return DataRow(
                                           cells: [
                                             DataCell(Text('${index + 1}',
@@ -115,7 +118,7 @@ class LeaderboardWidget extends GetView<DashboardController> {
                                                             FontWeight.bold)
                                                     : null)),
                                             DataCell(Text(
-                                                '${users[index]['totalPoints']}',
+                                                '${controller.users[index]['totalPoints']}',
                                                 style: isCurrentUser
                                                     ? TextStyle(
                                                         color: AppColors.primary,
@@ -129,16 +132,14 @@ class LeaderboardWidget extends GetView<DashboardController> {
                                   ),
                                 ),
                               ),
-                        if (users.length > _visibleItemCount || _showAll)
+                        if (controller.users.length > controller.visibleCount.value || controller.isShowAll.value)
                           Center(
                             child: TextButton(
                               onPressed: () {
-                                setState(() {
-                                  _showAll = !_showAll;
-                                });
+                              controller.handleShowAll();
                               },
                               child: Text(
-                                _showAll ? "Show Less" : "Show More",
+                                controller.isShowAll.value ? "Show Less" : "Show More",
                                 style: TextStyle(color: AppColors.primary),
                               ),
                             ),
