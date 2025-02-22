@@ -23,15 +23,15 @@ class DashboardView extends GetView<DashboardController> {
         backgroundColor: AppColors.primary, // Change to your primary color
         centerTitle: true,
         leadingWidth: 105,
-        leading: Center(
-          child: Container(
-              padding: EdgeInsets.only(left: 0),
-              // width: 800,
-              child: Text(
-                "Rank:${controller.userRank.value}",
-                style: TextStyle(fontSize: 16, color: Colors.white),
-              )),
-        ),
+        leading: Obx(() => Center(
+              child: Container(
+                  padding: EdgeInsets.only(left: 0),
+                  // width: 800,
+                  child: Text(
+                    "Rank:${controller.userRank.value}",
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  )),
+            )),
         actions: <Widget>[
           PopupMenuButton(
             color: Colors.white,
@@ -78,19 +78,26 @@ class DashboardView extends GetView<DashboardController> {
         ],
       ),
       body: SingleChildScrollView(
-        child: Obx(()=>Column(
-          children: [
-            LeaderboardWidget(),
-            QuoteWidget(
-                title: "নির্বাচিত আয়াত", text: controller.ajkerAyat.value, type: 'ajker_ayat'),
-            QuoteWidget(
-                title: "নির্বাচিত হাদিস", text: controller.ajkerHadith.value, type:'ajker_hadith'),
-            QuoteWidget(
-                title: "সালাফদের বক্তব্য",
-                text: controller.ajkerSalafQuote.value, type:'salaf_quote'),
-            RamadanDaysList(),
-          ],
-        ),),
+        child: Obx(
+          () => Column(
+            children: [
+              LeaderboardWidget(),
+              QuoteWidget(
+                  title: "নির্বাচিত আয়াত",
+                  text: controller.ajkerAyat.value,
+                  type: 'ajker_ayat'),
+              QuoteWidget(
+                  title: "নির্বাচিত হাদিস",
+                  text: controller.ajkerHadith.value,
+                  type: 'ajker_hadith'),
+              QuoteWidget(
+                  title: "সালাফদের বক্তব্য",
+                  text: controller.ajkerSalafQuote.value,
+                  type: 'salaf_quote'),
+              RamadanDaysList(),
+            ],
+          ),
+        ),
       ),
     );
   }

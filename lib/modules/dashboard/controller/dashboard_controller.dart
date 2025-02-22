@@ -33,7 +33,7 @@ class DashboardController extends GetxController {
     await fetchAjkerHadith();
     await fetchAjkerSalafQuote();
     await fetchUsers();
-
+    await fetchCurrentUserPoints();
     isLoading(false);
   }
 
@@ -55,23 +55,47 @@ class DashboardController extends GetxController {
     log("ajker ayat: " + ajkerSalafQuote.value);
   }
 
- Future<void> fetchUsers() async {
-  final result = await _apiHelper.fetchUsers();
-  result.fold(
-    (error) => null, // Handle error case if needed
-    (userList) async {
-      final String? currentUser = await StorageHelper.getUserName(); // Get logged-in user
-      users.value = userList; // Assign full user list
+  Future<void> fetchUsers() async {
+    final result = await _apiHelper.fetchUsers();
+    result.fold(
+      (error) => null, // Handle error case if needed
+      (userList) async {
+        final String? currentUser =
+            await StorageHelper.getUserName(); // Get logged-in user
+        users.value = userList; // Assign full user list
 
-      // Find the logged-in user's totalPoints
-      totalPoints.value = userList.firstWhere(
-        (user) => user.userName == currentUser, 
-        orElse: () => UserModel(totalPoints: 0, userName: '', fullName: '') // Default if user not found
-      ).totalPoints;
-    },
-  );
-}
+        // Find the logged-in user's totalPoints
+        totalPoints.value = userList
+            .firstWhere((user) => user.userName == currentUser,
+                orElse: () => UserModel(
+                    totalPoints: 0,
+                    userName: '',
+                    fullName: '') // Default if user not found
+                )
+            .totalPoints;
+      },
+    );
+  }
 
+  Future<void> fetchCurrentUserPoints() async {
+    isLoading.value = true;
+    final String? userId =
+        await StorageHelper.getUserId(); // Get user ID safely
+
+    final result = await _apiHelper.fetchCurrentUserRankAndPoints(userId ?? '');
+    result.fold(
+      (error) {
+        isLoading.value = false;
+        totalPoints.value = 0;
+        userRank.value = 0;
+      },
+      (data) {
+        totalPoints.value = data['totalPoints'];
+        userRank.value = data['rank'];
+        isLoading.value = false;
+      },
+    );
+  }
 
   Future<void> logout() async {
     await StorageHelper.removeUserName();
