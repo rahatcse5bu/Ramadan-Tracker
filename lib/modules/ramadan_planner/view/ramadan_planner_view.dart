@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../Credit.dart';
 import '../../../Tracking-Old.dart';
 import '../../../app/constants/app_color.dart';
+import '../../../widgets/Good_Afternoon_Todo.dart';
 import '../controller/ramadan_planner_controller.dart';
 import 'package:expandable_text/expandable_text.dart';
 
+import '../widgets/achievement_card_widget.dart';
+import '../widgets/asmaul_husna_widget.dart';
 import '../widgets/tracking_widget.dart';
 
 class RamadanPlannerView extends GetView<RamadanPlannerController> {
@@ -159,9 +163,18 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                       ramadan_day: ramadanDay,
                       type: 'switch',
                       slug: 'qadr_tracking'),
-                TrackingWidget(ramadan_day: ramadanDay, type: 'switch', slug: 'night_tracking'),
-                TrackingWidget(ramadan_day: ramadanDay, type: 'checkbox', slug: 'fajr_tracking'),
-                TrackingWidget(ramadan_day: ramadanDay, type: 'switch', slug: 'zuhr_tracking'),
+                TrackingWidget(
+                    ramadan_day: ramadanDay,
+                    type: 'switch',
+                    slug: 'night_tracking'),
+                TrackingWidget(
+                    ramadan_day: ramadanDay,
+                    type: 'checkbox',
+                    slug: 'fajr_tracking'),
+                TrackingWidget(
+                    ramadan_day: ramadanDay,
+                    type: 'switch',
+                    slug: 'zuhr_tracking'),
                 // Dua Card
                 Column(
                   children: [
@@ -241,13 +254,20 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                   ],
                 ),
                 // Additional Tracking Widgets
-                // Tracking(
-                //     ramadan_day: ramadanDay,
-                //     type: 'switch',
-                //     slug: 'general_tracking'),
-                // GoodAfternoonTodo(ramadanDay: ramadanDay),
-                // TrackingWidget(ramadanDay: ramadanDay, type: 'switch', slug: 'asr_tracking'),
-                // TrackingWidget(ramadanDay: ramadanDay, type: 'checkbox', slug: 'evening_tracking'),
+                TrackingWidget(
+                    ramadan_day: ramadanDay,
+                    type: 'switch',
+                    slug: 'general_tracking'),
+                Good_Afternoon_Todo(ramadan_day: ramadanDay),
+
+                TrackingWidget(
+                    ramadan_day: ramadanDay,
+                    type: 'switch',
+                    slug: 'asr_tracking'),
+                TrackingWidget(
+                    ramadan_day: ramadanDay,
+                    type: 'checkbox',
+                    slug: 'evening_tracking'),
                 SizedBox(height: 10.h),
                 // Asmaul Husna & Credit
                 Container(
@@ -265,14 +285,12 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                           style:
                               TextStyle(fontSize: 25.sp, color: Colors.white))),
                 ),
-                // AsmaulHusnaTable(startIndex: controller.startName, endIndex: controller.endName),
+                AsmaulHusnaWidget(),
                 // // Special Achievement Card
-                // AchievementCard(
-                //   controller: controller.specialAchievementController,
-                //   ramadanDay: ramadanDay,
-                // ),
+
+                AchievementWidget(ramadan_day: ramadanDay),
                 // // Credit Widget
-                // CreditWidget(),
+                Credit(),
               ],
             ),
           )),
