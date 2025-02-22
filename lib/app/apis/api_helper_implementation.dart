@@ -137,6 +137,70 @@ class ApiHelperImpl extends GetConnect implements ApiHelper {
     }
   }
 
+  /// Fetch tracking options for a given slug.
+  @override
+  Future<Either<CustomError, List<dynamic>>> fetchTrackingOptions(
+      String slug) async {
+    final response = await get('trackings/slug/$slug');
+    if (response.statusCode == 200 &&
+        response.body['success'] == true &&
+        response.body['data'].isNotEmpty) {
+      List<dynamic> options = response.body['data'][0]['options'];
+      options.sort((a, b) => a["index"].compareTo(b["index"]));
+      // Note: Initialize loading states externally if needed.
+      return Right(options);
+    } else {
+      return Left(CustomError(response.statusCode ?? 500,
+          message: response.statusText ?? 'Failed to load tracking options'));
+    }
+  }
+
+  /// Add points for a user.
+  @override
+  Future<Either<CustomError, String>> addPoints(
+      String userId, int ramadanDay, int points) async {
+    final response = await patch(
+      'users/points/$userId/',
+      {
+        "points": points,
+        "day": "day$ramadanDay",
+      },
+    );
+    if (response.statusCode == 200) {
+      final data = response.body;
+      if (data["success"]) {
+        return Right("Points added successfully");
+      } else {
+        return Left(CustomError(response.statusCode ?? 500,
+            message: "Failed to add points"));
+      }
+    } else {
+      return Left(CustomError(response.statusCode ?? 500,
+          message: "Server error: ${response.statusCode}"));
+    }
+  }
+
+  /// Update a user's tracking option.
+  @override
+  Future<Either<CustomError, String>> updateUserTrackingOption(
+      String slug, String optionId, String userId, int ramadanDay) async {
+    final day = 'day$ramadanDay';
+    final response = await patch(
+      'trackings/add-user-to-tracking/$slug/$optionId',
+      {
+        'user': userId,
+        'day': day,
+      },
+    );
+    if (response.statusCode == 200) {
+      return Right("Update successful");
+    } else {
+      return Left(CustomError(response.statusCode ?? 500,
+          message:
+              'Failed to update user tracking option. Status code: ${response.statusCode}'));
+    }
+  }
+
   @override
   Future<Either<CustomError, List<UserModel>>> fetchUsers() async {
     final response = await get('users');

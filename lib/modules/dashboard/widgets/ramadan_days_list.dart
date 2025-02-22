@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ramadan_tracker/Data/data.dart';
 
 import '../../../app/constants/app_color.dart';
+import '../../../app/routes/app_pages.dart';
 import '../../../planner.dart';
 import '../controller/dashboard_controller.dart';
 
@@ -61,12 +62,14 @@ class RamadanDaysList extends GetWidget<DashboardController> {
                             )
                       : Icon(Icons.arrow_forward_ios),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              RamadanPlanner(ramadan_day: i + 1)),
-                    );
+                    Get.toNamed(Routes.ramadanPlanner, arguments: {'ramadan_day': i+1});
+
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //       builder: (context) =>
+                    //           RamadanPlanner(ramadan_day: i + 1)),
+                    // );
                   },
                 ),
               ),
