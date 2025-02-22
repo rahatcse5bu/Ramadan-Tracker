@@ -5,14 +5,17 @@ import '../../../Credit.dart';
 import '../../../Tracking-Old.dart';
 import '../../../app/constants/app_color.dart';
 import '../../../widgets/Good_Afternoon_Todo.dart';
+import '../controller/quick_jump_section_controller.dart';
 import '../controller/ramadan_planner_controller.dart';
 import 'package:expandable_text/expandable_text.dart';
 
 import '../widgets/achievement_card_widget.dart';
 import '../widgets/asmaul_husna_widget.dart';
+import '../widgets/quick_jump_section_widget.dart';
 import '../widgets/tracking_widget.dart';
 
 class RamadanPlannerView extends GetView<RamadanPlannerController> {
+  final QuickJumpSectionController _quickjumpController = Get.find();
   @override
   Widget build(BuildContext context) {
     int ramadanDay = Get.arguments['ramadan_day'] ?? 1;
@@ -23,7 +26,7 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
           child: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
-             Get.back();
+              Get.back();
             },
           ),
         ),
@@ -35,6 +38,7 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
         centerTitle: true,
       ),
       body: Obx(() => SingleChildScrollView(
+            controller: _quickjumpController.scrollController,
             padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
             child: Column(
               children: [
@@ -59,6 +63,8 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                             color: Colors.white),
                       )),
                 ),
+                SizedBox(height: 10.h),
+                SizedBox(height: 140.h, child: QuickJumpSections()),
                 SizedBox(height: 10.h),
                 // Hadith and Ayat Cards
                 Column(
@@ -158,22 +164,39 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                 SizedBox(height: 10.h),
                 // Tracking Widgets
                 if (ramadanDay > 20)
-                  TrackingWidget(
+                  Container(
+                    key: _quickjumpController
+                        .sectionKeys['qadr'], // Assign Global Key,
+                    child: TrackingWidget(
+                        ramadan_day: ramadanDay,
+                        type: 'switch',
+                        slug: 'qadr_tracking'),
+                  ),
+                Container(
+                  key: _quickjumpController
+                      .sectionKeys['night'], // Assign Global Key,
+                  child: TrackingWidget(
                       ramadan_day: ramadanDay,
                       type: 'switch',
-                      slug: 'qadr_tracking'),
-                TrackingWidget(
-                    ramadan_day: ramadanDay,
-                    type: 'switch',
-                    slug: 'night_tracking'),
-                TrackingWidget(
-                    ramadan_day: ramadanDay,
-                    type: 'checkbox',
-                    slug: 'fajr_tracking'),
-                TrackingWidget(
-                    ramadan_day: ramadanDay,
-                    type: 'switch',
-                    slug: 'zuhr_tracking'),
+                      slug: 'night_tracking'),
+                ),
+                Container(
+                  key: _quickjumpController
+                      .sectionKeys['fajr'], // Assign Global Key,
+                  child: TrackingWidget(
+                      ramadan_day: ramadanDay,
+                      type: 'checkbox',
+                      slug: 'fajr_tracking'),
+                ),
+                Container(
+                  key: _quickjumpController
+                      .sectionKeys['zuhr'], // Assign Global Key,
+
+                  child: TrackingWidget(
+                      ramadan_day: ramadanDay,
+                      type: 'switch',
+                      slug: 'zuhr_tracking'),
+                ),
                 // Dua Card
                 Column(
                   children: [
@@ -253,20 +276,35 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                   ],
                 ),
                 // Additional Tracking Widgets
-                TrackingWidget(
-                    ramadan_day: ramadanDay,
-                    type: 'switch',
-                    slug: 'general_tracking'),
+                Container(
+                  key: _quickjumpController
+                      .sectionKeys['general'], // Assign Global Key,
+
+                  child: TrackingWidget(
+                      ramadan_day: ramadanDay,
+                      type: 'switch',
+                      slug: 'general_tracking'),
+                ),
                 Good_Afternoon_Todo(ramadan_day: ramadanDay),
 
-                TrackingWidget(
-                    ramadan_day: ramadanDay,
-                    type: 'switch',
-                    slug: 'asr_tracking'),
-                TrackingWidget(
-                    ramadan_day: ramadanDay,
-                    type: 'checkbox',
-                    slug: 'evening_tracking'),
+                Container(
+                  key: _quickjumpController
+                      .sectionKeys['asr'], // Assign Global Key,
+
+                  child: TrackingWidget(
+                      ramadan_day: ramadanDay,
+                      type: 'switch',
+                      slug: 'asr_tracking'),
+                ),
+                Container(
+                  key: _quickjumpController
+                      .sectionKeys['evening'], // Assign Global Key,
+
+                  child: TrackingWidget(
+                      ramadan_day: ramadanDay,
+                      type: 'checkbox',
+                      slug: 'evening_tracking'),
+                ),
                 SizedBox(height: 10.h),
                 // Asmaul Husna & Credit
                 Container(
