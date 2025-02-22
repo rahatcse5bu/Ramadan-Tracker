@@ -104,6 +104,40 @@ class ApiHelperImpl extends GetConnect implements ApiHelper {
   }
 
   @override
+  Future<Either<CustomError, Map<String, dynamic>>> fetchAjkerDua() async {
+    final response = await get('ajkerduas');
+    if (response.statusCode == 200 && response.body['success'] == true) {
+      final data = response.body['data'][0];
+      final duaData = {
+        'title': data['title'],
+        'bangla': data['bangla'],
+        'arabic': data['arabic'],
+      };
+      return Right(duaData);
+    } else {
+      return Left(CustomError(response.statusCode ?? 500,
+          message: response.statusText ?? 'Failed to fetch Dua'));
+    }
+  }
+
+  @override
+  Future<Either<CustomError, String>> addInputValueForUser(
+      int ramadanDay, String value) async {
+    final String userId = await StorageHelper.getUserId() ?? '';
+    final response = await post('users/add-values/$userId', {
+      'day': ramadanDay.toString(),
+      'value': value,
+    });
+    if (response.statusCode == 200) {
+      return Right("Value added successfully");
+    } else {
+      return Left(CustomError(response.statusCode ?? 500,
+          message:
+              response.statusText ?? 'Failed to add value. Please try again.'));
+    }
+  }
+
+  @override
   Future<Either<CustomError, List<UserModel>>> fetchUsers() async {
     final response = await get('users');
     if (response.statusCode == 200 && response.body['success'] == true) {
@@ -140,18 +174,18 @@ class ApiHelperImpl extends GetConnect implements ApiHelper {
     }
   }
 
-  @override 
-    Future<Either<CustomError, Map<String, dynamic>>> fetchCurrentUserPoints() async {
+  @override
+  Future<Either<CustomError, Map<String, dynamic>>>
+      fetchCurrentUserPoints() async {
     try {
-      final response = await get(
-      'users'
-      );
+      final response = await get('users');
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         return Right(data);
       }
-      return Left(CustomError(response.statusCode ?? 500, message: response.body ?? "Failed to fetch user points"));
+      return Left(CustomError(response.statusCode ?? 500,
+          message: response.body ?? "Failed to fetch user points"));
     } catch (e) {
       return Left(CustomError(500, message: e.toString()));
     }

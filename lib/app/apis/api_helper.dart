@@ -17,9 +17,12 @@ abstract class ApiHelper {
   Future<Either<CustomError, String>> fetchAjkerAyat();
   Future<Either<CustomError, String>> fetchAjkerHadith();
   Future<Either<CustomError, String>> fetchAjkerSalafQuote();
+  Future<Either<CustomError, Map<String, dynamic>>> fetchAjkerDua();
+  Future<Either<CustomError, String>> addInputValueForUser(
+      int ramadanDay, String value);
   Future<Either<CustomError, List<UserModel>>> fetchUsers();
   Future<Either<CustomError, int>> fetchTodaysPoint(
       String userId, int ramadanDay);
   Future<Either<CustomError, Map<String, dynamic>>> fetchUserRanking();
-     Future<Either<CustomError, Map<String, dynamic>>> fetchCurrentUserPoints();
+  Future<Either<CustomError, Map<String, dynamic>>> fetchCurrentUserPoints();
 }
