@@ -1,4 +1,6 @@
-import 'dart:math';
+
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 import '../../../app/apis/api_helper.dart';
@@ -7,7 +9,7 @@ import '../models/user_model.dart';
 
 class DashboardController extends GetxController {
   final ApiHelper _apiHelper = Get.find<ApiHelper>();
-  final Random _random = Random();
+  // final Random _random = Random();
   var totalPoints = 0.obs;
   var userRank = 0.obs;
   var isLoading = true.obs;
@@ -38,16 +40,19 @@ class DashboardController extends GetxController {
   Future<void> fetchAjkerAyat() async {
     final result = await _apiHelper.fetchAjkerAyat();
     result.fold((error) => null, (ayat) => ajkerAyat.value = ayat);
+    log("ajker ayat: "+ajkerAyat.value);
   }
 
   Future<void> fetchAjkerHadith() async {
     final result = await _apiHelper.fetchAjkerHadith();
     result.fold((error) => null, (hadith) => ajkerHadith.value = hadith);
+    log("ajker ayat: "+ajkerHadith.value);
   }
 
   Future<void> fetchAjkerSalafQuote() async {
     final result = await _apiHelper.fetchAjkerSalafQuote();
     result.fold((error) => null, (quote) => ajkerSalafQuote.value = quote);
+    log("ajker ayat: "+ajkerSalafQuote.value);
   }
 
   Future<void> fetchUsers() async {

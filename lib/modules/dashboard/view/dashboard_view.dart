@@ -78,7 +78,7 @@ class DashboardView extends GetView<DashboardController> {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
+        child: Obx(()=>Column(
           children: [
             LeaderboardWidget(),
             QuoteWidget(
@@ -90,7 +90,7 @@ class DashboardView extends GetView<DashboardController> {
                 text: controller.ajkerSalafQuote.value, type:'salaf_quote'),
             RamadanDaysList(),
           ],
-        ),
+        ),),
       ),
     );
   }
