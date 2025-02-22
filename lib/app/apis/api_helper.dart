@@ -28,6 +28,7 @@ abstract class ApiHelper {
   Future<Either<CustomError, List<UserModel>>> fetchUsers();
   Future<Either<CustomError, int>> fetchTodaysPoint(
       String userId, int ramadanDay);
-  Future<Either<CustomError, Map<String, dynamic>>> fetchUserRanking();
+  // Future<Either<CustomError, Map<String, dynamic>>> fetchUserRanking();
   Future<Either<CustomError, Map<String, dynamic>>> fetchCurrentUserPoints();
+    Future<Either<CustomError, Map<String, dynamic>>> fetchCurrentUserRankAndPoints(String userId);
 }

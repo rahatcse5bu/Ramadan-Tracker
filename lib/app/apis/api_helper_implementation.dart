@@ -227,17 +227,43 @@ class ApiHelperImpl extends GetConnect implements ApiHelper {
     }
   }
 
-  @override
-  Future<Either<CustomError, Map<String, dynamic>>> fetchUserRanking() async {
+  // @override
+  // Future<Either<CustomError, Map<String, dynamic>>> fetchUserRanking() async {
+  //   final response = await get('users');
+  //   if (response.statusCode == 200 && response.body['success'] == true) {
+  //     return Right(response.body);
+  //   } else {
+  //     return Left(CustomError(response.statusCode ?? 500,
+  //         message: response.statusText ?? 'Failed to fetch user ranking'));
+  //   }
+  // }
+  /// Fetch all users and determine the current user's rank and points
+    @override
+  Future<Either<CustomError, Map<String, dynamic>>> fetchCurrentUserRankAndPoints(String userId) async {
     final response = await get('users');
     if (response.statusCode == 200 && response.body['success'] == true) {
-      return Right(response.body);
+      final List<dynamic> userList = response.body['data'];
+
+      // Sort users by total points in descending order
+      userList.sort((a, b) => (b["totalPoints"] ?? 0).compareTo(a["totalPoints"] ?? 0));
+
+      // Find current user's rank and points
+      int rank = 0;
+      int points = 0;
+      for (int i = 0; i < userList.length; i++) {
+        if (userList[i]["user"]["_id"] == userId) {
+          rank = i + 1;
+          points = userList[i]["totalPoints"] ?? 0;
+          break;
+        }
+      }
+
+      return Right({"rank": rank, "totalPoints": points});
     } else {
       return Left(CustomError(response.statusCode ?? 500,
-          message: response.statusText ?? 'Failed to fetch user ranking'));
+          message: response.statusText ?? 'Failed to fetch user rank and points'));
     }
   }
-
   @override
   Future<Either<CustomError, Map<String, dynamic>>>
       fetchCurrentUserPoints() async {
