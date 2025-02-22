@@ -287,7 +287,6 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                 ),
                 AsmaulHusnaWidget(),
                 // // Special Achievement Card
-
                 AchievementWidget(ramadan_day: ramadanDay),
                 // // Credit Widget
                 Credit(),
