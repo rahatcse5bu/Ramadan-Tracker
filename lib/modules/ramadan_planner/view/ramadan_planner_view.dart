@@ -23,8 +23,7 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
           child: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
-              // Navigate to LoginScreen or previous screen
-              Navigator.pushReplacementNamed(context, '/login');
+             Get.back();
             },
           ),
         ),
