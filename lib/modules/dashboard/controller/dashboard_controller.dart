@@ -63,7 +63,7 @@ class DashboardController extends GetxController {
         final String? currentUser =
             await StorageHelper.getUserName(); // Get logged-in user
         users.value = userList; // Assign full user list
-
+  log("userrrr: ${users.value.first.fullName}");
         // Find the logged-in user's totalPoints
         totalPoints.value = userList
             .firstWhere((user) => user.userName == currentUser,

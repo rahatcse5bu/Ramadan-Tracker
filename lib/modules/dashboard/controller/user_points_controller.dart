@@ -1,7 +1,9 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:ramadan_tracker/app/common/storage/storage_controller.dart';
 import '../../../app/apis/api_helper.dart';
-
 
 class UserPointsController extends GetxController {
   final LocalStorage storage = LocalStorage('ramadan_tracker');
@@ -19,7 +21,8 @@ class UserPointsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchCurrentUserPoints();
+    // fetchCurrentUserPoints();
+    log("initing......");
   }
 
   Future<void> fetchTodaysPoint(int ramadanDay) async {
@@ -50,10 +53,11 @@ class UserPointsController extends GetxController {
         totalPoints.value = 0;
         userRank.value = 0;
       },
-      (data) {
-        final userId = storage.getItem('_id');
+      (data) async {
+        final userId = await StorageHelper.getUserId();
         final List<dynamic> fetchedUsers = data["data"];
-
+        users.value = fetchedUsers;
+        log("userrrr: ${users.value}");
         fetchedUsers.sort((a, b) {
           int aPoints = a["totalPoints"] ?? 0;
           int bPoints = b["totalPoints"] ?? 0;
@@ -75,7 +79,7 @@ class UserPointsController extends GetxController {
     );
   }
 
-  handleShowAll(){
+  handleShowAll() {
     isShowAll.value = !isShowAll.value;
   }
 }

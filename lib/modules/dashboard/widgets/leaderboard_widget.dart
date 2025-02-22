@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ramadan_tracker/app/common/storage/storage_controller.dart';
@@ -7,6 +9,7 @@ import '../../../app/constants/app_color.dart';
 import '../controller/dashboard_controller.dart';
 
 class LeaderboardWidget extends GetView<UserPointsController> {
+  final DashboardController _dashboardController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Obx(() => SingleChildScrollView(
@@ -43,7 +46,7 @@ class LeaderboardWidget extends GetView<UserPointsController> {
                 color: AppColors.primary, size: 30),
 
             children: [
-              controller.isLoadingUsers.value
+              _dashboardController.isLoading.value
                   ? SizedBox(
                       height: 40, child: Center(child: SingleChildScrollView()))
                   : Padding(
@@ -73,16 +76,16 @@ class LeaderboardWidget extends GetView<UserPointsController> {
                           rows: List<DataRow>.generate(
                             // users.length,
                             controller.isShowAll.value
-                                ? controller.users.length
+                                ? _dashboardController.users.length
                                 : (controller.visibleCount.value <
-                                        controller.users.length
+                                        _dashboardController.users.length
                                     ? controller.visibleCount.value
-                                    : controller.users.length),
+                                    : _dashboardController.users.length),
                             (index) {
-                              final user = controller.users[index][
-                                  'user']; // Adjust according to your actual structure
+                              final user = _dashboardController.users[index]; // Adjust according to your actual structure
+                              // log("userrrr: ${user.length}");
                               final currentUser = StorageHelper.getUserName();
-                              bool isCurrentUser = user['userName'] ==
+                              bool isCurrentUser = user.userName ==
                                   currentUser; // Determine if this row represents the current user
                               return DataRow(
                                 cells: [
@@ -92,20 +95,20 @@ class LeaderboardWidget extends GetView<UserPointsController> {
                                               color: AppColors.primary,
                                               fontWeight: FontWeight.bold)
                                           : null)),
-                                  DataCell(Text(user['userName'] ?? 'N/A',
+                                  DataCell(Text(user.userName ?? 'N/A',
                                       style: isCurrentUser
                                           ? TextStyle(
                                               color: AppColors.primary,
                                               fontWeight: FontWeight.bold)
                                           : null)),
-                                  DataCell(Text(user['fullName'] ?? 'N/A',
+                                  DataCell(Text(user.fullName ?? 'N/A',
                                       style: isCurrentUser
                                           ? TextStyle(
                                               color: AppColors.primary,
                                               fontWeight: FontWeight.bold)
                                           : null)),
                                   DataCell(Text(
-                                      '${controller.users[index]['totalPoints']}',
+                                      '${_dashboardController.users[index].totalPoints}',
                                       style: isCurrentUser
                                           ? TextStyle(
                                               color: AppColors.primary,
@@ -118,7 +121,7 @@ class LeaderboardWidget extends GetView<UserPointsController> {
                         ),
                       ),
                     ),
-              if (controller.users.length > controller.visibleCount.value ||
+              if (_dashboardController.users.length > controller.visibleCount.value ||
                   controller.isShowAll.value)
                 Center(
                   child: TextButton(
