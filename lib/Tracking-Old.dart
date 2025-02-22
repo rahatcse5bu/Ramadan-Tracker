@@ -163,7 +163,7 @@ class _TrackingState extends State<Tracking> {
   @override
   void initState() {
     super.initState();
-    fetchTodaysPoint();
+    // fetchTodaysPoint();
     trackingOptionsFuture = fetchTrackingOptions();
   }
 

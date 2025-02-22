@@ -35,7 +35,7 @@ class RamadanPlannerController extends GetxController {
   // Other state variables
   var currentMonth = HijriCalendar.now().getLongMonthName();
   var currentDate = HijriCalendar.now().hDay;
-  var currentYear = HijriCalendar.now().hYear;
+  var currentYear = HijriCalendar.now().hYear.obs;
   var startName = 0;
   var endName = 0;
   final Random _random = Random();
