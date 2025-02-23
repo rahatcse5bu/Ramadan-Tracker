@@ -6,6 +6,7 @@ import 'package:ramadan_tracker/app/common/storage/storage_controller.dart';
 import 'package:ramadan_tracker/modules/dashboard/controller/user_points_controller.dart';
 
 import '../../../app/constants/app_color.dart';
+import '../../../app/translation/translation_keys.dart';
 import '../controller/dashboard_controller.dart';
 
 class LeaderboardWidget extends GetView<UserPointsController> {
@@ -29,7 +30,7 @@ class LeaderboardWidget extends GetView<UserPointsController> {
                   color: AppColors.primary),
               child: Center(
                 child: Text(
-                  "লিডারবোর্ড:",
+                  "${TranslationKeys.leaderBoard.tr}:",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,

@@ -31,7 +31,7 @@ class DashboardView extends GetView<DashboardController> {
                   padding: EdgeInsets.only(left: 0),
                   // width: 800,
                   child: Text(
-                    "Rank:${controller.userRank.value}",
+                    "${TranslationKeys.rank.tr}:${controller.userRank.value}",
                     style: TextStyle(fontSize: 16, color: Colors.white),
                   )),
             )),
@@ -74,8 +74,10 @@ class DashboardView extends GetView<DashboardController> {
                     builder: (controller) {
                       return Column(
                         children: [
-                              _buildLanguageItem(context, languageCode: 'en', label: 'English'),
-      _buildLanguageItem(context, languageCode: 'bn', label: 'বাংলা'),
+                          _buildLanguageItem(context,
+                              languageCode: 'en', label: 'English'),
+                          _buildLanguageItem(context,
+                              languageCode: 'bn', label: 'বাংলা'),
                         ],
                       );
                     },
@@ -133,7 +135,7 @@ class DashboardView extends GetView<DashboardController> {
                   title: "সালাফদের বক্তব্য",
                   text: controller.ajkerSalafQuote.value,
                   type: 'salaf_quote'),
-                  // Text("${TranslationKeys.selectedVerses.tr}"),
+              // Text("${TranslationKeys.selectedVerses.tr}"),
               RamadanDaysList(),
             ],
           ),
@@ -149,15 +151,13 @@ Widget _buildLanguageItem(
   required String label,
 }) {
   final controller = Get.find<LanguageController>();
-  
+
   return Obx(() {
     final bool isSelected = controller.appLocale?.languageCode == languageCode;
-    
+
     return InkWell(
       onTap: () => controller.changeLanguage(
-        languageCode, 
-        languageCode == 'bn' ? 'BD' : 'US'
-      ),
+          languageCode, languageCode == 'bn' ? 'BD' : 'US'),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
         child: Row(
