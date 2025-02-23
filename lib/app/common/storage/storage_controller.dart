@@ -7,6 +7,8 @@ class StorageHelper {
   static const String _userNameKey = "userName";
   static const String _fullNameKey = "fullName";
   static const String _specialAchievementKey = "specialAchievement_";
+  static const String _languageCode = "language_code";
+  static const String _countryCode = "country_code";
 
   // Set token
   static Future<void> setToken(String token) async {
@@ -121,5 +123,32 @@ class StorageHelper {
   static Future<void> removeSpecialAchievement(String date) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove("$_specialAchievementKey$date");
+  }
+
+
+   // Save language settings
+  static Future<void> setLanguage(String languageCode, String countryCode) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_languageCode, languageCode);
+    await prefs.setString(_countryCode, countryCode);
+  }
+
+  // Get language code
+  static Future<String?> getLanguageCode() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_languageCode);
+  }
+
+  // Get country code
+  static Future<String?> getCountryCode() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_countryCode);
+  }
+
+  // Remove language settings (optional, for reset)
+  static Future<void> removeLanguageSettings() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_languageCode);
+    await prefs.remove(_countryCode);
   }
 }

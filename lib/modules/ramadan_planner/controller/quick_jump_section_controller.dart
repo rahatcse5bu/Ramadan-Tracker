@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 class QuickJumpSectionController extends GetxController {
   final ScrollController scrollController = ScrollController();
     var showBackToTop = true.obs; // Controls visibility of the widget
-    var showGrid = true.obs; // Controls visibility of the widget
+    var showGrid = false.obs; // Controls visibility of the widget
 
   // final Map<String, GlobalKey> sectionKeys = {
   //   'maghrib': GlobalKey(),

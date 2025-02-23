@@ -74,7 +74,9 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                                       !_quickjumpController.showGrid.value;
                                 },
                                 child:
-                                    CircleAvatar(child: Icon(  !_quickjumpController.showGrid.value? Icons.filter_alt:Icons.close)))
+                                    CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      child: Icon(  !_quickjumpController.showGrid.value? Icons.filter_alt:Icons.close, color: AppColors.primary,)))
                           ],
                         ),
                       ),
