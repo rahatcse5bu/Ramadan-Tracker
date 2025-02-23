@@ -25,7 +25,7 @@ class _CreditState extends State<Credit> {
                    SizedBox(height: 6,),
                    Text("PNC Soft Tech",style: TextStyle(color:AppColors.PrimaryColor,fontSize: 20),),
                    SizedBox(height: 6,),
-                   Text("Website: https://pncsofttech.xyz",style: TextStyle(color:AppColors.PrimaryColor,fontSize: 20),),
+                   Text("Website: https://pncsoft.tech",style: TextStyle(color:AppColors.PrimaryColor,fontSize: 20),),
                   SizedBox(height: 6,),
                    Text("Whatsapp: +8801793278360",style: TextStyle(color:AppColors.PrimaryColor,fontSize: 20),),
                    SizedBox(height: 12,),
