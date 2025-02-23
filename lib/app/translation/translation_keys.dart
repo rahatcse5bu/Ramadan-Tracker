@@ -18,6 +18,10 @@ class TranslationKeys {
       static const String selectedHadith = 'selected_hadith';
   static const String salafQuotes = 'salaf_quotes';
 
+
+  static const String ramadan = 'ramadan';
+  static const String planRamadan = 'planRamadan';
+
 }
 
 // lib/app/translations/bn_BD/bn_bd_translations.dart
@@ -37,6 +41,8 @@ final Map<String, String> bnBd = {
     TranslationKeys.selectedVerses: 'নির্বাচিত আয়াত',
       TranslationKeys.selectedHadith: 'নির্বাচিত হাদিস',
   TranslationKeys.salafQuotes: 'সালাফদের বক্তব্য',
+  TranslationKeys.ramadan: 'রমাদ্বন',
+  TranslationKeys.planRamadan: 'রমাদ্বন প্লান করুন',
 
 };
 
@@ -57,5 +63,7 @@ final Map<String, String> enUs = {
     TranslationKeys.selectedVerses: 'Selected Verses',
   TranslationKeys.selectedHadith: 'Selected Hadith',
   TranslationKeys.salafQuotes: 'Salaf Quotes',
+  TranslationKeys.ramadan: 'Ramadan',
+   TranslationKeys.planRamadan: 'Plan Ramadan',
 
 };

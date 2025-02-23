@@ -4,6 +4,7 @@ import 'package:ramadan_tracker/Data/data.dart';
 
 import '../../../app/constants/app_color.dart';
 import '../../../app/routes/app_pages.dart';
+import '../../../app/translation/translation_keys.dart';
 import '../../../planner.dart';
 import '../controller/dashboard_controller.dart';
 
@@ -29,23 +30,23 @@ class RamadanDaysList extends GetWidget<DashboardController> {
                   tileColor: i + 1 > 20 ? Colors.grey[250] : Colors.white,
                   title: i + 1 == calculate2023RamdanDate() &&
                           controller.current_month == "Ramadan"
-                      ? Text('রমাদ্বন - ${controller.ramadanList[i]} (আজ) ')
+                      ? Text('${TranslationKeys.ramadan.tr} - ${controller.ramadanList[i]} (আজ) ')
                       : i + 1 > 20
                           ? Text(
-                              'রমাদ্বন - ${controller.ramadanList[i]} ',
+                              '${TranslationKeys.ramadan.tr} - ${controller.ramadanList[i]} ',
                               style: TextStyle(
                                   color: AppColors.primary,
                                   fontWeight: FontWeight.bold),
                             )
-                          : Text('রমাদ্বন - ${controller.ramadanList[i]} '),
+                          : Text('${TranslationKeys.ramadan.tr} - ${controller.ramadanList[i]} '),
                   subtitle: i + 1 > 20
                       ? Text(
-                          'রমাদ্বন প্লান করুন',
+                          '${TranslationKeys.planRamadan.tr}',
                           style: TextStyle(
                               color: AppColors.primary,
                               fontWeight: FontWeight.bold),
                         )
-                      : Text('রমাদ্বন প্লান করুন'),
+                      : Text('${TranslationKeys.planRamadan.tr}'),
                   trailing: i + 1 > 20
                       ? i + 1 == 21 ||
                               i + 1 == 23 ||
