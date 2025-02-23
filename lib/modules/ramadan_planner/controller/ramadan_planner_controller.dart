@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'dart:math';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -36,27 +37,29 @@ class RamadanPlannerController extends GetxController {
   var currentMonth = HijriCalendar.now().getLongMonthName();
   var currentDate = HijriCalendar.now().hDay;
   var currentYear = HijriCalendar.now().hYear.obs;
-  var startName = 0;
-  var endName = 0;
-  RxString ramadan_date_key=''.obs;
-  final Random _random = Random();
+  var startName = 0.obs;
+  var endName = 0.obs;
+  RxString ramadan_date_key = ''.obs;
+  // final Random _random = Random();
   late var ramadanDay;
   @override
   Future<void> onInit() async {
     super.onInit();
     // Assume ramadan_day is passed as an argument (e.g., via Get.arguments)
     ramadanDay = Get.arguments['ramadan_day'] ?? 1;
-    ramadan_date_key.value= "ramadan_${ramadanDay}_${currentYear}";
+    ramadan_date_key.value = "ramadan_${ramadanDay}_${currentYear}";
     // Initialize special achievement controller with stored value (if any)
-    String initialValue =await StorageHelper.getSpecialAchievement(ramadan_date_key.value) ??'';
+    String initialValue =
+        await StorageHelper.getSpecialAchievement(ramadan_date_key.value) ?? '';
     // specialAchievementController = TextEditingController(text: initialValue);
     specialAchievementController.text = initialValue;
-  // **Trigger UI update**
+    // **Trigger UI update**
     update();
     // Calculate indices for Asmaul Husna table
-    endName = ramadanDay * 3;
-    startName = endName - 3;
-
+    endName.value = ramadanDay * 3;
+    startName.value = (endName.value - 3) ;
+    log("start: ${startName}");
+    log("end: ${endName}");
     // Fetch API data
     // Fetch all necessary data.
     fetchAllData();
@@ -129,9 +132,6 @@ class RamadanPlannerController extends GetxController {
     );
   }
 
-
-
-
   // Future<void> addInputValueForUser(int ramadanDay) async {
   //   await storage.ready;
   //   String userId = storage.getItem('_id') ?? '';
@@ -153,9 +153,8 @@ class RamadanPlannerController extends GetxController {
   // }
 
   void saveAchievement(String? ramadanDay) {
-     StorageHelper.addSpecialAchievement(
-                        specialAchievementController.text,
-                        ramadan_date_key.value);
+    StorageHelper.addSpecialAchievement(
+        specialAchievementController.text, ramadan_date_key.value);
     Fluttertoast.showToast(
       msg: "আপনার তথ্য সংরক্ষণ করা হয়েছে",
       toastLength: Toast.LENGTH_SHORT,
