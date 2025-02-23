@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:expandable_text/expandable_text.dart';
@@ -28,7 +29,7 @@ class TrackingWidget extends StatelessWidget {
 
     return Obx(() {
       if (controller.isLoadingOptions.value) {
-        return const Center(child: CircularProgressIndicator());
+        return const Center(child: CupertinoActivityIndicator());
       }
       if (controller.trackingOptions.isEmpty) {
         return const Center(child: Text("No options available"));

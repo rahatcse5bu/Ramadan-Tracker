@@ -38,18 +38,21 @@ class RamadanPlannerController extends GetxController {
   var currentYear = HijriCalendar.now().hYear.obs;
   var startName = 0;
   var endName = 0;
+  RxString ramadan_date_key=''.obs;
   final Random _random = Random();
   late var ramadanDay;
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
     // Assume ramadan_day is passed as an argument (e.g., via Get.arguments)
     ramadanDay = Get.arguments['ramadan_day'] ?? 1;
+    ramadan_date_key.value= "ramadan_${ramadanDay}_${currentYear}";
     // Initialize special achievement controller with stored value (if any)
-    String initialValue =
-        storage.getItem("special_achievement$ramadanDay") ?? '';
-    specialAchievementController = TextEditingController(text: initialValue);
-
+    String initialValue =await StorageHelper.getSpecialAchievement(ramadan_date_key.value) ??'';
+    // specialAchievementController = TextEditingController(text: initialValue);
+    specialAchievementController.text = initialValue;
+  // **Trigger UI update**
+    update();
     // Calculate indices for Asmaul Husna table
     endName = ramadanDay * 3;
     startName = endName - 3;
@@ -149,9 +152,10 @@ class RamadanPlannerController extends GetxController {
   //   }
   // }
 
-  void saveAchievement(int ramadanDay) {
-    storage.setItem(
-        "special_achievement$ramadanDay", specialAchievementController.text);
+  void saveAchievement(String? ramadanDay) {
+     StorageHelper.addSpecialAchievement(
+                        specialAchievementController.text,
+                        ramadan_date_key.value);
     Fluttertoast.showToast(
       msg: "আপনার তথ্য সংরক্ষণ করা হয়েছে",
       toastLength: Toast.LENGTH_SHORT,
