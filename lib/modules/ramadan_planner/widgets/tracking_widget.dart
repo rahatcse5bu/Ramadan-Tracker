@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:confetti/confetti.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,105 +30,166 @@ class TrackingWidget extends StatelessWidget {
 
     return Obx(() {
       if (controller.isLoadingOptions.value) {
-        return const Center(child: CupertinoActivityIndicator(color: AppColors.primary,));
+        return const Center(
+            child: CupertinoActivityIndicator(
+          color: AppColors.primary,
+        ));
       }
       if (controller.trackingOptions.isEmpty) {
         return const Center(child: Text("No options available"));
       }
 
-      return Column(
+      return Stack(
         children: [
-          Card(
-            elevation: 5,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    margin: const EdgeInsets.only(bottom: 5),
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(6), topRight: Radius.circular(6)),
-                      color: AppColors.primary,
-                    ),
-                    child: Center(
-                      child: Text(
-                        controller.getTrackingName(),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.white,
+          Column(
+            children: [
+              Card(
+                elevation: 5,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 10),
+                        margin: const EdgeInsets.only(bottom: 5),
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(6),
+                              topRight: Radius.circular(6)),
+                          color: AppColors.primary,
+                        ),
+                        child: Center(
+                          child: Text(
+                            controller.getTrackingName(),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+
+                      // ✅ Mapping over tracking options
+                      ...controller.trackingOptions.map<Widget>((option) {
+                        bool checked = controller.isUserChecked(
+                            option['users'], 'day${controller.ramadanDay}');
+
+                        // ✅ Checkbox List
+                        if (controller.type == "checkbox") {
+                          return CheckboxListTile(
+                            secondary:
+                                controller.loadingStates[option['_id']] == true
+                                    ? const CupertinoActivityIndicator(
+                                        color: AppColors.primary,
+                                      )
+                                    : checked
+                                        ? Icon(Icons.check,
+                                            color: AppColors.primary)
+                                        : const Icon(Icons.close,
+                                            color: Colors.red),
+                            activeColor:
+                                checked ? AppColors.primary : Colors.red,
+                            controlAffinity: ListTileControlAffinity.leading,
+                            title: Text(
+                                "${option['title']} [${option['point']} Points]"),
+                            subtitle: ExpandableText(
+                              option['description'],
+                              expandText: 'show more',
+                              collapseText: 'show less',
+                              maxLines: 2,
+                              linkColor: Colors.blue,
+                              style: const TextStyle(
+                                  fontStyle: FontStyle.italic, fontSize: 12),
+                            ),
+                            value: checked,
+                            onChanged: (bool? newValue) {
+                              if (newValue != null) {
+                                controller.updateTrackingOption(
+                                    option['_id'], newValue);
+                                controller.submitPoints(newValue
+                                    ? option['point']
+                                    : -option['point']);
+                              }
+                            },
+                          );
+                        }
+
+                        // ✅ Switch List
+                        if (controller.type == "switch") {
+                          return SwitchListTile(
+                            secondary:
+                                controller.loadingStates[option['_id']] == true
+                                    ? const CupertinoActivityIndicator(
+                                        color: AppColors.primary,
+                                      )
+                                    : checked
+                                        ? Icon(Icons.check,
+                                            color: AppColors.primary)
+                                        : const Icon(Icons.close,
+                                            color: Colors.red),
+                            activeColor:
+                                checked ? AppColors.primary : Colors.red,
+                            title: Text(
+                                "${option['title']} [${option['point']} Points]"),
+                            subtitle: ExpandableText(
+                              option['description'],
+                              expandText: 'show more',
+                              collapseText: 'show less',
+                              maxLines: 2,
+                              linkColor: Colors.blue,
+                              style: const TextStyle(
+                                  fontStyle: FontStyle.italic, fontSize: 12),
+                            ),
+                            value: checked,
+                            onChanged: (bool newValue) {
+                              controller.updateTrackingOption(
+                                  option['_id'], newValue);
+                              controller.submitPoints(newValue
+                                  ? option['point']
+                                  : -option['point']);
+                            },
+                          );
+                        }
+
+                        return const SizedBox(); // Prevents returning null
+                      }).toList(),
+                    ],
                   ),
-
-                  // ✅ Mapping over tracking options
-                  ...controller.trackingOptions.map<Widget>((option) {
-                    bool checked = controller.isUserChecked(
-                        option['users'], 'day${controller.ramadanDay}');
-
-                    // ✅ Checkbox List
-                    if (controller.type == "checkbox") {
-                      return CheckboxListTile(
-                        secondary: controller.loadingStates[option['_id']] == true
-                            ? const  CupertinoActivityIndicator(color: AppColors.primary,)
-                            : checked
-                                ? Icon(Icons.check, color: AppColors.primary)
-                                : const Icon(Icons.close, color: Colors.red),
-                        activeColor: checked ? AppColors.primary : Colors.red,
-                        controlAffinity: ListTileControlAffinity.leading,
-                        title: Text("${option['title']} [${option['point']} Points]"),
-                        subtitle: ExpandableText(
-                          option['description'],
-                          expandText: 'show more',
-                          collapseText: 'show less',
-                          maxLines: 2,
-                          linkColor: Colors.blue,
-                          style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 12),
-                        ),
-                        value: checked,
-                        onChanged: (bool? newValue) {
-                          if (newValue != null) {
-                            controller.updateTrackingOption(option['_id'], newValue);
-                            controller.submitPoints(newValue ? option['point'] : -option['point']);
-                          }
-                        },
-                      );
-                    }
-
-                    // ✅ Switch List
-                    if (controller.type == "switch") {
-                      return SwitchListTile(
-                        secondary: controller.loadingStates[option['_id']] == true
-                            ? const  CupertinoActivityIndicator(color: AppColors.primary,)
-                            : checked
-                                ? Icon(Icons.check, color: AppColors.primary)
-                                : const Icon(Icons.close, color: Colors.red),
-                        activeColor: checked ? AppColors.primary : Colors.red,
-                        title: Text("${option['title']} [${option['point']} Points]"),
-                        subtitle: ExpandableText(
-                          option['description'],
-                          expandText: 'show more',
-                          collapseText: 'show less',
-                          maxLines: 2,
-                          linkColor: Colors.blue,
-                          style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 12),
-                        ),
-                        value: checked,
-                        onChanged: (bool newValue) {
-                          controller.updateTrackingOption(option['_id'], newValue);
-                          controller.submitPoints(newValue ? option['point'] : -option['point']);
-                        },
-                      );
-                    }
-
-                    return const SizedBox(); // Prevents returning null
-                  }).toList(),
-                ],
+                ),
               ),
+            ],
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: ConfettiWidget(
+              confettiController: controller.confettiController,
+              blastDirection: -1.0, // Confetti falls down
+              emissionFrequency: 0.8,
+              numberOfParticles: 60,
+              maxBlastForce: 20,
+              minBlastForce: 15,
+              gravity: 0.6,
+              shouldLoop: false,
+              colors: const [
+                Colors.green,
+                AppColors.primary,
+                AppColors.primaryOpacity,
+                Colors.black,
+                Colors.cyanAccent,
+                Colors.blue,
+                Colors.deepOrange,
+                Colors.pink,
+                Colors.deepPurpleAccent,
+                Colors.white,
+                Colors.orange,
+                Colors.purple,
+                Colors.deepPurple,
+                Colors.orangeAccent,
+                Colors.cyan,
+              ],
             ),
           ),
         ],

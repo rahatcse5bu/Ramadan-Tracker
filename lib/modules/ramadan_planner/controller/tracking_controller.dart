@@ -1,9 +1,9 @@
+import 'package:confetti/confetti.dart';
 import 'package:get/get.dart';
 import 'package:localstorage/localstorage.dart';
 
 import '../../../app/apis/api_helper.dart';
 import '../../../app/common/storage/storage_controller.dart';
-
 
 class TrackingController extends GetxController {
   final int ramadanDay;
@@ -17,13 +17,15 @@ class TrackingController extends GetxController {
   var trackingOptions = <dynamic>[].obs;
   var isLoadingOptions = true.obs;
   var loadingStates = <String, bool>{}.obs;
-  
+
   // Observables for today's points
   var todaysPoint = 0.obs;
   var isLoadingPoint = true.obs;
 
-  TrackingController({required this.ramadanDay, required this.slug, required this.type});
-
+  TrackingController(
+      {required this.ramadanDay, required this.slug, required this.type});
+  final ConfettiController confettiController =
+      ConfettiController(duration: const Duration(milliseconds: 5));
   @override
   void onInit() {
     super.onInit();
@@ -32,8 +34,8 @@ class TrackingController extends GetxController {
   }
 
   /// Loads tracking options using the API helper.
-  void loadTrackingOptions({bool isToggling=false}) async {
-   if(!isToggling) isLoadingOptions(true);
+  void loadTrackingOptions({bool isToggling = false}) async {
+    if (!isToggling) isLoadingOptions(true);
     final result = await apiHelper.fetchTrackingOptions(slug);
     result.fold(
       (error) {
@@ -51,17 +53,17 @@ class TrackingController extends GetxController {
   }
 
   /// Fetch today's points for the user.
-  void fetchTodaysPoint({bool isAddPoint=false}) async {
-  if(!isAddPoint)  isLoadingPoint(false);
+  void fetchTodaysPoint({bool isAddPoint = false}) async {
+    if (!isAddPoint) isLoadingPoint(false);
     String userId = await StorageHelper.getUserId() ?? '';
     final result = await apiHelper.fetchTodaysPoint(userId, ramadanDay);
     result.fold(
       (error) {
-        if(!isAddPoint)   isLoadingPoint(false);
+        if (!isAddPoint) isLoadingPoint(false);
       },
       (points) {
         todaysPoint.value = points;
-     if(!isAddPoint)   isLoadingPoint(false);
+        if (!isAddPoint) isLoadingPoint(false);
       },
     );
   }
@@ -71,16 +73,23 @@ class TrackingController extends GetxController {
     String userId = await StorageHelper.getUserId() ?? '';
 
     loadingStates[optionId] = true;
-    final result = await apiHelper.updateUserTrackingOption(slug, optionId, userId, ramadanDay);
+    final result = await apiHelper.updateUserTrackingOption(
+        slug, optionId, userId, ramadanDay);
     result.fold(
       (error) {
         loadingStates[optionId] = false;
       },
       (message) {
         loadingStates[optionId] = false;
+        // Add slight delay for better visual feedback
+        Future.delayed(const Duration(milliseconds: 300), () {
+          if (newValue) {
+            confettiController.play();
+          }
+        });
         // After updating, refresh today's points and options.
         fetchTodaysPoint();
-        loadTrackingOptions(isToggling:true);
+        loadTrackingOptions(isToggling: true);
       },
     );
   }
@@ -95,6 +104,10 @@ class TrackingController extends GetxController {
         // Handle error (e.g., show a toast in your view if desired)
       },
       (message) {
+        // Trigger confetti when points are added (not when removed)
+        if (points > 0) {
+          confettiController.play();
+        }
         fetchTodaysPoint();
       },
     );
@@ -132,5 +145,11 @@ class TrackingController extends GetxController {
       default:
         return "";
     }
+  }
+
+  @override
+  void onClose() {
+    confettiController.dispose();
+    super.onClose();
   }
 }
