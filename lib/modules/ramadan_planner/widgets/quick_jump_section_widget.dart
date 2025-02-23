@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../app/constants/app_color.dart';
 import '../controller/quick_jump_section_controller.dart';
@@ -36,13 +37,14 @@ class QuickJumpSections extends GetWidget<QuickJumpSectionController> {
                     controller.scrollToSection(section);},
                   child: Card(
                     color: AppColors.primary,
+                    
                     elevation: 4,
                     child: Center(
                       child: Text(
                         bnTitle,
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 16,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.bold),
                       ),
                     ),

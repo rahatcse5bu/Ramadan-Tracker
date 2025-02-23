@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 
 class QuickJumpSectionController extends GetxController {
   final ScrollController scrollController = ScrollController();
+    var showBackToTop = true.obs; // Controls visibility of the widget
+    var showGrid = true.obs; // Controls visibility of the widget
+
   // final Map<String, GlobalKey> sectionKeys = {
   //   'maghrib': GlobalKey(),
   //   'qadr': GlobalKey(),
@@ -55,7 +58,27 @@ void scrollToSection(String section) {
   }
 }
 
+  void _scrollListener() {
+    double currentPosition = scrollController.position.pixels;
+    double deviceHeight = Get.height;
 
+    // Show widget if scrolled past device height
+    showBackToTop.value = currentPosition > deviceHeight;
+  }
+
+  void scrollToTop() {
+    scrollController.animateTo(
+      0.0,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
+  void onClose() {
+    scrollController.dispose();
+    super.onClose();
+  }
 
 
 }
