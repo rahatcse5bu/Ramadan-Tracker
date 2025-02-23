@@ -22,6 +22,9 @@ class TranslationKeys {
   static const String leaderBoard = 'leaderBoard';
   static const String rank = 'rank';
   static const String pointsDisclaimer = 'points_disclaimer';
+
+    static const String home = 'home';
+  static const String duas = 'duas';
 }
 
 // lib/app/translations/bn_BD/bn_bd_translations.dart
@@ -46,6 +49,9 @@ final Map<String, String> bnBd = {
   TranslationKeys.rank: 'র‍্যাংক',
   TranslationKeys.pointsDisclaimer:
       'কোনো আমাল এই পয়েন্ট দিয়ে সাব্যস্ত করার অধিকার কারোর-ই নেই।জাস্ট নিজের আমাল জাজ করার জন্যই এটি দেওয়া। নিয়ত করবেন সওয়াবের, আল্লাহ্‌ প্রতিদান দিবেন ইনশাআল্লাহ্‌!(লিডারবোর্ড দেখতে ডানপাশের অ্যারো বাটনে ক্লিক করুন)',
+
+  TranslationKeys.home: 'হোম',
+  TranslationKeys.duas: 'দোয়া',
 };
 
 // lib/app/translations/en_US/en_us_translations.dart
@@ -70,4 +76,7 @@ final Map<String, String> enUs = {
   TranslationKeys.rank: 'Rank',
   TranslationKeys.pointsDisclaimer:
       'No one has the right to validate deeds through these points. This is only for self-assessment of your deeds. Maintain intention for reward, Allah will surely reward you InshaAllah! (Click the arrow button on the right side to view leaderboard)',
+
+  TranslationKeys.home: 'Home',
+  TranslationKeys.duas: 'Duas',
 };

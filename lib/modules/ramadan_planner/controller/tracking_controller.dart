@@ -32,8 +32,8 @@ class TrackingController extends GetxController {
   }
 
   /// Loads tracking options using the API helper.
-  void loadTrackingOptions() async {
-    isLoadingOptions(true);
+  void loadTrackingOptions({bool isToggling=false}) async {
+   if(!isToggling) isLoadingOptions(true);
     final result = await apiHelper.fetchTrackingOptions(slug);
     result.fold(
       (error) {
@@ -51,17 +51,17 @@ class TrackingController extends GetxController {
   }
 
   /// Fetch today's points for the user.
-  void fetchTodaysPoint() async {
-
+  void fetchTodaysPoint({bool isAddPoint=false}) async {
+  if(!isAddPoint)  isLoadingPoint(false);
     String userId = await StorageHelper.getUserId() ?? '';
     final result = await apiHelper.fetchTodaysPoint(userId, ramadanDay);
     result.fold(
       (error) {
-        isLoadingPoint(false);
+        if(!isAddPoint)   isLoadingPoint(false);
       },
       (points) {
         todaysPoint.value = points;
-        isLoadingPoint(false);
+     if(!isAddPoint)   isLoadingPoint(false);
       },
     );
   }
@@ -80,7 +80,7 @@ class TrackingController extends GetxController {
         loadingStates[optionId] = false;
         // After updating, refresh today's points and options.
         fetchTodaysPoint();
-        loadTrackingOptions();
+        loadTrackingOptions(isToggling:true);
       },
     );
   }

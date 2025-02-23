@@ -45,7 +45,9 @@ class QuoteWidget extends GetWidget<DashboardController> {
   Widget build(BuildContext context) {
     return Obx(() => Container(
           // width: 160,
+          
           child: Card(
+            color: Colors.white,
             elevation: 5.2,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.0),

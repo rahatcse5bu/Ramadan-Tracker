@@ -29,7 +29,7 @@ class TrackingWidget extends StatelessWidget {
 
     return Obx(() {
       if (controller.isLoadingOptions.value) {
-        return const Center(child: CupertinoActivityIndicator());
+        return const Center(child: CupertinoActivityIndicator(color: AppColors.primary,));
       }
       if (controller.trackingOptions.isEmpty) {
         return const Center(child: Text("No options available"));
@@ -73,7 +73,7 @@ class TrackingWidget extends StatelessWidget {
                     if (controller.type == "checkbox") {
                       return CheckboxListTile(
                         secondary: controller.loadingStates[option['_id']] == true
-                            ? const CircularProgressIndicator()
+                            ? const  CupertinoActivityIndicator(color: AppColors.primary,)
                             : checked
                                 ? Icon(Icons.check, color: AppColors.primary)
                                 : const Icon(Icons.close, color: Colors.red),
@@ -102,7 +102,7 @@ class TrackingWidget extends StatelessWidget {
                     if (controller.type == "switch") {
                       return SwitchListTile(
                         secondary: controller.loadingStates[option['_id']] == true
-                            ? const CircularProgressIndicator()
+                            ? const  CupertinoActivityIndicator(color: AppColors.primary,)
                             : checked
                                 ? Icon(Icons.check, color: AppColors.primary)
                                 : const Icon(Icons.close, color: Colors.red),

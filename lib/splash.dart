@@ -32,7 +32,8 @@ class _SplashScreenState extends State<SplashScreen> {
     if (userName != null && fullName !=null && _id !=null) {
       // Navigator.pushReplacementNamed(context, '/dashboard');
       // Navigator.pushReplacementNamed(context, '/koroniyo');
-      Get.toNamed(Routes.dashboard);
+      // Get.toNamed(Routes.dashboard);
+      Get.toNamed(Routes.home);
     } else {
      Get.toNamed(Routes.login);
     }

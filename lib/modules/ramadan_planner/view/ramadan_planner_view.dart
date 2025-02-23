@@ -119,6 +119,7 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                                     ? Center(
                                         child: CupertinoActivityIndicator(color: AppColors.primary,))
                                     : ExpandableText(
+                                      
                                         controller.ajkerHadith.value,
                                         expandText: 'show more',
                                         collapseText: 'show less',

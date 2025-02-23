@@ -15,17 +15,7 @@ Future<void> main() async {
 
   runApp(MyApp());
 }
-// Function to get saved locale
-Future<Locale?> _getSavedLocale() async {
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-  String? languageCode = prefs.getString('languageCode');
-  String? countryCode = prefs.getString('countryCode');
-  
-  if (languageCode != null && countryCode != null) {
-    return Locale(languageCode, countryCode);
-  }
-  return null;
-}
+
 class MyApp extends StatelessWidget {
     final Locale? initialLocale;
   

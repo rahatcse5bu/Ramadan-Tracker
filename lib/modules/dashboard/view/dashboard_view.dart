@@ -42,11 +42,14 @@ class DashboardView extends GetView<DashboardController> {
           GetBuilder<LanguageController>(
             builder: (controller) {
               return DropdownButtonHideUnderline(
+
                 child: DropdownButton<String>(
+
                   value: controller.appLocale?.languageCode ?? 'en',
                   // icon: Icon(Icons.language, color: Colors.white),
                   // isExpanded: true,
                   dropdownColor: AppColors.primary,
+
                   borderRadius: BorderRadius.circular(12),
                   style: TextStyle(
                     fontSize: 12.sp,
@@ -152,7 +155,7 @@ class DashboardView extends GetView<DashboardController> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
+      body: SingleChildScrollView( 
         child: Obx(
           () => Column(
             children: [
