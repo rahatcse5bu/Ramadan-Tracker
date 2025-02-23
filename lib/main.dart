@@ -5,12 +5,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'app/common/binding/global_binding.dart';
 import 'app/routes/app_pages.dart';
 import 'app/translation/app_translation.dart';
+import 'app/translation/language_controller.dart';
 
 Future<void> main() async {
-  // Get the saved locale before running the app
-  final Locale? savedLocale = await _getSavedLocale();
+    WidgetsFlutterBinding.ensureInitialized();
+  final languageController = Get.put(LanguageController());
+  // await languageController.appLocale(); // Load locale before app start
   
-  runApp(MyApp(initialLocale: savedLocale));
+
+  runApp(MyApp());
 }
 // Function to get saved locale
 Future<Locale?> _getSavedLocale() async {
@@ -41,7 +44,7 @@ class MyApp extends StatelessWidget {
           getPages: AppPages.routes,
                     // Localization
           translations: AppTranslation(),
-          locale: initialLocale, // Get saved locale
+          locale:  Get.find<LanguageController>().appLocale ?? Get.deviceLocale,
           fallbackLocale: const Locale('en', 'US'), // Default to English
           
         );

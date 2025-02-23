@@ -1,9 +1,11 @@
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 
 import '../../../app/constants/app_color.dart';
+import '../../../app/translation/translation_keys.dart';
 import '../controller/dashboard_controller.dart';
 
 class QuoteWidget extends GetWidget<DashboardController> {
@@ -22,6 +24,18 @@ class QuoteWidget extends GetWidget<DashboardController> {
         return controller.ajkerHadith.value;
       case 'salaf_quote':
         return controller.ajkerSalafQuote.value;
+      default:
+        return text;
+    }
+  }
+  String get displayTitle {
+    switch (type) {
+      case 'ajker_ayat':
+        return TranslationKeys.selectedVerses.tr;
+      case 'ajker_hadith':
+        return TranslationKeys.selectedHadith.tr;
+      case 'salaf_quote':
+        return TranslationKeys.salafQuotes.tr;
       default:
         return text;
     }
@@ -51,7 +65,7 @@ class QuoteWidget extends GetWidget<DashboardController> {
                         color: AppColors.primary),
                     child: Center(
                       child: Text(
-                        "${title}",
+                        "$displayTitle",
                         style: TextStyle(
                             // fontStyle: FontStyle.italic,
                             fontSize: 20,

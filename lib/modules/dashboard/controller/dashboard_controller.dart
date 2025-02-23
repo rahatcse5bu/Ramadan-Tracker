@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 import '../../../app/apis/api_helper.dart';
 import '../../../app/common/storage/storage_controller.dart';
+import '../../../app/common/utils/ramadan_utils.dart';
 import '../models/user_model.dart';
 
 class DashboardController extends GetxController {
@@ -21,12 +22,17 @@ class DashboardController extends GetxController {
   var current_month = HijriCalendar.now().getLongMonthName();
   var current_date = HijriCalendar.now().hDay;
   // final _random = new Random();
+  var username =''.obs;
   @override
   void onInit() {
     super.onInit();
     fetchDashboardData();
+    fetchLocalData();
   }
 
+  Future<void> fetchLocalData() async {
+username.value=await Utils. getUserName()??'';
+  }
   Future<void> fetchDashboardData() async {
     isLoading(true);
     await fetchAjkerAyat();

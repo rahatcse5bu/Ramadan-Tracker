@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ramadan_tracker/app/common/storage/storage_controller.dart';
+import 'package:ramadan_tracker/app/common/utils/ramadan_utils.dart';
 import 'package:ramadan_tracker/modules/dashboard/widgets/leaderboard_widget.dart';
 import 'package:ramadan_tracker/modules/dashboard/widgets/quote_widget.dart';
 import 'package:ramadan_tracker/modules/dashboard/widgets/ramadan_days_list.dart';
 
 import '../../../app/constants/app_color.dart';
 import '../../../app/routes/app_pages.dart';
+import '../../../app/translation/language_controller.dart';
+import '../../../app/translation/translation_keys.dart';
 import '../controller/dashboard_controller.dart';
 
 class DashboardView extends GetView<DashboardController> {
@@ -33,6 +36,29 @@ class DashboardView extends GetView<DashboardController> {
                   )),
             )),
         actions: <Widget>[
+          // In your settings screen/widget
+// GetBuilder<LanguageController>(
+//   builder: (controller) {
+//     return Column(
+//       children: [
+//         ListTile(
+//           title: Text('English'.tr),
+//           trailing: controller.currentLanguage == 'en'
+//               ? Icon(Icons.check)
+//               : null,
+//           onTap: () => controller.changeLanguage('en', 'US'),
+//         ),
+//         ListTile(
+//           title: Text('বাংলা'.tr),
+//           trailing: controller.currentLanguage == 'bn'
+//               ? Icon(Icons.check)
+//               : null,
+//           onTap: () => controller.changeLanguage('bn', 'BD'),
+//         ),
+//       ],
+//     );
+//   }
+// ),
           PopupMenuButton(
             color: Colors.white,
             icon: Icon(
@@ -42,6 +68,19 @@ class DashboardView extends GetView<DashboardController> {
             ),
             itemBuilder: (BuildContext context) {
               return [
+                // Language Selection Items
+                PopupMenuItem(
+                  child: GetBuilder<LanguageController>(
+                    builder: (controller) {
+                      return Column(
+                        children: [
+                              _buildLanguageItem(context, languageCode: 'en', label: 'English'),
+      _buildLanguageItem(context, languageCode: 'bn', label: 'বাংলা'),
+                        ],
+                      );
+                    },
+                  ),
+                ),
                 PopupMenuItem(
                   child: InkWell(
                     onTap: () async {
@@ -58,7 +97,7 @@ class DashboardView extends GetView<DashboardController> {
                     },
                     child: Column(
                       children: [
-                        Text(StorageHelper.getFullName() as String),
+                        Text(controller.username.value),
                         SizedBox(
                           width: 10,
                         ),
@@ -83,7 +122,7 @@ class DashboardView extends GetView<DashboardController> {
             children: [
               LeaderboardWidget(),
               QuoteWidget(
-                  title: "নির্বাচিত আয়াত",
+                  title: TranslationKeys.selectedVerses.tr,
                   text: controller.ajkerAyat.value,
                   type: 'ajker_ayat'),
               QuoteWidget(
@@ -94,6 +133,7 @@ class DashboardView extends GetView<DashboardController> {
                   title: "সালাফদের বক্তব্য",
                   text: controller.ajkerSalafQuote.value,
                   type: 'salaf_quote'),
+                  // Text("${TranslationKeys.selectedVerses.tr}"),
               RamadanDaysList(),
             ],
           ),
@@ -101,4 +141,44 @@ class DashboardView extends GetView<DashboardController> {
       ),
     );
   }
+}
+
+Widget _buildLanguageItem(
+  BuildContext context, {
+  required String languageCode,
+  required String label,
+}) {
+  final controller = Get.find<LanguageController>();
+  
+  return Obx(() {
+    final bool isSelected = controller.appLocale?.languageCode == languageCode;
+    
+    return InkWell(
+      onTap: () => controller.changeLanguage(
+        languageCode, 
+        languageCode == 'bn' ? 'BD' : 'US'
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 16,
+                color: isSelected ? Colors.green : Colors.black,
+              ),
+            ),
+            if (isSelected)
+              Icon(
+                Icons.check_circle,
+                color: Colors.green,
+                size: 20,
+              ),
+          ],
+        ),
+      ),
+    );
+  });
 }

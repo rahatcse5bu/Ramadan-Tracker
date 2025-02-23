@@ -130,4 +130,37 @@ class Utils {
 
     return bengaliNumber.toString();
   }
+
+    Future<String> _loadCurrentLanguage() async {
+ 
+  
+      return await StorageHelper.getLanguageCode()??'';
+   
+  }
+
+  Future<void> _changeLanguage(String? languageCode) async {
+    if (languageCode == null) return;
+
+
+    String countryCode;
+
+    switch (languageCode) {
+      case 'bn':
+        countryCode = 'BD';
+        break;
+      case 'en':
+      default:
+        countryCode = 'US';
+        break;
+    }
+
+    await StorageHelper.setLanguage(languageCode, countryCode);
+    
+    Get.updateLocale(Locale(languageCode, countryCode));
+    
+  
+  }
+static Future<String?> getUserName() async {
+  return StorageHelper.getUserName();
+}
 }

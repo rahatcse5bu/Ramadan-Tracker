@@ -1,21 +1,31 @@
-// lib/app/controllers/language_controller.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../common/storage/storage_controller.dart';
 
 class LanguageController extends GetxController {
-  Future<void> changeLanguage(String languageCode, String countryCode) async {
-    await StorageHelper.setLanguage(languageCode, countryCode);
-    Get.updateLocale(Locale(languageCode, countryCode));
+  final Rx<Locale?> _appLocale = Rx<Locale?>(null);
+
+  Locale? get appLocale => _appLocale.value;
+
+  @override
+  void onInit() {
+    _loadSavedLocale();
+    super.onInit();
   }
 
-  Future<Locale?> getInitialLocale() async {
-    final String? languageCode = await StorageHelper.getLanguageCode();
-    final String? countryCode = await StorageHelper.getCountryCode();
-    
+  Future<void> _loadSavedLocale() async {
+    final languageCode = await StorageHelper.getLanguageCode();
+    final countryCode = await StorageHelper.getCountryCode();
     if (languageCode != null && countryCode != null) {
-      return Locale(languageCode, countryCode);
+      _appLocale.value = Locale(languageCode, countryCode);
     }
-    return null;
+  }
+
+  Future<void> changeLanguage(String languageCode, String countryCode) async {
+    await StorageHelper.setLanguage(languageCode, countryCode);
+    _appLocale.value = Locale(languageCode, countryCode);
+    Get.updateLocale(_appLocale.value!);
+    update(); // Force UI update
   }
 }

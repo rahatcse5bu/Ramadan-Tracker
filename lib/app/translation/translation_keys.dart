@@ -12,6 +12,12 @@ class TranslationKeys {
   static const String prayerTimes = 'prayer_times';
   static const String trackPrayers = 'track_prayers';
   static const String trackFasting = 'track_fasting';
+
+
+    static const String selectedVerses = 'selected_verses'; // New key
+      static const String selectedHadith = 'selected_hadith';
+  static const String salafQuotes = 'salaf_quotes';
+
 }
 
 // lib/app/translations/bn_BD/bn_bd_translations.dart
@@ -27,6 +33,11 @@ final Map<String, String> bnBd = {
   TranslationKeys.prayerTimes: 'নামাজের সময়',
   TranslationKeys.trackPrayers: 'নামাজ ট্র্যাক করুন',
   TranslationKeys.trackFasting: 'রোজা ট্র্যাক করুন',
+
+    TranslationKeys.selectedVerses: 'নির্বাচিত আয়াত',
+      TranslationKeys.selectedHadith: 'নির্বাচিত হাদিস',
+  TranslationKeys.salafQuotes: 'সালাফদের বক্তব্য',
+
 };
 
 // lib/app/translations/en_US/en_us_translations.dart
@@ -42,4 +53,9 @@ final Map<String, String> enUs = {
   TranslationKeys.prayerTimes: 'Prayer Times',
   TranslationKeys.trackPrayers: 'Track Prayers',
   TranslationKeys.trackFasting: 'Track Fasting',
+
+    TranslationKeys.selectedVerses: 'Selected Verses',
+  TranslationKeys.selectedHadith: 'Selected Hadith',
+  TranslationKeys.salafQuotes: 'Salaf Quotes',
+
 };
