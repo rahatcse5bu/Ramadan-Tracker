@@ -6,6 +6,7 @@ class StorageHelper {
   static const String _userId = "userId";
   static const String _userNameKey = "userName";
   static const String _fullNameKey = "fullName";
+  static const String _specialAchievementKey = "specialAchievement_";
 
   // Set token
   static Future<void> setToken(String token) async {
@@ -102,5 +103,23 @@ class StorageHelper {
   static Future<void> removeUserId() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(_userId);
+  }
+    // Set specialAchievementKey
+  static Future<void> addSpecialAchievement(String data,String date) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString("$_specialAchievementKey$date", data.toString());
+
+  }
+
+  // Get specialAchievementKey
+  static Future<String?> getSpecialAchievement(String date) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString("$_specialAchievementKey$date");
+  }
+
+  // Remove specialAchievementKey
+  static Future<void> removeSpecialAchievement(String date) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove("$_specialAchievementKey$date");
   }
 }
