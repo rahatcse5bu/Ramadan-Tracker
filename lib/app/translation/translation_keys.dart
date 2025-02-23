@@ -13,17 +13,15 @@ class TranslationKeys {
   static const String trackPrayers = 'track_prayers';
   static const String trackFasting = 'track_fasting';
 
-
-    static const String selectedVerses = 'selected_verses'; // New key
-      static const String selectedHadith = 'selected_hadith';
+  static const String selectedVerses = 'selected_verses'; // New key
+  static const String selectedHadith = 'selected_hadith';
   static const String salafQuotes = 'salaf_quotes';
-
 
   static const String ramadan = 'ramadan';
   static const String planRamadan = 'planRamadan';
   static const String leaderBoard = 'leaderBoard';
   static const String rank = 'rank';
-
+  static const String pointsDisclaimer = 'points_disclaimer';
 }
 
 // lib/app/translations/bn_BD/bn_bd_translations.dart
@@ -39,15 +37,15 @@ final Map<String, String> bnBd = {
   TranslationKeys.prayerTimes: 'নামাজের সময়',
   TranslationKeys.trackPrayers: 'নামাজ ট্র্যাক করুন',
   TranslationKeys.trackFasting: 'রোজা ট্র্যাক করুন',
-
-    TranslationKeys.selectedVerses: 'নির্বাচিত আয়াত',
-      TranslationKeys.selectedHadith: 'নির্বাচিত হাদিস',
+  TranslationKeys.selectedVerses: 'নির্বাচিত আয়াত',
+  TranslationKeys.selectedHadith: 'নির্বাচিত হাদিস',
   TranslationKeys.salafQuotes: 'সালাফদের বক্তব্য',
   TranslationKeys.ramadan: 'রমাদ্বন',
   TranslationKeys.planRamadan: 'রমাদ্বন প্লান করুন',
   TranslationKeys.leaderBoard: 'লিডারবোর্ড',
   TranslationKeys.rank: 'র‍্যাংক',
-
+  TranslationKeys.pointsDisclaimer:
+      'কোনো আমাল এই পয়েন্ট দিয়ে সাব্যস্ত করার অধিকার কারোর-ই নেই।জাস্ট নিজের আমাল জাজ করার জন্যই এটি দেওয়া। নিয়ত করবেন সওয়াবের, আল্লাহ্‌ প্রতিদান দিবেন ইনশাআল্লাহ্‌!(লিডারবোর্ড দেখতে ডানপাশের অ্যারো বাটনে ক্লিক করুন)',
 };
 
 // lib/app/translations/en_US/en_us_translations.dart
@@ -63,13 +61,13 @@ final Map<String, String> enUs = {
   TranslationKeys.prayerTimes: 'Prayer Times',
   TranslationKeys.trackPrayers: 'Track Prayers',
   TranslationKeys.trackFasting: 'Track Fasting',
-
-    TranslationKeys.selectedVerses: 'Selected Verses',
+  TranslationKeys.selectedVerses: 'Selected Verses',
   TranslationKeys.selectedHadith: 'Selected Hadith',
   TranslationKeys.salafQuotes: 'Salaf Quotes',
   TranslationKeys.ramadan: 'Ramadan',
-   TranslationKeys.planRamadan: 'Plan Ramadan',
-   TranslationKeys.leaderBoard: 'Leaderboard',
-   TranslationKeys.rank: 'Rank',
-
+  TranslationKeys.planRamadan: 'Plan Ramadan',
+  TranslationKeys.leaderBoard: 'Leaderboard',
+  TranslationKeys.rank: 'Rank',
+  TranslationKeys.pointsDisclaimer:
+      'No one has the right to validate deeds through these points. This is only for self-assessment of your deeds. Maintain intention for reward, Allah will surely reward you InshaAllah! (Click the arrow button on the right side to view leaderboard)',
 };

@@ -40,7 +40,7 @@ class LeaderboardWidget extends GetView<UserPointsController> {
             ),
             subtitle: Center(
                 child: Text(
-              "কোনো আমাল এই পয়েন্ট দিয়ে সাব্যস্ত করার অধিকার কারোর-ই নেই।জাস্ট নিজের আমাল জাজ করার জন্যই এটি দেওয়া। নিয়ত করবেন সওয়াবের, আল্লাহ্‌ প্রতিদান দিবেন ইনশাআল্লাহ্‌!(লিডারবোর্ড দেখতে ডানপাশের অ্যারো বাটনে ক্লিক করুন)",
+              "${TranslationKeys.pointsDisclaimer.tr}",
               style: TextStyle(color: AppColors.primary),
             )),
             trailing: Icon(Icons.arrow_drop_down_circle,
@@ -83,7 +83,8 @@ class LeaderboardWidget extends GetView<UserPointsController> {
                                     ? controller.visibleCount.value
                                     : _dashboardController.users.length),
                             (index) {
-                              final user = _dashboardController.users[index]; // Adjust according to your actual structure
+                              final user = _dashboardController.users[
+                                  index]; // Adjust according to your actual structure
                               // log("userrrr: ${user.length}");
                               final currentUser = StorageHelper.getUserName();
                               bool isCurrentUser = user.userName ==
@@ -122,7 +123,8 @@ class LeaderboardWidget extends GetView<UserPointsController> {
                         ),
                       ),
                     ),
-              if (_dashboardController.users.length > controller.visibleCount.value ||
+              if (_dashboardController.users.length >
+                      controller.visibleCount.value ||
                   controller.isShowAll.value)
                 Center(
                   child: TextButton(
