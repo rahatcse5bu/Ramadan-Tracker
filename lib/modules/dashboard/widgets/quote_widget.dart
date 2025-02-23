@@ -1,4 +1,5 @@
 import 'package:expandable_text/expandable_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 
@@ -64,9 +65,7 @@ class QuoteWidget extends GetWidget<DashboardController> {
                   // ),
                   controller.isLoading.value
                       ? Center(
-                          child: CircularProgressIndicator(
-                          color: AppColors.primary,
-                        ))
+                          child: CupertinoActivityIndicator(color: AppColors.primary,))
                       : ExpandableText(
                           displayText,
                           // controller.ajkerAyat.value,

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -114,8 +115,7 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                                 ),
                                 controller.isLoadingHadith.value
                                     ? Center(
-                                        child: CircularProgressIndicator(
-                                            color: AppColors.primary))
+                                        child: CupertinoActivityIndicator(color: AppColors.primary,))
                                     : ExpandableText(
                                         controller.ajkerHadith.value,
                                         expandText: 'show more',
@@ -159,8 +159,7 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                                 ),
                                 controller.isLoadingAyat.value
                                     ? Center(
-                                        child: CircularProgressIndicator(
-                                            color: AppColors.primary))
+                                        child: CupertinoActivityIndicator(color: AppColors.primary,))
                                     : ExpandableText(
                                         controller.ajkerAyat.value,
                                         expandText: 'show more',
@@ -247,8 +246,7 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                                 SizedBox(height: 10.h),
                                 controller.isLoadingDua.value
                                     ? Center(
-                                        child: CircularProgressIndicator(
-                                            color: AppColors.primary))
+                                        child: CupertinoActivityIndicator(color: AppColors.primary,))
                                     : Text(
                                         controller.ajkerDuaTitle.value,
                                         style: TextStyle(
@@ -259,8 +257,7 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                                 SizedBox(height: 10.h),
                                 controller.isLoadingDua.value
                                     ? Center(
-                                        child: CircularProgressIndicator(
-                                            color: AppColors.primary))
+                                        child: CupertinoActivityIndicator(color: AppColors.primary,))
                                     : ExpandableText(
                                         controller.ajkerDuaArabic.value,
                                         expandText: 'show more',
@@ -274,8 +271,7 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                                 SizedBox(height: 10.h),
                                 controller.isLoadingDua.value
                                     ? Center(
-                                        child: CircularProgressIndicator(
-                                            color: AppColors.primary))
+                                        child:CupertinoActivityIndicator(color: AppColors.primary,))
                                     : ExpandableText(
                                         controller.ajkerDuaBangla.value,
                                         expandText: 'show more',
