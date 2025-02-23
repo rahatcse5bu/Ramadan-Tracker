@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -19,15 +20,15 @@ class DashboardView extends GetView<DashboardController> {
     return Scaffold(
       appBar: AppBar(
         title: Obx(() => controller.isLoading.value
-            ? CircularProgressIndicator(
-                color: Colors.white,
-              )
+            ? CupertinoActivityIndicator(color: AppColors.primary,)
             : Text("${controller.totalPoints.value} pts",
                 style: TextStyle(fontSize: 16, color: Colors.white))),
         backgroundColor: AppColors.primary, // Change to your primary color
         centerTitle: true,
         leadingWidth: 105,
-        leading: Obx(() => Center(
+        leading: Obx(() => controller.isLoading.value
+            ? CupertinoActivityIndicator(color: AppColors.primary,)
+            : Center(
               child: Container(
                   padding: EdgeInsets.only(left: 0),
                   // width: 800,
