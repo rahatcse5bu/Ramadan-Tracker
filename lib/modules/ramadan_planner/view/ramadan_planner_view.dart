@@ -165,32 +165,33 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                 // Tracking Widgets
                 if (ramadanDay > 20)
                   Container(
-                    key: _quickjumpController
-                        .sectionKeys['qadr'], // Assign Global Key,
+                    key: _quickjumpController.sectionKeys['qadr']
+                        ?['key'], // Assign the GlobalKey
+
                     child: TrackingWidget(
                         ramadan_day: ramadanDay,
                         type: 'switch',
                         slug: 'qadr_tracking'),
                   ),
                 Container(
-                  key: _quickjumpController
-                      .sectionKeys['night'], // Assign Global Key,
+                  key: _quickjumpController.sectionKeys['night']
+                      ?['key'], // Assign Global Key,
                   child: TrackingWidget(
                       ramadan_day: ramadanDay,
                       type: 'switch',
                       slug: 'night_tracking'),
                 ),
                 Container(
-                  key: _quickjumpController
-                      .sectionKeys['fajr'], // Assign Global Key,
+                  key: _quickjumpController.sectionKeys['fajr']
+                      ?['key'], // Assign Global Key,
                   child: TrackingWidget(
                       ramadan_day: ramadanDay,
                       type: 'checkbox',
                       slug: 'fajr_tracking'),
                 ),
                 Container(
-                  key: _quickjumpController
-                      .sectionKeys['zuhr'], // Assign Global Key,
+                  key: _quickjumpController.sectionKeys['zuhr']
+                      ?['key'], // Assign Global Key,
 
                   child: TrackingWidget(
                       ramadan_day: ramadanDay,
@@ -277,19 +278,22 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                 ),
                 // Additional Tracking Widgets
                 Container(
-                  key: _quickjumpController
-                      .sectionKeys['general'], // Assign Global Key,
+                  key: _quickjumpController.sectionKeys['common']
+                      ?['key'], // Assign Global Key,
 
                   child: TrackingWidget(
                       ramadan_day: ramadanDay,
                       type: 'switch',
                       slug: 'general_tracking'),
                 ),
-                Good_Afternoon_Todo(ramadan_day: ramadanDay),
+                Container(
+                    key: _quickjumpController.sectionKeys['other']
+                      ?['key'], // Assign Global Key,
+                  child: Good_Afternoon_Todo(ramadan_day: ramadanDay)),
 
                 Container(
-                  key: _quickjumpController
-                      .sectionKeys['asr'], // Assign Global Key,
+                  key: _quickjumpController.sectionKeys['asr']
+                      ?['key'], // Assign Global Key,
 
                   child: TrackingWidget(
                       ramadan_day: ramadanDay,
@@ -297,8 +301,8 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                       slug: 'asr_tracking'),
                 ),
                 Container(
-                  key: _quickjumpController
-                      .sectionKeys['evening'], // Assign Global Key,
+                  key: _quickjumpController.sectionKeys['maghrib']
+                      ?['key'], // Assign Global Key,
 
                   child: TrackingWidget(
                       ramadan_day: ramadanDay,
@@ -324,7 +328,10 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                 ),
                 AsmaulHusnaWidget(),
                 // // Special Achievement Card
-                AchievementWidget(ramadan_day: ramadanDay),
+                Container(
+                    key: _quickjumpController.sectionKeys['special']
+                      ?['key'], // Assign Global Key,
+                  child: AchievementWidget(ramadan_day: ramadanDay)),
                 // // Credit Widget
                 Credit(),
               ],

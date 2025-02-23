@@ -1,7 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../app/constants/app_color.dart';
 import '../controller/quick_jump_section_controller.dart';
-
 
 class QuickJumpSections extends GetWidget<QuickJumpSectionController> {
   @override
@@ -24,16 +26,24 @@ class QuickJumpSections extends GetWidget<QuickJumpSectionController> {
                 childAspectRatio: 2.5,
               ),
               itemBuilder: (context, index) {
-                String section = controller.sectionKeys.keys.elementAt(index);
+                String section = controller.sectionKeys.keys
+                    .elementAt(index); // Get section key (slug)
+                String bnTitle = controller.sectionKeys[section]?['bnTitle'] ??
+                    section; // Get bnTitle or fallback to slug
                 return GestureDetector(
-                  onTap: () => controller.scrollToSection(section),
+                  onTap: () { 
+                    log("sectionnn: ${section}");
+                    controller.scrollToSection(section);},
                   child: Card(
-                    color: Colors.teal,
+                    color: AppColors.primary,
                     elevation: 4,
                     child: Center(
                       child: Text(
-                        section,
-                        style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                        bnTitle,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -41,7 +51,6 @@ class QuickJumpSections extends GetWidget<QuickJumpSectionController> {
               },
             ),
           ),
-      
         ],
       ),
     );
