@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ramadan_tracker/app/common/storage/storage_controller.dart';
 import 'package:ramadan_tracker/app/common/utils/ramadan_utils.dart';
@@ -21,7 +22,7 @@ class DashboardView extends GetView<DashboardController> {
             ? CircularProgressIndicator(
                 color: Colors.white,
               )
-            : Text("রমাদ্বন ট্রাকার [${controller.totalPoints.value} pts]",
+            : Text("${controller.totalPoints.value} pts",
                 style: TextStyle(fontSize: 16, color: Colors.white))),
         backgroundColor: AppColors.primary, // Change to your primary color
         centerTitle: true,
@@ -37,28 +38,60 @@ class DashboardView extends GetView<DashboardController> {
             )),
         actions: <Widget>[
           // In your settings screen/widget
-// GetBuilder<LanguageController>(
-//   builder: (controller) {
-//     return Column(
-//       children: [
-//         ListTile(
-//           title: Text('English'.tr),
-//           trailing: controller.currentLanguage == 'en'
-//               ? Icon(Icons.check)
-//               : null,
-//           onTap: () => controller.changeLanguage('en', 'US'),
-//         ),
-//         ListTile(
-//           title: Text('বাংলা'.tr),
-//           trailing: controller.currentLanguage == 'bn'
-//               ? Icon(Icons.check)
-//               : null,
-//           onTap: () => controller.changeLanguage('bn', 'BD'),
-//         ),
-//       ],
-//     );
-//   }
-// ),
+          GetBuilder<LanguageController>(
+            builder: (controller) {
+              return DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  value: controller.appLocale?.languageCode ?? 'en',
+                  // icon: Icon(Icons.language, color: Colors.white),
+                  // isExpanded: true,
+                  dropdownColor: AppColors.primary,
+                  borderRadius: BorderRadius.circular(12),
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  onChanged: (String? newValue) {
+                    if (newValue != null) {
+                      controller.changeLanguage(
+                        newValue,
+                        newValue == 'bn' ? 'BD' : 'US',
+                      );
+                    }
+                  },
+                  items: [
+                    DropdownMenuItem(
+                      value: 'en',
+                      child: Row(
+                        children: [
+                          Text('🇺🇸'), // Optional flag icon
+                          SizedBox(width: 5.w),
+                          Text(
+                            'English',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 11.sp),
+                          ),
+                        ],
+                      ),
+                    ),
+                    DropdownMenuItem(
+
+                      value: 'bn',
+                      child: Row(
+                        children: [
+                          Text('🇧🇩'), // Optional flag icon
+                          SizedBox(width: 5.w),
+                          Text('বাংলা', style:
+                                TextStyle(color: Colors.white, fontSize: 11.sp),),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
           PopupMenuButton(
             color: Colors.white,
             icon: Icon(
@@ -69,20 +102,20 @@ class DashboardView extends GetView<DashboardController> {
             itemBuilder: (BuildContext context) {
               return [
                 // Language Selection Items
-                PopupMenuItem(
-                  child: GetBuilder<LanguageController>(
-                    builder: (controller) {
-                      return Column(
-                        children: [
-                          _buildLanguageItem(context,
-                              languageCode: 'en', label: 'English'),
-                          _buildLanguageItem(context,
-                              languageCode: 'bn', label: 'বাংলা'),
-                        ],
-                      );
-                    },
-                  ),
-                ),
+                // PopupMenuItem(
+                //   child: GetBuilder<LanguageController>(
+                //     builder: (controller) {
+                //       return Column(
+                //         children: [
+                //           _buildLanguageItem(context,
+                //               languageCode: 'en', label: 'English'),
+                //           _buildLanguageItem(context,
+                //               languageCode: 'bn', label: 'বাংলা'),
+                //         ],
+                //       );
+                //     },
+                //   ),
+                // ),
                 PopupMenuItem(
                   child: InkWell(
                     onTap: () async {
