@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../modules/borjoniyo/models/borjoniyo_model.dart';
 import '../../modules/dashboard/models/user_model.dart';
+import '../../modules/koroniyo/models/koroniyo_model.dart';
 import '../../modules/login/models/login_request_model.dart'
     show LoginRequestModel;
 import '../../modules/login/models/login_response_model.dart';
@@ -33,6 +34,6 @@ abstract class ApiHelper {
   Future<Either<CustomError, Map<String, dynamic>>> fetchCurrentUserPoints();
   Future<Either<CustomError, Map<String, dynamic>>>
       fetchCurrentUserRankAndPoints(String userId);
-  Future<Either<CustomError, List<dynamic>>> fetchKoroniyo();
+  Future<Either<CustomError, List<KoroniyoModel>>> fetchKoroniyo();
    Future<Either<CustomError, List<BorjoniyoModel>>> fetchBorjoniyo();
 }

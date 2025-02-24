@@ -5,6 +5,8 @@ import '../../modules/borjoniyo/view/borjoniyo_view.dart';
 import '../../modules/dashboard/binding/dashboard_binding.dart';
 import '../../modules/dashboard/view/dashboard_view.dart';
 import '../../modules/dashboard/widgets/leaderboard_widget.dart';
+import '../../modules/koroniyo/binding/koroniyo_binding.dart';
+import '../../modules/koroniyo/view/koroniyo_view.dart';
 import '../../modules/login/binding/login_binding.dart';
 import '../../modules/login/view/login_view.dart';
 import '../../modules/main/binding/main_view_binding.dart';
@@ -27,6 +29,7 @@ class Routes {
   static const tasks = '/tasks';
   static const ramadanPlanner = '/ramadan-planner';
   static const borjoniyo = '/borjoniyo';
+  static const koroniyo = '/koroniyo';
 
   // Dynamic route generator for single task
   // static String singleTask(String id) => '/task/$id';
@@ -73,6 +76,11 @@ class AppPages {
       name: Routes.borjoniyo,
       page: () => BorjoniyoView(),
       binding: BorjoniyoBinding(),
+    ),
+        GetPage(
+      name: Routes.koroniyo,
+      page: () => KoroniyoView(),
+      binding:KoroniyoBinding(),
     ),
   ];
 }

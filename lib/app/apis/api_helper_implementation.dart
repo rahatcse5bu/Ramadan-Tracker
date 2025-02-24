@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:get/get_connect/connect.dart';
 import '../../modules/borjoniyo/models/borjoniyo_model.dart';
 import '../../modules/dashboard/models/user_model.dart';
+import '../../modules/koroniyo/models/koroniyo_model.dart';
 import '../../modules/login/models/login_request_model.dart';
 import '../../modules/login/models/login_response_model.dart';
 import '../../modules/register/models/register_model.dart';
@@ -288,7 +289,7 @@ class ApiHelperImpl extends GetConnect implements ApiHelper {
 
   /// **Fetch Koroniyo List**
   @override
-  Future<Either<CustomError, List<dynamic>>> fetchKoroniyo() async {
+  Future<Either<CustomError, List<KoroniyoModel>>> fetchKoroniyo() async {
     final response = await get('koroniyos');
 
     if (response.statusCode == 200 && response.body['success'] == true) {
