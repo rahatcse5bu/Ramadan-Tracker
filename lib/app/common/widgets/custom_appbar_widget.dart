@@ -26,8 +26,9 @@ class CustomAppBar {
     String? profilePicture,
     VoidCallback? onLeadingPressed,
   }) {
-    final AppController appController = Utils.getAppController();
-    final DashboardController dashboardController = DashboardController();
+    // final AppController appController = Utils.getAppController();
+    final DashboardController dashboardController = Get.find();
+    final LanguageController languageController = Get.find();
 
     return AppBar(
       scrolledUnderElevation: 0,

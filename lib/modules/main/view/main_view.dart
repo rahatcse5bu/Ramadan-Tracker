@@ -3,17 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../app/common/controller/nav_controller.dart';
+import '../../../app/common/widgets/custom_appbar_widget.dart';
 import '../../../app/constants/app_color.dart';
 import '../../../app/translation/translation_keys.dart';
+import '../../dashboard/controller/dashboard_controller.dart';
 import '../../dashboard/view/dashboard_view.dart';
 import '../../dashboard/widgets/leaderboard_widget.dart';
 
 class MainView extends StatelessWidget {
   final NavController controller = Get.put(NavController());
+  final DashboardController dashboardController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar.appBar(title: ''),
       body: Obx(() {
         switch (controller.currentIndex.value) {
           case 0:

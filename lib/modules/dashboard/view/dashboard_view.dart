@@ -18,143 +18,143 @@ class DashboardView extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Obx(() => controller.isLoading.value
-            ? CupertinoActivityIndicator(color: AppColors.primary,)
-            : Text("${controller.totalPoints.value} pts",
-                style: TextStyle(fontSize: 16, color: Colors.white))),
-        backgroundColor: AppColors.primary, // Change to your primary color
-        centerTitle: true,
-        leadingWidth: 105,
-        leading: Obx(() => controller.isLoading.value
-            ? CupertinoActivityIndicator(color: AppColors.primary,)
-            : Center(
-              child: Container(
-                  padding: EdgeInsets.only(left: 0),
-                  // width: 800,
-                  child: Text(
-                    "${TranslationKeys.rank.tr}:${controller.userRank.value}",
-                    style: TextStyle(fontSize: 16, color: Colors.white),
-                  )),
-            )),
-        actions: <Widget>[
-          // In your settings screen/widget
-          GetBuilder<LanguageController>(
-            builder: (controller) {
-              return DropdownButtonHideUnderline(
+//       appBar: AppBar(
+//         title: Obx(() => controller.isLoading.value
+//             ? CupertinoActivityIndicator(color: AppColors.primary,)
+//             : Text("${controller.totalPoints.value} pts",
+//                 style: TextStyle(fontSize: 16, color: Colors.white))),
+//         backgroundColor: AppColors.primary, // Change to your primary color
+//         centerTitle: true,
+//         leadingWidth: 105,
+//         leading: Obx(() => controller.isLoading.value
+//             ? CupertinoActivityIndicator(color: AppColors.primary,)
+//             : Center(
+//               child: Container(
+//                   padding: EdgeInsets.only(left: 0),
+//                   // width: 800,
+//                   child: Text(
+//                     "${TranslationKeys.rank.tr}:${controller.userRank.value}",
+//                     style: TextStyle(fontSize: 16, color: Colors.white),
+//                   )),
+//             )),
+//         actions: <Widget>[
+//           // In your settings screen/widget
+//           GetBuilder<LanguageController>(
+//             builder: (controller) {
+//               return DropdownButtonHideUnderline(
 
-                child: DropdownButton<String>(
+//                 child: DropdownButton<String>(
 
-                  value: controller.appLocale?.languageCode ?? 'en',
-                  // icon: Icon(Icons.language, color: Colors.white),
-                  // isExpanded: true,
-                  dropdownColor: AppColors.primary,
+//                   value: controller.appLocale?.languageCode ?? 'en',
+//                   // icon: Icon(Icons.language, color: Colors.white),
+//                   // isExpanded: true,
+//                   dropdownColor: AppColors.primary,
 
-                  borderRadius: BorderRadius.circular(12),
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  onChanged: (String? newValue) {
-                    if (newValue != null) {
-                      controller.changeLanguage(
-                        newValue,
-                        newValue == 'bn' ? 'BD' : 'US',
-                      );
-                    }
-                  },
-                  items: [
-                    DropdownMenuItem(
-                      value: 'en',
-                      child: Row(
-                        children: [
-                          Text('🇺🇸'), // Optional flag icon
-                          SizedBox(width: 5.w),
-                          Text(
-                            'English',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 11.sp),
-                          ),
-                        ],
-                      ),
-                    ),
-                    DropdownMenuItem(
+//                   borderRadius: BorderRadius.circular(12),
+//                   style: TextStyle(
+//                     fontSize: 12.sp,
+//                     color: Colors.black,
+//                     fontWeight: FontWeight.w500,
+//                   ),
+//                   onChanged: (String? newValue) {
+//                     if (newValue != null) {
+//                       controller.changeLanguage(
+//                         newValue,
+//                         newValue == 'bn' ? 'BD' : 'US',
+//                       );
+//                     }
+//                   },
+//                   items: [
+//                     DropdownMenuItem(
+//                       value: 'en',
+//                       child: Row(
+//                         children: [
+//                           Text('🇺🇸'), // Optional flag icon
+//                           SizedBox(width: 5.w),
+//                           Text(
+//                             'English',
+//                             style:
+//                                 TextStyle(color: Colors.white, fontSize: 11.sp),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                     DropdownMenuItem(
 
-                      value: 'bn',
-                      child: Row(
-                        children: [
-                          Text('🇧🇩'), // Optional flag icon
-                          SizedBox(width: 5.w),
-                          Text('বাংলা', style:
-                                TextStyle(color: Colors.white, fontSize: 11.sp),),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-          PopupMenuButton(
-            color: Colors.white,
-            icon: Icon(
-              Icons.more_vert,
-              color: Colors
-                  .white, // Change the color of the vertical three dots here
-            ),
-            itemBuilder: (BuildContext context) {
-              return [
-                // Language Selection Items
-                // PopupMenuItem(
-                //   child: GetBuilder<LanguageController>(
-                //     builder: (controller) {
-                //       return Column(
-                //         children: [
-                //           _buildLanguageItem(context,
-                //               languageCode: 'en', label: 'English'),
-                //           _buildLanguageItem(context,
-                //               languageCode: 'bn', label: 'বাংলা'),
-                //         ],
-                //       );
-                //     },
-                //   ),
-                // ),
-                PopupMenuItem(
-                  child: InkWell(
-                    onTap: () async {
-// Ensure the LocalStorage is ready before setting items
+//                       value: 'bn',
+//                       child: Row(
+//                         children: [
+//                           Text('🇧🇩'), // Optional flag icon
+//                           SizedBox(width: 5.w),
+//                           Text('বাংলা', style:
+//                                 TextStyle(color: Colors.white, fontSize: 11.sp),),
+//                         ],
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               );
+//             },
+//           ),
+//           PopupMenuButton(
+//             color: Colors.white,
+//             icon: Icon(
+//               Icons.more_vert,
+//               color: Colors
+//                   .white, // Change the color of the vertical three dots here
+//             ),
+//             itemBuilder: (BuildContext context) {
+//               return [
+//                 // Language Selection Items
+//                 // PopupMenuItem(
+//                 //   child: GetBuilder<LanguageController>(
+//                 //     builder: (controller) {
+//                 //       return Column(
+//                 //         children: [
+//                 //           _buildLanguageItem(context,
+//                 //               languageCode: 'en', label: 'English'),
+//                 //           _buildLanguageItem(context,
+//                 //               languageCode: 'bn', label: 'বাংলা'),
+//                 //         ],
+//                 //       );
+//                 //     },
+//                 //   ),
+//                 // ),
+//                 PopupMenuItem(
+//                   child: InkWell(
+//                     onTap: () async {
+// // Ensure the LocalStorage is ready before setting items
 
-                      StorageHelper.removeToken();
-                      StorageHelper.removeFullName();
-                      StorageHelper.removeUserData();
-                      StorageHelper.removeUserId();
-                      StorageHelper.removeUserName();
+//                       StorageHelper.removeToken();
+//                       StorageHelper.removeFullName();
+//                       StorageHelper.removeUserData();
+//                       StorageHelper.removeUserId();
+//                       StorageHelper.removeUserName();
 
-                      // Redirect to login page
-                      Get.toNamed(Routes.login);
-                    },
-                    child: Column(
-                      children: [
-                        Text(controller.username.value),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Icon(
-                          Icons.logout,
-                          color: Colors.white,
-                        ),
-                        SizedBox(width: 10),
-                        Text('Logout'),
-                      ],
-                    ),
-                  ),
-                ),
-              ];
-            },
-          ),
-        ],
-      ),
+//                       // Redirect to login page
+//                       Get.toNamed(Routes.login);
+//                     },
+//                     child: Column(
+//                       children: [
+//                         Text(controller.username.value),
+//                         SizedBox(
+//                           width: 10,
+//                         ),
+//                         Icon(
+//                           Icons.logout,
+//                           color: Colors.white,
+//                         ),
+//                         SizedBox(width: 10),
+//                         Text('Logout'),
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//               ];
+//             },
+//           ),
+//         ],
+//       ),
       body: SingleChildScrollView( 
         child: Obx(
           () => Column(
