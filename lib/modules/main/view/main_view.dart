@@ -23,7 +23,7 @@ class MainView extends StatelessWidget {
           case 0:
             return DashboardView();
           case 1:
-            return LeaderboardWidget();
+            return LeaderboardWidget(isLeaderboardPage: true,);
           case 2:
             // return DuasScreen();
           default:

@@ -10,6 +10,8 @@ import '../../../app/translation/translation_keys.dart';
 import '../controller/dashboard_controller.dart';
 
 class LeaderboardWidget extends GetView<UserPointsController> {
+  final bool? isLeaderboardPage;
+  LeaderboardWidget({super.key, this.isLeaderboardPage});
   final DashboardController _dashboardController = Get.find();
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class LeaderboardWidget extends GetView<UserPointsController> {
           child: ExpansionTile(
             collapsedBackgroundColor: Colors.white,
             collapsedIconColor: Colors.white,
-            backgroundColor:Colors.white,
+            backgroundColor: Colors.white,
             iconColor: Colors.white,
             title: Container(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -45,7 +47,7 @@ class LeaderboardWidget extends GetView<UserPointsController> {
             )),
             trailing: Icon(Icons.arrow_drop_down_circle,
                 color: AppColors.primary, size: 30),
-
+            initiallyExpanded: isLeaderboardPage == true,
             children: [
               _dashboardController.isLoading.value
                   ? SizedBox(
