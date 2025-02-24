@@ -1,5 +1,6 @@
 // 4. Implement in View
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../app/common/controller/nav_controller.dart';
@@ -23,18 +24,31 @@ class MainView extends StatelessWidget {
           case 0:
             return DashboardView();
           case 1:
-            return LeaderboardWidget(isLeaderboardPage: true,);
+            return LeaderboardWidget(
+              isLeaderboardPage: true,
+            );
           case 2:
-            // return DuasScreen();
+            return Wrap();
+
           default:
             return DashboardView();
         }
       }),
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
+          // iconSize: 16.sp,
+          // unselectedLabelStyle: TextStyle(fontSize: 11.sp),
           backgroundColor: Colors.white,
           currentIndex: controller.currentIndex.value,
-          onTap: controller.changeTab,
+          showSelectedLabels: true,
+          // onTap: controller.changeTab,
+          onTap: (index) {
+            if (index == 2) {
+              _openMoreBottomSheet();
+            } else {
+              controller.changeTab(index);
+            }
+          },
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
@@ -45,8 +59,8 @@ class MainView extends StatelessWidget {
               label: TranslationKeys.leaderBoard.tr,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.book),
-              label: TranslationKeys.duas.tr,
+              icon: Icon(Icons.more_horiz),
+              label: TranslationKeys.more.tr,
             ),
           ],
           selectedItemColor: AppColors.primary,
@@ -54,5 +68,69 @@ class MainView extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+void _openMoreBottomSheet() {
+  Get.bottomSheet(
+    Container(
+      padding: EdgeInsets.all(16), // ✅ Add padding for better UX
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      child: Wrap( // ✅ Auto-wrap if items exceed screen width
+        spacing: 8.w, // ✅ Horizontal spacing
+        runSpacing: 8.h, // ✅ Vertical spacing
+        alignment: WrapAlignment.center, // ✅ Center items
+        children: [
+          _buildBottomSheetItem(
+              TranslationKeys.koroniyo.tr, Icons.check_circle),
+          _buildBottomSheetItem(TranslationKeys.borjoniyo.tr, Icons.cancel),
+          _buildBottomSheetItem(TranslationKeys.duas.tr, Icons.book),
+        ],
+      ),
+    ),
+    enableDrag: true,
+  );
+}
+
+/// **Build Bottom Sheet Item**
+Widget _buildBottomSheetItem(String title, IconData icon) {
+  return GestureDetector(
+    onTap: () {
+      Get.back(); // ✅ Close bottom sheet before navigating
+      _navigateTo(title); // ✅ Navigate based on title
+    },
+    child: Column(
+      children: [
+        Card( // ✅ Use Card for better UI
+          elevation: 4,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Icon(icon, color: AppColors.primary),
+                SizedBox(width: 8.w),
+                Text(title, style: TextStyle(fontSize: 16)),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+/// **Handle Navigation Based on Title**
+void _navigateTo(String title) {
+  if (title == TranslationKeys.koroniyo.tr) {
+    Get.toNamed('/koroniyo');
+  } else if (title == TranslationKeys.borjoniyo.tr) {
+    Get.toNamed('/borjoniyo');
+  } else if (title == TranslationKeys.duas.tr) {
+    Get.toNamed('/duas');
   }
 }

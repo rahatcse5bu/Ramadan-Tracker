@@ -25,6 +25,9 @@ class TranslationKeys {
 
     static const String home = 'home';
   static const String duas = 'duas';
+  static const String more = 'more';
+    static const String koroniyo = 'koroniyo';
+  static const String borjoniyo = 'borjoniyo';
 }
 
 // lib/app/translations/bn_BD/bn_bd_translations.dart
@@ -52,6 +55,9 @@ final Map<String, String> bnBd = {
 
   TranslationKeys.home: 'হোম',
   TranslationKeys.duas: 'দোয়া',
+  TranslationKeys.more: 'আরও',
+    TranslationKeys.koroniyo: 'করনীয়',
+  TranslationKeys.borjoniyo: 'বর্জনীয়',
 };
 
 // lib/app/translations/en_US/en_us_translations.dart
@@ -79,4 +85,7 @@ final Map<String, String> enUs = {
 
   TranslationKeys.home: 'Home',
   TranslationKeys.duas: 'Duas',
+  TranslationKeys.more: 'More',
+    TranslationKeys.koroniyo: 'Koroniyo',
+  TranslationKeys.borjoniyo: 'Borjoniyo',
 };
