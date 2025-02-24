@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:get/get_connect/connect.dart';
+import '../../modules/borjoniyo/models/borjoniyo_model.dart';
 import '../../modules/dashboard/models/user_model.dart';
 import '../../modules/login/models/login_request_model.dart';
 import '../../modules/login/models/login_response_model.dart';
@@ -302,11 +303,14 @@ class ApiHelperImpl extends GetConnect implements ApiHelper {
 
   /// **Fetch Borjoniyo List**
   @override
-  Future<Either<CustomError, List<dynamic>>> fetchBorjoniyo() async {
+  Future<Either<CustomError, List<BorjoniyoModel>>> fetchBorjoniyo() async {
     final response = await get('borjoniyos');
 
     if (response.statusCode == 200 && response.body['success'] == true) {
-      return Right(response.body['data']); // ✅ Return data list
+      final List<dynamic> data = response.body['data'];
+      final List<BorjoniyoModel> borjoniyoList =
+          data.map((item) => BorjoniyoModel.fromJson(item)).toList();
+      return Right(borjoniyoList);
     } else {
       return Left(CustomError(
         response.statusCode ?? 500,

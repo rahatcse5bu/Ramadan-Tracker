@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../../modules/borjoniyo/binding/borjoniyo_binding.dart';
+import '../../modules/borjoniyo/view/borjoniyo_view.dart';
 import '../../modules/dashboard/binding/dashboard_binding.dart';
 import '../../modules/dashboard/view/dashboard_view.dart';
 import '../../modules/dashboard/widgets/leaderboard_widget.dart';
@@ -24,6 +26,7 @@ class Routes {
   static const leaderboard = '/leaderboard';
   static const tasks = '/tasks';
   static const ramadanPlanner = '/ramadan-planner';
+  static const borjoniyo = '/borjoniyo';
 
   // Dynamic route generator for single task
   // static String singleTask(String id) => '/task/$id';
@@ -65,6 +68,11 @@ class AppPages {
       name: Routes.leaderboard,
       page: () => LeaderboardWidget(), // Main view with nav bar
       bindings: [RamadanPlannerBinding(),DashboardBinding() ],
+    ),
+        GetPage(
+      name: Routes.borjoniyo,
+      page: () => BorjoniyoView(),
+      binding: BorjoniyoBinding(),
     ),
   ];
 }

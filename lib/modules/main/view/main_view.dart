@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../../app/common/controller/nav_controller.dart';
 import '../../../app/common/widgets/custom_appbar_widget.dart';
 import '../../../app/constants/app_color.dart';
+import '../../../app/routes/app_pages.dart';
 import '../../../app/translation/translation_keys.dart';
 import '../../dashboard/controller/dashboard_controller.dart';
 import '../../dashboard/view/dashboard_view.dart';
@@ -129,7 +130,7 @@ void _navigateTo(String title) {
   if (title == TranslationKeys.koroniyo.tr) {
     Get.toNamed('/koroniyo');
   } else if (title == TranslationKeys.borjoniyo.tr) {
-    Get.toNamed('/borjoniyo');
+    Get.toNamed(Routes.borjoniyo);
   } else if (title == TranslationKeys.duas.tr) {
     Get.toNamed('/duas');
   }

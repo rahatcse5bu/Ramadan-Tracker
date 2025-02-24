@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 
+import '../../modules/borjoniyo/models/borjoniyo_model.dart';
 import '../../modules/dashboard/models/user_model.dart';
 import '../../modules/login/models/login_request_model.dart'
     show LoginRequestModel;
@@ -33,5 +34,5 @@ abstract class ApiHelper {
   Future<Either<CustomError, Map<String, dynamic>>>
       fetchCurrentUserRankAndPoints(String userId);
   Future<Either<CustomError, List<dynamic>>> fetchKoroniyo();
-  Future<Either<CustomError, List<dynamic>>> fetchBorjoniyo();
+   Future<Either<CustomError, List<BorjoniyoModel>>> fetchBorjoniyo();
 }
