@@ -238,14 +238,16 @@ class ApiHelperImpl extends GetConnect implements ApiHelper {
   //   }
   // }
   /// Fetch all users and determine the current user's rank and points
-    @override
-  Future<Either<CustomError, Map<String, dynamic>>> fetchCurrentUserRankAndPoints(String userId) async {
+  @override
+  Future<Either<CustomError, Map<String, dynamic>>>
+      fetchCurrentUserRankAndPoints(String userId) async {
     final response = await get('users');
     if (response.statusCode == 200 && response.body['success'] == true) {
       final List<dynamic> userList = response.body['data'];
 
       // Sort users by total points in descending order
-      userList.sort((a, b) => (b["totalPoints"] ?? 0).compareTo(a["totalPoints"] ?? 0));
+      userList.sort(
+          (a, b) => (b["totalPoints"] ?? 0).compareTo(a["totalPoints"] ?? 0));
 
       // Find current user's rank and points
       int rank = 0;
@@ -261,9 +263,11 @@ class ApiHelperImpl extends GetConnect implements ApiHelper {
       return Right({"rank": rank, "totalPoints": points});
     } else {
       return Left(CustomError(response.statusCode ?? 500,
-          message: response.statusText ?? 'Failed to fetch user rank and points'));
+          message:
+              response.statusText ?? 'Failed to fetch user rank and points'));
     }
   }
+
   @override
   Future<Either<CustomError, Map<String, dynamic>>>
       fetchCurrentUserPoints() async {
@@ -278,6 +282,36 @@ class ApiHelperImpl extends GetConnect implements ApiHelper {
           message: response.body ?? "Failed to fetch user points"));
     } catch (e) {
       return Left(CustomError(500, message: e.toString()));
+    }
+  }
+
+  /// **Fetch Koroniyo List**
+  @override
+  Future<Either<CustomError, List<dynamic>>> fetchKoroniyo() async {
+    final response = await get('koroniyos');
+
+    if (response.statusCode == 200 && response.body['success'] == true) {
+      return Right(response.body['data']); // ✅ Return data list
+    } else {
+      return Left(CustomError(
+        response.statusCode ?? 500,
+        message: response.statusText ?? 'Failed to load Koroniyo',
+      ));
+    }
+  }
+
+  /// **Fetch Borjoniyo List**
+  @override
+  Future<Either<CustomError, List<dynamic>>> fetchBorjoniyo() async {
+    final response = await get('borjoniyos');
+
+    if (response.statusCode == 200 && response.body['success'] == true) {
+      return Right(response.body['data']); // ✅ Return data list
+    } else {
+      return Left(CustomError(
+        response.statusCode ?? 500,
+        message: response.statusText ?? 'Failed to load Borjoniyo',
+      ));
     }
   }
 }
