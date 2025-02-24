@@ -7,22 +7,20 @@ class BorjoniyoView extends GetView<BorjoniyoController> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: ListView.builder(itemBuilder: (context, index) {
-              String borjoniyoText = controller.borjoniyoList[index].text;
-            
-               Card(
-                elevation: 3.5,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: ListTile(
-                  leading: Icon(Icons.close),
-                  title: Text(borjoniyoText), // Assuming 'text' is the key for the text you want to display
-                ),
-              );}
-            )));
+    return Center(child: ListView.builder(itemCount:controller.borjoniyoList.length , itemBuilder: (context, index) {
+      String borjoniyoText = controller.borjoniyoList[index].text;
+
+      return Card(
+        elevation: 3.5,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: ListTile(
+          leading: Icon(Icons.close),
+          title: Text(
+              borjoniyoText), // Assuming 'text' is the key for the text you want to display
+        ),
+      );
+    }));
   }
 }
