@@ -170,7 +170,8 @@ class DashboardView extends GetView<DashboardController> {
                   type: 'ajker_hadith'),
               QuoteWidget(
                   title: "সালাফদের বক্তব্য",
-                  text: controller.ajkerSalafQuote.value,
+                  // text: controller.ajkerSalafQuote.value,
+                  text: controller.salafQuotes.first.enText,
                   type: 'salaf_quote'),
               // Text("${TranslationKeys.selectedVerses.tr}"),
               RamadanDaysList(),

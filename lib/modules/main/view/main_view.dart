@@ -128,7 +128,7 @@ Widget _buildBottomSheetItem(String title, IconData icon) {
 /// **Handle Navigation Based on Title**
 void _navigateTo(String title) {
   if (title == TranslationKeys.koroniyo.tr) {
-    Get.toNamed('/koroniyo');
+    Get.toNamed(Routes.koroniyo);
   } else if (title == TranslationKeys.borjoniyo.tr) {
     Get.toNamed(Routes.borjoniyo);
   } else if (title == TranslationKeys.duas.tr) {

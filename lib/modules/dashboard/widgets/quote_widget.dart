@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 
 import '../../../app/constants/app_color.dart';
+import '../../../app/translation/language_controller.dart';
 import '../../../app/translation/translation_keys.dart';
 import '../controller/dashboard_controller.dart';
 
@@ -17,13 +18,17 @@ class QuoteWidget extends GetWidget<DashboardController> {
 
   // Getter to return the proper text based on type
   String get displayText {
+      final languageCode = Get.find<LanguageController>().appLocale?.languageCode ?? 'en';
+
     switch (type) {
       case 'ajker_ayat':
         return controller.ajkerAyat.value;
       case 'ajker_hadith':
         return controller.ajkerHadith.value;
       case 'salaf_quote':
-        return controller.ajkerSalafQuote.value;
+        return  languageCode == 'bn' 
+          ? controller.salafQuotes.first.bnText 
+          : controller.salafQuotes.first.enText;
       default:
         return text;
     }

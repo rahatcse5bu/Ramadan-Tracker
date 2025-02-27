@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 import '../../../app/apis/api_helper.dart';
+import '../../../app/common/models/salaf_quotes_model.dart';
 import '../../../app/common/storage/storage_controller.dart';
 import '../../../app/common/utils/ramadan_utils.dart';
 import '../models/user_model.dart';
@@ -19,6 +20,8 @@ class DashboardController extends GetxController {
   var ajkerAyat = ''.obs;
   var ajkerHadith = ''.obs;
   var ajkerSalafQuote = ''.obs;
+  var salafQuotes = <SalafQuoteModel>[].obs;
+
   var current_month = HijriCalendar.now().getLongMonthName();
   var current_date = HijriCalendar.now().hDay;
   // final _random = new Random();
@@ -56,9 +59,10 @@ username.value=await Utils. getUserName()??'';
   }
 
   Future<void> fetchAjkerSalafQuote() async {
-    final result = await _apiHelper.fetchAjkerSalafQuote();
-    result.fold((error) => null, (quote) => ajkerSalafQuote.value = quote);
-    log("ajker ayat: " + ajkerSalafQuote.value);
+    final result = await _apiHelper.fetchSalafQuotes();
+    result.fold((error) => null, (quote) => salafQuotes.value = quote);
+    log("ajker ayat: " + salafQuotes.first.bnText);
+    log("ajker ayat: " + salafQuotes.first.enText);
   }
 
   Future<void> fetchUsers() async {

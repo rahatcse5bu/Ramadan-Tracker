@@ -8,6 +8,7 @@ import '../../modules/koroniyo/models/koroniyo_model.dart';
 import '../../modules/login/models/login_request_model.dart';
 import '../../modules/login/models/login_response_model.dart';
 import '../../modules/register/models/register_model.dart';
+import '../common/models/salaf_quotes_model.dart';
 import '../common/storage/storage_controller.dart' show StorageHelper;
 import '../constants/app_config.dart';
 import 'api_helper.dart';
@@ -104,6 +105,23 @@ class ApiHelperImpl extends GetConnect implements ApiHelper {
           message: response.statusText ?? 'Failed to fetch Salaf Quote'));
     }
   }
+@override
+Future<Either<CustomError, List<SalafQuoteModel>>> fetchSalafQuotes() async {
+  final response = await get('salafquotes');
+
+  if (response.statusCode == 200 && response.body['success'] == true) {
+    final List<dynamic> quotesData = response.body['data'];
+
+    // Convert JSON data into a list of `SalafQuoteModel`
+    List<SalafQuoteModel> salafQuotes =
+        quotesData.map((quote) => SalafQuoteModel.fromJson(quote)).toList();
+
+    return Right(salafQuotes);
+  } else {
+    return Left(CustomError(response.statusCode ?? 500,
+        message: response.statusText ?? 'Failed to fetch Salaf Quotes'));
+  }
+}
 
   @override
   Future<Either<CustomError, Map<String, dynamic>>> fetchAjkerDua() async {

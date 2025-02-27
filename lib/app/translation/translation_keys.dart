@@ -28,6 +28,8 @@ class TranslationKeys {
   static const String more = 'more';
     static const String koroniyo = 'koroniyo';
   static const String borjoniyo = 'borjoniyo';
+  static const String ramadaneBorjoniyo = 'ramadaneBorjoniyo';
+  static const String ramadaneKoroniyo = 'ramadaneKoroniyo';
 }
 
 // lib/app/translations/bn_BD/bn_bd_translations.dart
@@ -56,8 +58,11 @@ final Map<String, String> bnBd = {
   TranslationKeys.home: 'হোম',
   TranslationKeys.duas: 'দোয়া',
   TranslationKeys.more: 'আরও',
-    TranslationKeys.koroniyo: 'করনীয়',
+    TranslationKeys.koroniyo: 'করণীয়',
   TranslationKeys.borjoniyo: 'বর্জনীয়',
+  TranslationKeys.ramadaneBorjoniyo: 'রমাদ্বনে বর্জনীয়',
+  TranslationKeys.ramadaneKoroniyo: 'রমাদ্বনে করণীয়',
+  
 };
 
 // lib/app/translations/en_US/en_us_translations.dart
@@ -88,4 +93,6 @@ final Map<String, String> enUs = {
   TranslationKeys.more: 'More',
     TranslationKeys.koroniyo: 'Koroniyo',
   TranslationKeys.borjoniyo: 'Borjoniyo',
+   TranslationKeys.ramadaneBorjoniyo: 'Restricted For Ramadan',
+   TranslationKeys.ramadaneKoroniyo: 'Admirable For Ramadan',
 };
