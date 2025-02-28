@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
+import 'package:ramadan_tracker/modules/dus-list/models/dua_model.dart';
 
 import '../../modules/borjoniyo/models/borjoniyo_model.dart';
 import '../../modules/dashboard/models/user_model.dart';
@@ -26,6 +27,7 @@ Future<Either<CustomError, List<AjkerHadithModel>>> fetchAjkerHadith();
   Future<Either<CustomError, String>> fetchAjkerSalafQuote();
   Future<Either<CustomError, List<SalafQuoteModel>>> fetchSalafQuotes();
   Future<Either<CustomError, Map<String, dynamic>>> fetchAjkerDua();
+    Future<Either<CustomError, List<DuaModel>>> fetchDua();
   Future<Either<CustomError, String>> addInputValueForUser(
       int ramadanDay, String value);
   Future<Either<CustomError, String>> updateUserTrackingOption(

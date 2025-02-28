@@ -5,6 +5,8 @@ import '../../modules/borjoniyo/view/borjoniyo_view.dart';
 import '../../modules/dashboard/binding/dashboard_binding.dart';
 import '../../modules/dashboard/view/dashboard_view.dart';
 import '../../modules/dashboard/widgets/leaderboard_widget.dart';
+import '../../modules/dus-list/binding/dua_binding.dart';
+import '../../modules/dus-list/view/dua_view.dart';
 import '../../modules/koroniyo/binding/koroniyo_binding.dart';
 import '../../modules/koroniyo/view/koroniyo_view.dart';
 import '../../modules/login/binding/login_binding.dart';
@@ -30,6 +32,7 @@ class Routes {
   static const ramadanPlanner = '/ramadan-planner';
   static const borjoniyo = '/borjoniyo';
   static const koroniyo = '/koroniyo';
+  static const duaList = '/duaList';
 
   // Dynamic route generator for single task
   // static String singleTask(String id) => '/task/$id';
@@ -82,5 +85,11 @@ class AppPages {
       page: () => KoroniyoView(),
       binding:KoroniyoBinding(),
     ),
+    GetPage(
+  name: Routes.duaList,
+  page: () => const DuaView(),
+  binding: DuaBinding(),
+),
+
   ];
 }

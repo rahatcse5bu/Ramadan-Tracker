@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:get/get_connect/connect.dart';
+import 'package:ramadan_tracker/modules/dus-list/models/dua_model.dart';
 import '../../modules/borjoniyo/models/borjoniyo_model.dart';
 import '../../modules/dashboard/models/user_model.dart';
 import '../../modules/koroniyo/models/koroniyo_model.dart';
@@ -162,7 +163,23 @@ Future<Either<CustomError, List<SalafQuoteModel>>> fetchSalafQuotes() async {
           message: response.statusText ?? 'Failed to fetch Dua'));
     }
   }
+ Future<Either<CustomError, List<DuaModel>>> fetchDua() async {
+  final response = await get('ajkerduas');
 
+  if (response.statusCode == 200 && response.body['success'] == true) {
+    final List<dynamic> data = response.body['data'];
+
+    if (data.isNotEmpty) {
+      final duaList = data.map((json) => DuaModel.fromJson(json)).toList();
+      return Right(duaList);
+    } else {
+      return Left(CustomError(404, message: 'No Dua found for today'));
+    }
+  } else {
+    return Left(CustomError(response.statusCode ?? 500,
+        message: response.statusText ?? 'Failed to fetch Dua'));
+  }
+}
   @override
   Future<Either<CustomError, String>> addInputValueForUser(
       int ramadanDay, String value) async {

@@ -4,9 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../Credit.dart';
 import '../../../Tracking-Old.dart';
+import '../../../app/common/controller/nav_controller.dart';
 import '../../../app/constants/app_color.dart';
 import '../../../app/translation/language_controller.dart';
+import '../../../app/translation/translation_keys.dart';
 import '../../../widgets/Good_Afternoon_Todo.dart';
+import '../../main/controller/main_controller.dart';
 import '../controller/quick_jump_section_controller.dart';
 import '../controller/ramadan_planner_controller.dart';
 import 'package:expandable_text/expandable_text.dart';
@@ -19,7 +22,9 @@ import '../widgets/tracking_widget.dart';
 
 class RamadanPlannerView extends GetView<RamadanPlannerController> {
   final QuickJumpSectionController _quickjumpController = Get.find();
-  // final TrackingController _trackingController = Get.find();
+  final NavController navController = Get.put(NavController());
+  final MainController mainController = Get.put(MainController());
+
   
   @override
   Widget build(BuildContext context) {
@@ -421,6 +426,43 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                 )
               : SizedBox.shrink()), // Hide when not needed
         ],
+      ),
+          bottomNavigationBar: Obx(
+        () => BottomNavigationBar(
+          // iconSize: 16.sp,
+          // unselectedLabelStyle: TextStyle(fontSize: 11.sp),
+          backgroundColor: Colors.white,
+          currentIndex: navController.currentIndex.value,
+          showSelectedLabels: true,
+          // onTap: controller.changeTab,
+          onTap: (index) {
+            if (index == 1) {
+              mainController.openMoreBottomSheet();
+            } 
+            else if (index == 2) {
+              mainController.openMoreBottomSheet();
+            } 
+            else {
+              navController.changeTab(index);
+            }
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: TranslationKeys.home.tr,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.leaderboard),
+              label: TranslationKeys.leaderBoard.tr,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.more_horiz),
+              label: TranslationKeys.more.tr,
+            ),
+          ],
+          selectedItemColor: AppColors.primary,
+          unselectedItemColor: Colors.grey,
+        ),
       ),
     );
   }
