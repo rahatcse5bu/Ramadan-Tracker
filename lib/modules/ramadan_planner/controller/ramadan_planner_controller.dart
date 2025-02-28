@@ -10,13 +10,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ramadan_tracker/app/common/storage/storage_controller.dart';
 
 import '../../../app/apis/api_helper.dart';
+import '../../../app/common/models/hadith_model.dart';
 
 class RamadanPlannerController extends GetxController {
   // Storage and API calls can also be abstracted via an ApiHelper.
   final LocalStorage storage = LocalStorage('ramadan_tracker');
 
   // Observables for data
-  var ajkerHadith = ''.obs;
+  // var ajkerHadith = ''.obs;
+  var HadithList = <AjkerHadithModel >[].obs;
   var ajkerDuaTitle = ''.obs;
   var ajkerDuaBangla = ''.obs;
   var ajkerDuaArabic = ''.obs;
@@ -81,7 +83,7 @@ class RamadanPlannerController extends GetxController {
         // Optionally handle error here.
       },
       (hadithText) {
-        ajkerHadith.value = hadithText;
+        HadithList.value = hadithText;
         isLoadingHadith(false);
       },
     );

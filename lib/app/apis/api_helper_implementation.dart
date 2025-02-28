@@ -8,6 +8,7 @@ import '../../modules/koroniyo/models/koroniyo_model.dart';
 import '../../modules/login/models/login_request_model.dart';
 import '../../modules/login/models/login_response_model.dart';
 import '../../modules/register/models/register_model.dart';
+import '../common/models/hadith_model.dart';
 import '../common/models/salaf_quotes_model.dart';
 import '../common/storage/storage_controller.dart' show StorageHelper;
 import '../constants/app_config.dart';
@@ -84,16 +85,22 @@ class ApiHelperImpl extends GetConnect implements ApiHelper {
     }
   }
 
-  @override
-  Future<Either<CustomError, String>> fetchAjkerHadith() async {
-    final response = await get('ajkerhadiths');
-    if (response.statusCode == 200 && response.body['success'] == true) {
-      return Right(response.body['data'][0]['text']);
-    } else {
-      return Left(CustomError(response.statusCode ?? 500,
-          message: response.statusText ?? 'Failed to fetch Hadith'));
-    }
+@override
+Future<Either<CustomError, List<AjkerHadithModel>>> fetchAjkerHadith() async {
+  final response = await get('ajkerhadiths');
+  
+  if (response.statusCode == 200 && response.body['success'] == true) {
+    // Parse the JSON list and map to a model
+    List<AjkerHadithModel> hadithList = (response.body['data'] as List)
+        .map((json) => AjkerHadithModel.fromJson(json))
+        .toList();
+
+    return Right(hadithList);
+  } else {
+    return Left(CustomError(response.statusCode ?? 500,
+        message: response.statusText ?? 'Failed to fetch Hadith'));
   }
+}
 
   @override
   Future<Either<CustomError, String>> fetchAjkerSalafQuote() async {

@@ -5,11 +5,13 @@ import 'package:get/get.dart';
 import '../../../Credit.dart';
 import '../../../Tracking-Old.dart';
 import '../../../app/constants/app_color.dart';
+import '../../../app/translation/language_controller.dart';
 import '../../../widgets/Good_Afternoon_Todo.dart';
 import '../controller/quick_jump_section_controller.dart';
 import '../controller/ramadan_planner_controller.dart';
 import 'package:expandable_text/expandable_text.dart';
 
+import '../controller/tracking_controller.dart';
 import '../widgets/achievement_card_widget.dart';
 import '../widgets/asmaul_husna_widget.dart';
 import '../widgets/quick_jump_section_widget.dart';
@@ -17,6 +19,8 @@ import '../widgets/tracking_widget.dart';
 
 class RamadanPlannerView extends GetView<RamadanPlannerController> {
   final QuickJumpSectionController _quickjumpController = Get.find();
+  // final TrackingController _trackingController = Get.find();
+  
   @override
   Widget build(BuildContext context) {
     int ramadanDay = Get.arguments['ramadan_day'] ?? 1;
@@ -73,10 +77,14 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                                   _quickjumpController.showGrid.value =
                                       !_quickjumpController.showGrid.value;
                                 },
-                                child:
-                                    CircleAvatar(
-                                      backgroundColor: Colors.white,
-                                      child: Icon(  !_quickjumpController.showGrid.value? Icons.filter_alt:Icons.close, color: AppColors.primary,)))
+                                child: CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    child: Icon(
+                                      !_quickjumpController.showGrid.value
+                                          ? Icons.filter_alt
+                                          : Icons.close,
+                                      color: AppColors.primary,
+                                    )))
                           ],
                         ),
                       ),
@@ -117,17 +125,38 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                                 ),
                                 controller.isLoadingHadith.value
                                     ? Center(
-                                        child: CupertinoActivityIndicator(color: AppColors.primary,))
+                                        child: CupertinoActivityIndicator(
+                                        color: AppColors.primary,
+                                      ))
                                     : ExpandableText(
-                                      
-                                        controller.ajkerHadith.value,
-                                        expandText: 'show more',
-                                        collapseText: 'show less',
+                                        Get.find<LanguageController>()
+                                                    .appLocale
+                                                    ?.languageCode ==
+                                                'bn'
+                                            ? controller.HadithList.first
+                                                .bnText // Show Bengali Text
+                                            : controller.HadithList.first
+                                                .enText, // Show English Text
+                                        expandText: Get.find<
+                                                        LanguageController>()
+                                                    .appLocale
+                                                    ?.languageCode ==
+                                                'bn'
+                                            ? 'আরো দেখুন' // Bengali for "show more"
+                                            : 'Show more',
+                                        collapseText: Get.find<
+                                                        LanguageController>()
+                                                    .appLocale
+                                                    ?.languageCode ==
+                                                'bn'
+                                            ? 'কম দেখান' // Bengali for "show less"
+                                            : 'Show less',
                                         maxLines: 4,
                                         linkColor: Colors.blue,
                                         style: TextStyle(
-                                            fontStyle: FontStyle.italic,
-                                            fontSize: 12.sp),
+                                          fontStyle: FontStyle.italic,
+                                          fontSize: 12.sp,
+                                        ),
                                       )
                               ],
                             ),
@@ -162,7 +191,9 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                                 ),
                                 controller.isLoadingAyat.value
                                     ? Center(
-                                        child: CupertinoActivityIndicator(color: AppColors.primary,))
+                                        child: CupertinoActivityIndicator(
+                                        color: AppColors.primary,
+                                      ))
                                     : ExpandableText(
                                         controller.ajkerAyat.value,
                                         expandText: 'show more',
@@ -249,7 +280,9 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                                 SizedBox(height: 10.h),
                                 controller.isLoadingDua.value
                                     ? Center(
-                                        child: CupertinoActivityIndicator(color: AppColors.primary,))
+                                        child: CupertinoActivityIndicator(
+                                        color: AppColors.primary,
+                                      ))
                                     : Text(
                                         controller.ajkerDuaTitle.value,
                                         style: TextStyle(
@@ -260,7 +293,9 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                                 SizedBox(height: 10.h),
                                 controller.isLoadingDua.value
                                     ? Center(
-                                        child: CupertinoActivityIndicator(color: AppColors.primary,))
+                                        child: CupertinoActivityIndicator(
+                                        color: AppColors.primary,
+                                      ))
                                     : ExpandableText(
                                         controller.ajkerDuaArabic.value,
                                         expandText: 'show more',
@@ -274,7 +309,9 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                                 SizedBox(height: 10.h),
                                 controller.isLoadingDua.value
                                     ? Center(
-                                        child:CupertinoActivityIndicator(color: AppColors.primary,))
+                                        child: CupertinoActivityIndicator(
+                                        color: AppColors.primary,
+                                      ))
                                     : ExpandableText(
                                         controller.ajkerDuaBangla.value,
                                         expandText: 'show more',

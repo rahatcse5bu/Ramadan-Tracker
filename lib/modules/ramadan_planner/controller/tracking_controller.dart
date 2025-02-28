@@ -4,6 +4,7 @@ import 'package:localstorage/localstorage.dart';
 
 import '../../../app/apis/api_helper.dart';
 import '../../../app/common/storage/storage_controller.dart';
+import 'ramadan_planner_controller.dart';
 
 class TrackingController extends GetxController {
   final int ramadanDay;
@@ -12,14 +13,14 @@ class TrackingController extends GetxController {
 
   final ApiHelper apiHelper = Get.find<ApiHelper>();
   final LocalStorage storage = LocalStorage('ramadan_tracker');
-
+  final RamadanPlannerController _ramadanController = Get.find();
   // Observables
   var trackingOptions = <dynamic>[].obs;
   var isLoadingOptions = true.obs;
   var loadingStates = <String, bool>{}.obs;
 
   // Observables for today's points
-  var todaysPoint = 0.obs;
+  // var todaysPoint = 0.obs;
   var isLoadingPoint = true.obs;
 
   TrackingController(
@@ -30,7 +31,7 @@ class TrackingController extends GetxController {
   void onInit() {
     super.onInit();
     loadTrackingOptions();
-    fetchTodaysPoint();
+    // fetchTodaysPoint();
   }
 
   /// Loads tracking options using the API helper.
@@ -62,7 +63,8 @@ class TrackingController extends GetxController {
         if (!isAddPoint) isLoadingPoint(false);
       },
       (points) {
-        todaysPoint.value = points;
+        _ramadanController.todaysPoint.value = points;
+        update();
         if (!isAddPoint) isLoadingPoint(false);
       },
     );

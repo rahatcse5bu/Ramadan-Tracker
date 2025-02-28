@@ -8,6 +8,7 @@ import '../../modules/login/models/login_request_model.dart'
     show LoginRequestModel;
 import '../../modules/login/models/login_response_model.dart';
 import '../../modules/register/models/register_model.dart';
+import '../common/models/hadith_model.dart';
 import '../common/models/salaf_quotes_model.dart';
 import 'custom_error.dart';
 
@@ -18,7 +19,7 @@ abstract class ApiHelper {
 
   Future<Either<CustomError, Response>> register(RegisterRequestModel register);
   Future<Either<CustomError, String>> fetchAjkerAyat();
-  Future<Either<CustomError, String>> fetchAjkerHadith();
+Future<Either<CustomError, List<AjkerHadithModel>>> fetchAjkerHadith();
   Future<Either<CustomError, String>> fetchAjkerSalafQuote();
   Future<Either<CustomError, List<SalafQuoteModel>>> fetchSalafQuotes();
   Future<Either<CustomError, Map<String, dynamic>>> fetchAjkerDua();

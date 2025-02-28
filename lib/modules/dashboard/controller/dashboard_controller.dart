@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 import '../../../app/apis/api_helper.dart';
+import '../../../app/common/models/hadith_model.dart';
 import '../../../app/common/models/salaf_quotes_model.dart';
 import '../../../app/common/storage/storage_controller.dart';
 import '../../../app/common/utils/ramadan_utils.dart';
@@ -18,9 +19,10 @@ class DashboardController extends GetxController {
   var users = <UserModel>[].obs;
   List<int> ramadanList = List.generate(30, (index) => index + 1).obs;
   var ajkerAyat = ''.obs;
-  var ajkerHadith = ''.obs;
+  // var ajkerHadith = ''.obs;
   var ajkerSalafQuote = ''.obs;
   var salafQuotes = <SalafQuoteModel>[].obs;
+  var HadithList = <AjkerHadithModel >[].obs;
 
   var current_month = HijriCalendar.now().getLongMonthName();
   var current_date = HijriCalendar.now().hDay;
@@ -54,8 +56,8 @@ username.value=await Utils. getUserName()??'';
 
   Future<void> fetchAjkerHadith() async {
     final result = await _apiHelper.fetchAjkerHadith();
-    result.fold((error) => null, (hadith) => ajkerHadith.value = hadith);
-    log("ajker ayat: " + ajkerHadith.value);
+    result.fold((error) => null, (hadith) => HadithList.value = hadith);
+    log("ajker ayat: " + HadithList.value.first.enText);
   }
 
   Future<void> fetchAjkerSalafQuote() async {
