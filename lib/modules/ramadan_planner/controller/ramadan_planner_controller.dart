@@ -10,7 +10,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ramadan_tracker/app/common/storage/storage_controller.dart';
 
 import '../../../app/apis/api_helper.dart';
+import '../../../app/common/models/ayat_model.dart';
 import '../../../app/common/models/hadith_model.dart';
+import '../models/ayat_model.dart';
 
 class RamadanPlannerController extends GetxController {
   // Storage and API calls can also be abstracted via an ApiHelper.
@@ -22,7 +24,7 @@ class RamadanPlannerController extends GetxController {
   var ajkerDuaTitle = ''.obs;
   var ajkerDuaBangla = ''.obs;
   var ajkerDuaArabic = ''.obs;
-  var ajkerAyat = ''.obs;
+  var ajkerAyat = <AyatModel>[].obs;
   var todaysPoint = 0.obs;
 
   // Loading states
@@ -69,7 +71,8 @@ class RamadanPlannerController extends GetxController {
 
   void fetchAllData() {
     fetchAjkerHadith();
-    fetchAjkerAyat();
+    // fetchAjkerAyat();
+    fetchAyat();
     fetchAjkerDua();
     fetchTodaysPoint();
   }
@@ -90,8 +93,21 @@ class RamadanPlannerController extends GetxController {
   }
 
   /// Fetch today's Ayat via API helper.
-  void fetchAjkerAyat() async {
-    final result = await _apiHelper.fetchAjkerAyat();
+  // void fetchAjkerAyat() async {
+  //   final result = await _apiHelper.fetchAjkerAyat();
+  //   result.fold(
+  //     (error) {
+  //       isLoadingAyat(false);
+  //     },
+  //     (ayatText) {
+  //       ajkerAyat.value = ayatText;
+  //       isLoadingAyat(false);
+  //     },
+  //   );
+  // }
+  /// Fetch today's Ayat via API helper.
+  void fetchAyat() async {
+    final result = await _apiHelper.fetchAyat();
     result.fold(
       (error) {
         isLoadingAyat(false);
@@ -102,7 +118,6 @@ class RamadanPlannerController extends GetxController {
       },
     );
   }
-
   /// Fetch today's Dua via API helper.
   void fetchAjkerDua() async {
     final result = await _apiHelper.fetchAjkerDua();

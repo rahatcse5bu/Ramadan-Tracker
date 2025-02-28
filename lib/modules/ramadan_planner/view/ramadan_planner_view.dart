@@ -194,10 +194,29 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                                         child: CupertinoActivityIndicator(
                                         color: AppColors.primary,
                                       ))
-                                    : ExpandableText(
-                                        controller.ajkerAyat.value,
-                                        expandText: 'show more',
-                                        collapseText: 'show less',
+                                    : ExpandableText( 
+                                         Get.find<LanguageController>()
+                                                    .appLocale
+                                                    ?.languageCode ==
+                                                'bn'
+                                            ? controller.ajkerAyat.first
+                                                .bnText // Show Bengali Text
+                                            : controller.ajkerAyat.first
+                                                .enText, 
+                                   expandText: Get.find<
+                                                        LanguageController>()
+                                                    .appLocale
+                                                    ?.languageCode ==
+                                                'bn'
+                                            ? 'আরো দেখুন' // Bengali for "show more"
+                                            : 'Show more',
+                                        collapseText: Get.find<
+                                                        LanguageController>()
+                                                    .appLocale
+                                                    ?.languageCode ==
+                                                'bn'
+                                            ? 'কম দেখান' // Bengali for "show less"
+                                            : 'Show less',
                                         maxLines: 4,
                                         linkColor: Colors.blue,
                                         style: TextStyle(

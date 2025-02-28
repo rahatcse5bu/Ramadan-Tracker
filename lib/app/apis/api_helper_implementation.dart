@@ -7,7 +7,9 @@ import '../../modules/dashboard/models/user_model.dart';
 import '../../modules/koroniyo/models/koroniyo_model.dart';
 import '../../modules/login/models/login_request_model.dart';
 import '../../modules/login/models/login_response_model.dart';
+import '../../modules/ramadan_planner/models/ayat_model.dart';
 import '../../modules/register/models/register_model.dart';
+import '../common/models/ayat_model.dart';
 import '../common/models/hadith_model.dart';
 import '../common/models/salaf_quotes_model.dart';
 import '../common/storage/storage_controller.dart' show StorageHelper;
@@ -79,6 +81,20 @@ class ApiHelperImpl extends GetConnect implements ApiHelper {
     final response = await get('ajkerqurans');
     if (response.statusCode == 200 && response.body['success'] == true) {
       return Right(response.body['data'][0]['text']);
+    } else {
+      return Left(CustomError(response.statusCode ?? 500,
+          message: response.statusText ?? 'Failed to fetch Ayat'));
+    }
+  }
+  @override
+  Future<Either<CustomError, List<AyatModel>>> fetchAyat() async {
+    final response = await get('ajkerqurans');
+    if (response.statusCode == 200 && response.body['success'] == true) {
+          // Parse the JSON list and map to a model
+    List<AyatModel> ayatList = (response.body['data'] as List)
+        .map((json) => AyatModel.fromJson(json))
+        .toList();
+      return Right(ayatList);
     } else {
       return Left(CustomError(response.statusCode ?? 500,
           message: response.statusText ?? 'Failed to fetch Ayat'));
