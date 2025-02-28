@@ -18,23 +18,25 @@ class QuoteWidget extends GetWidget<DashboardController> {
 
   // Getter to return the proper text based on type
   String get displayText {
-      final languageCode = Get.find<LanguageController>().appLocale?.languageCode ?? 'en';
+    final languageCode =
+        Get.find<LanguageController>().appLocale?.languageCode ?? 'en';
 
     switch (type) {
       case 'ajker_ayat':
         return controller.ajkerAyat.value;
       case 'ajker_hadith':
-        return        languageCode == 'bn'
-          ? controller.HadithList.first.bnText
-          : controller.HadithList.first.enText;
+        return languageCode == 'bn'
+            ? controller.HadithList.first.bnText
+            : controller.HadithList.first.enText;
       case 'salaf_quote':
-        return  languageCode == 'bn' 
-          ? controller.salafQuotes.first.bnText 
-          : controller.salafQuotes.first.enText;
+        return languageCode == 'bn'
+            ? controller.salafQuotes.first.bnText
+            : controller.salafQuotes.first.enText;
       default:
         return text;
     }
   }
+
   String get displayTitle {
     switch (type) {
       case 'ajker_ayat':
@@ -52,7 +54,7 @@ class QuoteWidget extends GetWidget<DashboardController> {
   Widget build(BuildContext context) {
     return Obx(() => Container(
           // width: 160,
-          
+
           child: Card(
             color: Colors.white,
             elevation: 5.2,
@@ -88,12 +90,24 @@ class QuoteWidget extends GetWidget<DashboardController> {
                   // ),
                   controller.isLoading.value
                       ? Center(
-                          child: CupertinoActivityIndicator(color: AppColors.primary,))
+                          child: CupertinoActivityIndicator(
+                          color: AppColors.primary,
+                        ))
                       : ExpandableText(
                           displayText,
                           // controller.ajkerAyat.value,
-                          expandText: 'show more',
-                          collapseText: 'show less',
+                          expandText: Get.find<LanguageController>()
+                                      .appLocale
+                                      ?.languageCode ==
+                                  'bn'
+                              ? 'আরো দেখুন' // Bengali for "show more"
+                              : 'Show more',
+                          collapseText: Get.find<LanguageController>()
+                                      .appLocale
+                                      ?.languageCode ==
+                                  'bn'
+                              ? 'কম দেখুন' // Bengali for "show more"
+                              : 'show less',
                           maxLines: 4,
                           linkColor: AppColors.primary,
                           style: TextStyle(

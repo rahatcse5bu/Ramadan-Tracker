@@ -50,7 +50,56 @@ calculate2023RamdanDate() {
     return EngToRamadan[date]!;
   }
 }
-
+calculate2025RamdanDate() {
+  Map<int, int> EngToRamadan = {
+    1: 1,
+    2: 2,
+    3: 3,
+    4: 4,
+    5: 5,
+    6: 6,
+    7: 7,
+   8: 8,
+   9: 9,
+    10: 10,
+    11: 11,
+    12: 12,
+    13: 13,
+    14: 14,
+    15: 15,
+    16: 16,
+    17: 17,
+   18: 18,
+    19: 19,
+    20: 20,
+    21: 21,
+    22: 22,
+    23: 23,
+    24: 24,
+    25: 25,
+    26: 26,
+    27: 27,
+    28: 28,
+    29: 29,
+    30: 30,
+  };
+  var hour = DateTime.now().hour;
+  var date = DateTime.now().day;
+  var minute = DateTime.now().minute;
+  // var hour = 18;
+  // var minute = 49;
+  // var date = 17;
+  // var ampm = DateTime.now().hour >= 12 ? 'PM' : 'AM';
+  if ((hour >= 18)) {
+    if (hour == 18 && (minute >= 0 && minute <= 30)) {
+      return EngToRamadan[date]!;
+    } else {
+      return EngToRamadan[date]! + 1;
+    }
+  } else {
+    return EngToRamadan[date]!;
+  }
+}
 var todays_point = 0;
 List<String> koroniyo_list = [
   "আল্লাহ তা'আলার ওপর আস্থা রাখুন ",

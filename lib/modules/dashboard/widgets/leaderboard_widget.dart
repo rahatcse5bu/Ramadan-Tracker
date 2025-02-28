@@ -6,6 +6,7 @@ import 'package:ramadan_tracker/app/common/storage/storage_controller.dart';
 import 'package:ramadan_tracker/modules/dashboard/controller/user_points_controller.dart';
 
 import '../../../app/constants/app_color.dart';
+import '../../../app/translation/language_controller.dart';
 import '../../../app/translation/translation_keys.dart';
 import '../controller/dashboard_controller.dart';
 
@@ -134,7 +135,19 @@ class LeaderboardWidget extends GetView<UserPointsController> {
                       controller.handleShowAll();
                     },
                     child: Text(
-                      controller.isShowAll.value ? "Show Less" : "Show More",
+                      controller.isShowAll.value
+                          ? Get.find<LanguageController>()
+                                      .appLocale
+                                      ?.languageCode ==
+                                  'bn'
+                              ? 'কম দেখুন' // Bengali for "show more"
+                              : 'show less'
+                          : Get.find<LanguageController>()
+                                      .appLocale
+                                      ?.languageCode ==
+                                  'bn'
+                              ? 'আরো দেখুন' // Bengali for "show more"
+                              : 'Show more',
                       style: TextStyle(color: AppColors.primary),
                     ),
                   ),
