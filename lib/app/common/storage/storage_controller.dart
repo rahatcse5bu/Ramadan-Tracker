@@ -1,5 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../Data/data.dart';
+
 class StorageHelper {
   static const String _tokenKey = "auth_token";
   static const String _userKey = "user_data";
@@ -9,6 +11,8 @@ class StorageHelper {
   static const String _specialAchievementKey = "specialAchievement_";
   static const String _languageCode = "language_code";
   static const String _countryCode = "country_code";
+// Key prefix for Good Afternoon items
+static const String _goodAfternoonKey = "Good_Afternoon_Items_inputs_";
 
   // Set token
   static Future<void> setToken(String token) async {
@@ -151,4 +155,30 @@ class StorageHelper {
     await prefs.remove(_languageCode);
     await prefs.remove(_countryCode);
   }
+
+
+// Save Good Afternoon item for a specific Ramadan day & field index
+static Future<void> setGoodAfternoonItem(int ramadanDay, int index, String value) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setString("$_goodAfternoonKey${ramadanDay}_$index", value);
+}
+
+// Get Good Afternoon item for a specific Ramadan day & field index
+static Future<String?> getGoodAfternoonItem(int ramadanDay, int index) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString("$_goodAfternoonKey${ramadanDay}_$index");
+}
+
+// Optional: Clear one item if needed
+static Future<void> clearGoodAfternoonItem(int ramadanDay, int index) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.remove("$_goodAfternoonKey${ramadanDay}_$index");
+}
+
+// Optional: Clear all for a given Ramadan day (if you want a "Clear All" button later)
+static Future<void> clearAllGoodAfternoonItems(int ramadanDay) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  for (int i = 0; i < Good_Afternoon_Items_inputs.length; i++) {
+    await prefs.remove("$_goodAfternoonKey${ramadanDay}_$i");
+  }}
 }
