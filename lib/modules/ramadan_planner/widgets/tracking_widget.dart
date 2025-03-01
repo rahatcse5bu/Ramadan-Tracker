@@ -70,7 +70,7 @@ class TrackingWidget extends StatelessWidget {
                             ),
                           ),
                         ),
-                        if (ramadan_day > 20)
+                        if (ramadan_day > 20 && slug=='qadr_tracking')
                           Center(
                               child: ramadan_day % 2 == 0
                                   ? Text(
