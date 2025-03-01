@@ -22,7 +22,9 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppBar.appBar(title: ''),
+      appBar: CustomAppBar.appBar(title: '', leadingWidget: null,leadingWidth: 90.w, onLeadingPressed: ()=>
+        Get.back()
+      ),
       body: Obx(() {
         switch (controller.currentIndex.value) {
           case 0:

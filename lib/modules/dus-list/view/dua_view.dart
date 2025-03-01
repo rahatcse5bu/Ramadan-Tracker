@@ -13,9 +13,9 @@ class DuaView extends GetView<DuaController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.appBar(title: 'আজকের দোয়া', leadingWidget: Icon(Icons.arrow_back_ios), onLeadingPressed: (){
-        Get.back();
-      }),
+      appBar: CustomAppBar.appBar(title: 'আজকের দোয়া', leadingWidget: Icon(Icons.arrow_back,color: Colors.white,),leadingWidth: 90.w, onLeadingPressed: ()=>
+        Get.back()
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child:

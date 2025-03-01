@@ -34,23 +34,23 @@ final DuaModel dua;
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                controller.DuaList.first.title,
+               dua.title,
                 style: TextStyle(
-                    fontSize: 18.sp,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.bold,
                     color: AppColors.primary),
               ),
               SizedBox(height: 8.h),
               Text(
-                controller.DuaList.first.arabic,
+                dua.arabic,
                 textAlign: TextAlign.right,
                 style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10.h),
               ExpandableText(
                 languageController.appLocale?.languageCode == 'bn'
-                    ? controller.DuaList.first.bangla
-                    : controller.DuaList.first.title, // Use title as fallback
+                    ? dua.bangla
+                    : dua.title, // Use title as fallback
                 expandText: languageController.appLocale?.languageCode == 'bn'
                     ? 'আরো দেখুন'
                     : 'Show more',
@@ -58,9 +58,9 @@ final DuaModel dua;
                     languageController.appLocale?.languageCode == 'bn'
                         ? 'কম দেখুন'
                         : 'Show less',
-                maxLines: 8,
+                maxLines: 170,
                 linkColor: AppColors.primary,
-                style: TextStyle(fontSize: 14.sp),
+                style: TextStyle(fontSize: 12.sp),
               ),
             ],
           ),

@@ -171,20 +171,29 @@ class CustomAppBar {
               },
             ),
           ],
-      leading: leadingWidget ??
-          Obx(() => dashboardController.isLoading.value
-              ? CupertinoActivityIndicator(
-                  color: AppColors.primary,
-                )
-              : Center(
-                  child: Container(
-                      padding: EdgeInsets.only(left: 0),
-                      // width: 800,
-                      child: Text(
-                        "${TranslationKeys.rank.tr}:${dashboardController.userRank.value}",
-                        style: TextStyle(fontSize: 16, color: Colors.white),
-                      )),
-                )),
+    leading: Row(
+  children: [
+   leadingWidget!=null? Expanded(
+      child: IconButton(
+        icon: Icon(Icons.arrow_back, color: Colors.white),
+        onPressed: () {
+          Get.back();
+        },
+      ),
+    ):Container(child: SizedBox(width: 15.w,),),
+    Obx(() => dashboardController.isLoading.value
+        ? CupertinoActivityIndicator(
+            color: AppColors.primary,
+          )
+        : Expanded(
+          child: Text(
+              "${TranslationKeys.rank.tr}:${dashboardController.userRank.value}",
+              style: TextStyle(fontSize: 12.sp, color: Colors.white),
+            ),
+        )),
+  ],
+),
+
     );
   }
 }
