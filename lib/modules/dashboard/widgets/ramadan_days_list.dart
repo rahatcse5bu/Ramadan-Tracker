@@ -5,7 +5,6 @@ import 'package:ramadan_tracker/Data/data.dart';
 import '../../../app/constants/app_color.dart';
 import '../../../app/routes/app_pages.dart';
 import '../../../app/translation/translation_keys.dart';
-import '../../../planner.dart';
 import '../controller/dashboard_controller.dart';
 
 class RamadanDaysList extends GetWidget<DashboardController> {
@@ -41,12 +40,12 @@ class RamadanDaysList extends GetWidget<DashboardController> {
                           : Text('${TranslationKeys.ramadan.tr} - ${controller.ramadanList[i]} '),
                   subtitle: i + 1 > 20
                       ? Text(
-                          '${TranslationKeys.planRamadan.tr}',
+                          '${  TranslationKeys.trackRamadan.tr}',
                           style: TextStyle(
                               color: AppColors.primary,
                               fontWeight: FontWeight.bold),
                         )
-                      : Text('${TranslationKeys.planRamadan.tr}'),
+                      : Text('${  TranslationKeys.trackRamadan.tr}'),
                   trailing: i + 1 > 20
                       ? i + 1 == 21 ||
                               i + 1 == 23 ||

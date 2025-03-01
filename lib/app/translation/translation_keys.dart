@@ -12,6 +12,7 @@ class TranslationKeys {
   static const String prayerTimes = 'prayer_times';
   static const String trackPrayers = 'track_prayers';
   static const String trackFasting = 'track_fasting';
+  static const String trackRamadan = 'trackRamadan';
 
   static const String selectedVerses = 'selected_verses'; // New key
   static const String selectedHadith = 'selected_hadith';
@@ -59,6 +60,7 @@ final Map<String, String> bnBd = {
   TranslationKeys.prayerTimes: 'নামাজের সময়',
   TranslationKeys.trackPrayers: 'নামাজ ট্র্যাক করুন',
   TranslationKeys.trackFasting: 'রোজা ট্র্যাক করুন',
+  TranslationKeys.trackRamadan: 'রমাদ্বন ট্র্যাক করুন',
   TranslationKeys.selectedVerses: 'নির্বাচিত আয়াত',
   TranslationKeys.selectedHadith: 'নির্বাচিত হাদিস',
   TranslationKeys.salafQuotes: 'সালাফদের বক্তব্য',
@@ -109,6 +111,7 @@ final Map<String, String> enUs = {
   TranslationKeys.salafQuotes: 'Salaf Quotes',
   TranslationKeys.ramadan: 'Ramadan',
   TranslationKeys.planRamadan: 'Plan Ramadan',
+  TranslationKeys.trackRamadan: 'Track Ramadan',
   TranslationKeys.leaderBoard: 'Leaderboard',
   TranslationKeys.rank: 'Rank',
   TranslationKeys.pointsDisclaimer:

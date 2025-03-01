@@ -18,26 +18,37 @@ class DashboardView extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body: SingleChildScrollView( 
+      body: SingleChildScrollView(
         child: Obx(
           () => Column(
             children: [
               LeaderboardWidget(),
-              QuoteWidget(
-                  title: TranslationKeys.selectedVerses.tr,
-                  text: controller.AyatList.first.enText,
-                  type: 'ajker_ayat'),
-              QuoteWidget(
-                  title: "নির্বাচিত হাদিস",
-                  // text: controller.ajkerHadith.value,
-                  text: controller.HadithList.first.enText,
-                  type: 'ajker_hadith'),
-              QuoteWidget(
-                  title: "সালাফদের বক্তব্য",
-                  // text: controller.ajkerSalafQuote.value,
-                  text: controller.salafQuotes.first.enText,
-                  type: 'salaf_quote'),
+              controller.AyatList.isNotEmpty
+                  ? QuoteWidget(
+                      title: TranslationKeys.selectedVerses.tr,
+                      text: controller.AyatList.first.enText,
+                      type: 'ajker_ayat')
+                  : CupertinoActivityIndicator(
+                      color: AppColors.primary,
+                    ),
+              controller.HadithList.isNotEmpty
+                  ? QuoteWidget(
+                      title: "নির্বাচিত হাদিস",
+                      // text: controller.ajkerHadith.value,
+                      text: controller.HadithList.first.enText,
+                      type: 'ajker_hadith')
+                  : CupertinoActivityIndicator(
+                      color: AppColors.primary,
+                    ),
+              controller.salafQuotes.isNotEmpty
+                  ? QuoteWidget(
+                      title: "সালাফদের বক্তব্য",
+                      // text: controller.ajkerSalafQuote.value,
+                      text: controller.salafQuotes.first.enText,
+                      type: 'salaf_quote')
+                  : CupertinoActivityIndicator(
+                      color: AppColors.primary,
+                    ),
               // Text("${TranslationKeys.selectedVerses.tr}"),
               RamadanDaysList(),
             ],

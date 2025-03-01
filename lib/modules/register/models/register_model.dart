@@ -17,7 +17,7 @@ class RegisterRequestModel {
   Map<String, dynamic> toJson() {
     return {
       "fullName": fullName,
-      "username": userName,
+      "userName": userName,
       "email": email,
       "phone": phone,
       "password": password,
@@ -28,7 +28,7 @@ class RegisterRequestModel {
   factory RegisterRequestModel.fromJson(Map<String, dynamic> json) {
     return RegisterRequestModel(
       fullName: json['fullName'] ?? '',
-      userName: json['username'] ?? '',
+      userName: json['userName'] ?? '',
       email: json['email'] ?? '',
       phone: json['phone'] ?? '',
       password: json['password'] ?? '',
