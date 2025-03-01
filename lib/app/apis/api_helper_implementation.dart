@@ -164,7 +164,7 @@ Future<Either<CustomError, List<SalafQuoteModel>>> fetchSalafQuotes() async {
     }
   }
  Future<Either<CustomError, List<DuaModel>>> fetchDua() async {
-  final response = await get('ajkerduas');
+  final response = await get('ajkerduas/list');
 
   if (response.statusCode == 200 && response.body['success'] == true) {
     final List<dynamic> data = response.body['data'];

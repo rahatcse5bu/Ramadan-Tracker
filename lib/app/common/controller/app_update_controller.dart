@@ -3,13 +3,17 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:open_filex/open_filex.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../apis/api_helper.dart';
+import '../../apis/api_helper_implementation.dart';
 
 class AppUpdateController extends GetxController {
-  final ApiHelper _apiHelper = Get.find<ApiHelper>();
-
+  // final ApiHelper _apiHelper = Get.find<ApiHelper>();
+  
+  late final ApiHelper _apiHelper;
+        // Add this!
+  // Get.put<AppUpdateController>(AppUpdateController());
   RxInt latestVersionCode = 0.obs;
   RxString downloadUrl = ''.obs;
 
@@ -36,6 +40,11 @@ class AppUpdateController extends GetxController {
     }
   }
 
+  @override
+  void onInit() {
+    super.onInit();
+    _apiHelper = Get.put(ApiHelperImpl());   // Or Get.lazyPut if needed
+  }
   Future<void> downloadAndInstallApk() async {
     final savedDir = '/storage/emulated/0/Download';
     final fileName = 'app-latest.apk';
@@ -51,16 +60,15 @@ class AppUpdateController extends GetxController {
     FlutterDownloader.registerCallback((id, status, progress) async {
       if (id == taskId && status == DownloadTaskStatus.complete) {
         final filePath = '$savedDir/$fileName';
-        await triggerApkInstallation(filePath);
+        await installApk(filePath);
       }
     });
   }
 
-  Future<void> triggerApkInstallation(String filePath) async {
-    if (Platform.isAndroid) {
-      await OpenFilex.open(filePath);
-    } else {
-      Get.snackbar('Unsupported Platform', 'This auto-update only works on Android.');
-    }
+Future<void> installApk(String filePath) async {
+  final fileUri = Uri.file(filePath);
+  if (!await launchUrl(fileUri)) {
+    throw Exception('Could not open APK file for installation.');
   }
+}
 }

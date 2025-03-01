@@ -14,7 +14,11 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize();
   Get.lazyPut(() => DashboardController());
+  Get.lazyPut(() => AppUpdateController());
   Get.lazyPut(() => LanguageController());
+    
+  // Get.put<ApiHelper>(ApiHelper());           // Add this!
+  // Get.put<AppUpdateController>(AppUpdateController());
   // await languageController.appLocale(); // Load locale before app start
 
   runApp(MyApp());
