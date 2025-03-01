@@ -17,9 +17,11 @@ class LeaderboardWidget extends GetView<UserPointsController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => SingleChildScrollView(
+      
           child: ExpansionTile(
             collapsedBackgroundColor: Colors.white,
             collapsedIconColor: Colors.white,
+            
             backgroundColor: Colors.white,
             iconColor: Colors.white,
             title: Container(

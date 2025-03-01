@@ -21,6 +21,7 @@ class MainView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: CustomAppBar.appBar(title: ''),
       body: Obx(() {
         switch (controller.currentIndex.value) {

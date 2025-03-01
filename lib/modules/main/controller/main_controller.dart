@@ -32,9 +32,9 @@ class MainController extends GetxController {
         alignment: WrapAlignment.center, // ✅ Center items
         children: [
           _buildBottomSheetItem(
-              TranslationKeys.ramadaneKoroniyo.tr, Icons.check_circle),
-          _buildBottomSheetItem(TranslationKeys.ramadaneBorjoniyo.tr, Icons.cancel),
-          _buildBottomSheetItem(TranslationKeys.duas.tr, Icons.book),
+              TranslationKeys.ramadaneKoroniyo.tr,Routes.koroniyo, Icons.check_circle),
+          _buildBottomSheetItem(TranslationKeys.ramadaneBorjoniyo.tr,Routes.borjoniyo, Icons.cancel),
+          _buildBottomSheetItem(TranslationKeys.duas.tr,Routes.duaList, Icons.book),
         ],
       ),
     ),
@@ -43,11 +43,11 @@ class MainController extends GetxController {
 }
 
 /// **Build Bottom Sheet Item**
-Widget _buildBottomSheetItem(String title, IconData icon) {
+Widget _buildBottomSheetItem(String title,String slug, IconData icon) {
   return GestureDetector(
     onTap: () {
       Get.back(); // ✅ Close bottom sheet before navigating
-      _navigateTo(title); // ✅ Navigate based on title
+      _navigateTo(slug); // ✅ Navigate based on title
     },
     child: Column(
       children: [
@@ -73,14 +73,19 @@ Widget _buildBottomSheetItem(String title, IconData icon) {
 }
 
 /// **Handle Navigation Based on Title**
-void _navigateTo(String title) {
-  if (title == TranslationKeys.koroniyo.tr) {
-    Get.toNamed(Routes.koroniyo);
-  } else if (title == TranslationKeys.borjoniyo.tr) {
-    Get.toNamed(Routes.borjoniyo);
-  } else if (title == TranslationKeys.duas.tr) {
-    Get.toNamed(Routes.duaList);
-  }
+// void _navigateTo(String slug) {
+//   if (slug == TranslationKeys.koroniyo.tr) {
+//     Get.toNamed(slug);
+//   } else if (slug == TranslationKeys.borjoniyo.tr) {
+//     Get.toNamed(slug);
+//   } else if (slug == TranslationKeys.duas.tr) {
+//     Get.toNamed(slug);
+//   }
+// }
+void _navigateTo(String slug) {
+
+    Get.toNamed(slug);
+
 }
 
 }

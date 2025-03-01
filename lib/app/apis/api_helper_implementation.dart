@@ -351,7 +351,11 @@ Future<Either<CustomError, List<SalafQuoteModel>>> fetchSalafQuotes() async {
     final response = await get('koroniyos');
 
     if (response.statusCode == 200 && response.body['success'] == true) {
-      return Right(response.body['data']); // ✅ Return data list
+          // **Fix: Convert JSON list to List<KoroniyoModel>**
+      final List<KoroniyoModel> koroniyoList = (response.body['data'] as List)
+          .map((item) => KoroniyoModel.fromJson(item))
+          .toList();
+      return Right(koroniyoList); // ✅ Return data list
     } else {
       return Left(CustomError(
         response.statusCode ?? 500,
