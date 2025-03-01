@@ -26,7 +26,7 @@ class DashboardView extends GetView<DashboardController> {
               LeaderboardWidget(),
               QuoteWidget(
                   title: TranslationKeys.selectedVerses.tr,
-                  text: controller.ajkerAyat.value,
+                  text: controller.AyatList.first.enText,
                   type: 'ajker_ayat'),
               QuoteWidget(
                   title: "নির্বাচিত হাদিস",

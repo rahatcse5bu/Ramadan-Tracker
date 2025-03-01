@@ -23,7 +23,9 @@ class QuoteWidget extends GetWidget<DashboardController> {
 
     switch (type) {
       case 'ajker_ayat':
-        return controller.ajkerAyat.value;
+        return languageCode == 'bn'
+            ? controller.AyatList.first.bnText
+            : controller.AyatList.first.enText;
       case 'ajker_hadith':
         return languageCode == 'bn'
             ? controller.HadithList.first.bnText

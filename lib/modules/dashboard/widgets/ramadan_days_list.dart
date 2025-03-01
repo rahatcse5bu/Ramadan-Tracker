@@ -30,7 +30,7 @@ class RamadanDaysList extends GetWidget<DashboardController> {
                   tileColor: i + 1 > 20 ? Colors.grey[250] : Colors.white,
                   title: i + 1 == calculate2025RamdanDate() &&
                           controller.current_month == "Ramadan"
-                      ? Text('${TranslationKeys.ramadan.tr} - ${controller.ramadanList[i]} (আজ) ')
+                      ? Text('${TranslationKeys.ramadan.tr} - ${controller.ramadanList[i]} (${TranslationKeys.today.tr}) ')
                       : i + 1 > 20
                           ? Text(
                               '${TranslationKeys.ramadan.tr} - ${controller.ramadanList[i]} ',
