@@ -77,6 +77,10 @@ username.value=await Utils. getUserName()??'';
         final String? currentUser =
             await StorageHelper.getUserName(); // Get logged-in user
         users.value = userList; // Assign full user list
+              // Sort users based on totalPoints (descending - highest points first)
+      users.sort((a, b) => b.totalPoints.compareTo(a.totalPoints));
+
+
   log("userrrr: ${users.value.first.fullName}");
         // Find the logged-in user's totalPoints
         totalPoints.value = userList

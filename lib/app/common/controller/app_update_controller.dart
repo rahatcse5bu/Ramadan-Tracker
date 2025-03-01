@@ -21,7 +21,8 @@ class AppUpdateController extends GetxController {
     final response = await _apiHelper.getLatestVersionInfo();
 
     if (response.status.hasError) {
-      Get.snackbar('Update Check Failed', 'Could not check for updates');
+      // Get.snackbar('Update Check Failed', 'Could not check for updates');
+      debugPrint("Update Check Failed");
       return;
     }
 
