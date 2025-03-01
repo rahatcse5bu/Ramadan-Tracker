@@ -13,7 +13,9 @@ class KoroniyoView extends GetView<KoroniyoController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.appBar(title: ''),
+      appBar: CustomAppBar.appBar(title: '', leadingWidget: Icon(Icons.arrow_back,color: Colors.white,),leadingWidth: 90.w, onLeadingPressed: ()=>
+        Get.back()
+      ),
       body: Obx(
         () => Center(
             child: Align(
@@ -76,7 +78,7 @@ class KoroniyoView extends GetView<KoroniyoController> {
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: ListTile(
-                                leading: Icon(Icons.close),
+                                leading: Icon(Icons.check_circle_outline_sharp),
                                 title: Text(
                                     koroniyoText), // Assuming 'text' is the key for the text you want to display
                               ),
