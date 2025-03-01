@@ -13,7 +13,7 @@ class KoroniyoView extends GetView<KoroniyoController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.appBar(title: '', leadingWidget: Icon(Icons.arrow_back,color: Colors.white,),leadingWidth: 90.w, onLeadingPressed: ()=>
+      appBar: CustomAppBar.appBar(title: '', leadingWidget: Icon(Icons.arrow_back,color: Colors.white,),leadingWidth: 110.w, onLeadingPressed: ()=>
         Get.back()
       ),
       body: Obx(

@@ -15,7 +15,7 @@ class RamadanDaysList extends GetWidget<DashboardController> {
               Card(
                 elevation: 7.2,
                 shape: RoundedRectangleBorder(
-                  side: i + 1 <= calculate2025RamdanDate() &&
+                  side: i + 1 <= calculate2025RamadanDate() &&
                           controller.current_month == "Ramadan"
                       ? BorderSide(color: AppColors.primary, width: 1)
                       : BorderSide(color: Colors.white, width: 1),
@@ -27,7 +27,7 @@ class RamadanDaysList extends GetWidget<DashboardController> {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   tileColor: i + 1 > 20 ? Colors.grey[250] : Colors.white,
-                  title: i + 1 == calculate2025RamdanDate() &&
+                  title: i + 1 == calculate2025RamadanDate() &&
                           controller.current_month == "Ramadan"
                       ? Text('${TranslationKeys.ramadan.tr} - ${controller.ramadanList[i]} (${TranslationKeys.today.tr}) ')
                       : i + 1 > 20

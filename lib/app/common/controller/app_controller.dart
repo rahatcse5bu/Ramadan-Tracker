@@ -96,4 +96,10 @@ class AppController extends GetxController {
       return {};
     }
   }
+
+    @override
+  void onInit() {
+    super.onInit();
+    // _apiHelper = Get.put(ApiHelperImpl());   // Or Get.lazyPut if needed
+  }
 }
