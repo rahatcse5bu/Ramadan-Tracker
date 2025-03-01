@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:ramadan_tracker/app/common/storage/storage_controller.dart';
 
 import '../../../app/apis/api_helper.dart';
+import '../../../app/routes/app_pages.dart';
 import '../models/login_request_model.dart';
 
 class LoginController extends GetxController {
@@ -42,7 +43,7 @@ class LoginController extends GetxController {
           textColor: Colors.white,
         );
 
-        Get.offNamed('/koroniyo');
+        Get.toNamed(Routes.home);
       },
     );
   }

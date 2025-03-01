@@ -1,4 +1,5 @@
 import 'package:expandable_text/expandable_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ramadan_tracker/modules/dus-list/models/dua_model.dart';
@@ -20,7 +21,7 @@ final DuaModel dua;
     return Obx(() {
       if (controller.isLoading.value) {
         return Center(
-          child: CircularProgressIndicator(color: AppColors.primary),
+          child: CupertinoActivityIndicator(color: AppColors.primary),
         );
       }
 
@@ -57,7 +58,7 @@ final DuaModel dua;
                     languageController.appLocale?.languageCode == 'bn'
                         ? 'কম দেখুন'
                         : 'Show less',
-                maxLines: 4,
+                maxLines: 8,
                 linkColor: AppColors.primary,
                 style: TextStyle(fontSize: 14.sp),
               ),

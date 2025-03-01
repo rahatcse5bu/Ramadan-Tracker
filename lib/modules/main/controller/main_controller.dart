@@ -32,8 +32,8 @@ class MainController extends GetxController {
         alignment: WrapAlignment.center, // ✅ Center items
         children: [
           _buildBottomSheetItem(
-              TranslationKeys.koroniyo.tr, Icons.check_circle),
-          _buildBottomSheetItem(TranslationKeys.borjoniyo.tr, Icons.cancel),
+              TranslationKeys.ramadaneKoroniyo.tr, Icons.check_circle),
+          _buildBottomSheetItem(TranslationKeys.ramadaneBorjoniyo.tr, Icons.cancel),
           _buildBottomSheetItem(TranslationKeys.duas.tr, Icons.book),
         ],
       ),
@@ -52,6 +52,7 @@ Widget _buildBottomSheetItem(String title, IconData icon) {
     child: Column(
       children: [
         Card( // ✅ Use Card for better UI
+        color: Colors.white,
           elevation: 4,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           child: Padding(

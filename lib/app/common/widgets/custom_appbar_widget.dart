@@ -45,11 +45,12 @@ class CustomAppBar {
       actions: actions ??
           <Widget>[
             // In your settings screen/widget
-            GetBuilder<LanguageController>(
-              builder: (controller) {
+       Obx((){  
+          final languageController = Get.find<LanguageController>();
+
                 return DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
-                    value: controller.appLocale?.languageCode ?? 'en',
+                    value: languageController.appLocale?.languageCode ?? 'en',
                     // icon: Icon(Icons.language, color: Colors.white),
                     // isExpanded: true,
                     dropdownColor: AppColors.primary,
@@ -62,7 +63,7 @@ class CustomAppBar {
                     ),
                     onChanged: (String? newValue) {
                       if (newValue != null) {
-                        controller.changeLanguage(
+                        languageController.changeLanguage(
                           newValue,
                           newValue == 'bn' ? 'BD' : 'US',
                         );

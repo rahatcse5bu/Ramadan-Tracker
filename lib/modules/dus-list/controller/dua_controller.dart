@@ -22,7 +22,7 @@ class DuaController extends GetxController {
     final result = await _apiHelper.fetchDua();
     result.fold((error) => null, (dua) => DuaList.value = dua);
     isLoading.value=false;
-    log("ajker ayat: " + DuaList.value.first.arabic);
+    log("ajker ayat: " + DuaList.first.arabic);
   }
 
 }

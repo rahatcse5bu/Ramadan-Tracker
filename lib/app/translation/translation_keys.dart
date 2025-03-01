@@ -56,7 +56,7 @@ final Map<String, String> bnBd = {
       'কোনো আমাল এই পয়েন্ট দিয়ে সাব্যস্ত করার অধিকার কারোর-ই নেই।জাস্ট নিজের আমাল জাজ করার জন্যই এটি দেওয়া। নিয়ত করবেন সওয়াবের, আল্লাহ্‌ প্রতিদান দিবেন ইনশাআল্লাহ্‌!(লিডারবোর্ড দেখতে ডানপাশের অ্যারো বাটনে ক্লিক করুন)',
 
   TranslationKeys.home: 'হোম',
-  TranslationKeys.duas: 'দোয়া',
+  TranslationKeys.duas: "দু'আ সমুহ",
   TranslationKeys.more: 'আরও',
     TranslationKeys.koroniyo: 'করণীয়',
   TranslationKeys.borjoniyo: 'বর্জনীয়',
@@ -89,7 +89,7 @@ final Map<String, String> enUs = {
       'No one has the right to validate deeds through these points. This is only for self-assessment of your deeds. Maintain intention for reward, Allah will surely reward you InshaAllah! (Click the arrow button on the right side to view leaderboard)',
 
   TranslationKeys.home: 'Home',
-  TranslationKeys.duas: 'Duas',
+  TranslationKeys.duas: 'List of Dua',
   TranslationKeys.more: 'More',
     TranslationKeys.koroniyo: 'Koroniyo',
   TranslationKeys.borjoniyo: 'Borjoniyo',

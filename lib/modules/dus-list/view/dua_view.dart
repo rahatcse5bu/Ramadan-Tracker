@@ -42,7 +42,7 @@ class DuaView extends GetView<DuaController> {
                           child: Center(
                             child: Text(
                               // '${TranslationKeys.ramadaneKoroniyo.tr}',
-                              'Dua List',
+                              "দু'আ সমুহ",
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
@@ -57,14 +57,14 @@ class DuaView extends GetView<DuaController> {
               SizedBox(
                 height: 10.h,
               ),
-            Expanded(
+           Obx(()=> Expanded(
               child: ListView.builder(
                 itemCount: controller.DuaList.length,
                 itemBuilder: (context, index) {
                  DuaModel dua= controller.DuaList[index];
                 return DuaCardWidget(dua: dua);
               },),
-            ),
+            ),)
           ],
         )
         //  DuaCardWidget(),

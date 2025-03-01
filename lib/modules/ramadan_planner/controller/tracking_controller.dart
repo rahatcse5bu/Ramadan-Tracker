@@ -4,6 +4,7 @@ import 'package:localstorage/localstorage.dart';
 
 import '../../../app/apis/api_helper.dart';
 import '../../../app/common/storage/storage_controller.dart';
+import '../../dashboard/controller/dashboard_controller.dart';
 import 'ramadan_planner_controller.dart';
 
 class TrackingController extends GetxController {
@@ -22,6 +23,7 @@ class TrackingController extends GetxController {
   // Observables for today's points
   // var todaysPoint = 0.obs;
   var isLoadingPoint = true.obs;
+  final DashboardController dashboardController = Get.put(DashboardController());
 
   TrackingController(
       {required this.ramadanDay, required this.slug, required this.type});
@@ -91,6 +93,7 @@ class TrackingController extends GetxController {
         });
         // After updating, refresh today's points and options.
         fetchTodaysPoint();
+        dashboardController.fetchCurrentUserPoints();
         loadTrackingOptions(isToggling: true);
       },
     );

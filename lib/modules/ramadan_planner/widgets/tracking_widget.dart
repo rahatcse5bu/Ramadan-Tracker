@@ -86,7 +86,7 @@ class TrackingWidget extends StatelessWidget {
                                         color: AppColors.primary,
                                       )
                                     : checked
-                                        ? Icon(Icons.check,
+                                        ? Icon(Icons.check_circle,
                                             color: AppColors.primary)
                                         : const Icon(Icons.close,
                                             color: Colors.red),
@@ -126,7 +126,7 @@ class TrackingWidget extends StatelessWidget {
                                         color: AppColors.primary,
                                       )
                                     : checked
-                                        ? Icon(Icons.check,
+                                        ? Icon(Icons.check_circle,
                                             color: AppColors.primary)
                                         : const Icon(Icons.close,
                                             color: Colors.red),
