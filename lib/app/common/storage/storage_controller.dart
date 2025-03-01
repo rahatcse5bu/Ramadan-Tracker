@@ -181,4 +181,18 @@ static Future<void> clearAllGoodAfternoonItems(int ramadanDay) async {
   for (int i = 0; i < Good_Afternoon_Items_inputs.length; i++) {
     await prefs.remove("$_goodAfternoonKey${ramadanDay}_$i");
   }}
+
+  static Future<bool> isLoggedIn() async {
+  final token = await getToken();
+  final username = await getUserName();
+  final userId = await getUserId();
+
+  return token != null &&
+      token.isNotEmpty &&
+      username != null &&
+      username.isNotEmpty &&
+      userId != null &&
+      userId.isNotEmpty;
+}
+
 }

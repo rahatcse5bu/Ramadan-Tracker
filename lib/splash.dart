@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:localstorage/localstorage.dart';
+import 'app/common/storage/storage_controller.dart';
 import 'app/routes/app_pages.dart';
 import 'colors.dart';
 
@@ -26,17 +27,12 @@ class _SplashScreenState extends State<SplashScreen> {
     // Mimic loading time or perform actual initialization/loading work
     await Future.delayed(Duration(seconds: 5));
     // Check if user is logged in or not and navigate accordingly
-    String? userName = storage.getItem('userName');
-    String? fullName = storage.getItem('fullName');
-    String? _id = storage.getItem('_id');
-    if (userName != null && fullName !=null && _id !=null) {
-      // Navigator.pushReplacementNamed(context, '/dashboard');
-      // Navigator.pushReplacementNamed(context, '/koroniyo');
-      // Get.toNamed(Routes.dashboard);
-      Get.toNamed(Routes.home);
-    } else {
-     Get.toNamed(Routes.login);
-    }
+      bool isLoggedIn = await StorageHelper.isLoggedIn();
+      if (isLoggedIn) {
+        Get.offAllNamed(Routes.home);  // Go to Home if logged in
+      } else {
+        Get.offAllNamed(Routes.login); // Go to Login if not logged in
+      }
   }
 
   @override
