@@ -414,7 +414,24 @@ Future<Either<CustomError, List<dynamic>>> fetchTrackingOptions(String slug) asy
     }
   }
     @override
-    Future<Response> getLatestVersionInfo() async {
-    return await get('/version.json');
+  Future<Map<String, dynamic>> fetchLatestVersion() async {
+    final response = await get('app-update-check'); // Replace with your actual URL
+    
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> json = jsonDecode(response.body);
+
+      if (json['success'] == true && json['data'] != null) {
+        final data = json['data']; // Direct map (not a list anymore)
+        return {
+          "version": data['version'],
+          "download_link": data['download_link'],
+        };
+      } else {
+        throw Exception('Invalid API Response');
+      }
+    } else {
+      throw Exception('Failed to fetch update info');
+    }
   }
 }

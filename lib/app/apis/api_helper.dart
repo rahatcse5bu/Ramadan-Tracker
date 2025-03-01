@@ -44,5 +44,5 @@ Future<Either<CustomError, List<AjkerHadithModel>>> fetchAjkerHadith();
       fetchCurrentUserRankAndPoints(String userId);
   Future<Either<CustomError, List<KoroniyoModel>>> fetchKoroniyo();
    Future<Either<CustomError, List<BorjoniyoModel>>> fetchBorjoniyo();
-   Future<Response> getLatestVersionInfo();
+  Future<Map<String, dynamic>> fetchLatestVersion();
 }

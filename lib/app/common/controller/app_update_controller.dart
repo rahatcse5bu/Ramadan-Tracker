@@ -13,63 +13,87 @@ class AppUpdateController extends GetxController {
   
   late final ApiHelper _apiHelper;
         // Add this!
-  // Get.put<AppUpdateController>(AppUpdateController());
-  RxInt latestVersionCode = 0.obs;
+          RxString latestVersion = ''.obs;
   RxString downloadUrl = ''.obs;
 
-  Future<void> checkForUpdate() async {
-    final response = await _apiHelper.getLatestVersionInfo();
+   Future<void> checkForUpdate() async {
+    try {
+      final updateInfo = await _apiHelper.fetchLatestVersion();
+      latestVersion.value = updateInfo['version'];
+      downloadUrl.value = updateInfo['download_link'];
 
-    if (response.status.hasError) {
-      // Get.snackbar('Update Check Failed', 'Could not check for updates');
-      debugPrint("Update Check Failed");
-      return;
-    }
+      final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      final String currentVersion = packageInfo.version;
 
-    final data = response.body;
-
-    latestVersionCode.value = data['latest_version_code'];
-    downloadUrl.value = data['download_url'];
-
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    int currentVersionCode = int.parse(packageInfo.buildNumber);
-
-    if (latestVersionCode.value > currentVersionCode) {
-      await downloadAndInstallApk();
-    } else {
-      debugPrint("App is up to date.");
+      if (_isUpdateAvailable(currentVersion, latestVersion.value)) {
+        showUpdateDialog();
+      } else {
+        print('✅ App is up-to-date');
+      }
+    } catch (e) {
+      print('❌ Error checking for update: $e');
     }
   }
 
+  bool _isUpdateAvailable(String currentVersion, String latestVersion) {
+    return _compareVersions(currentVersion, latestVersion) < 0;
+  }
+
+  int _compareVersions(String v1, String v2) {
+    List<int> parts1 = v1.split('.').map(int.parse).toList();
+    List<int> parts2 = v2.split('.').map(int.parse).toList();
+    for (int i = 0; i < parts1.length || i < parts2.length; i++) {
+      final part1 = i < parts1.length ? parts1[i] : 0;
+      final part2 = i < parts2.length ? parts2[i] : 0;
+      if (part1 != part2) {
+        return part1.compareTo(part2);
+      }
+    }
+    return 0;
+  }
+
+  void showUpdateDialog() {
+    Get.defaultDialog(
+      title: 'Update Available',
+      content: const Text('A new version of the app is available. Please update to continue.'),
+      confirm: ElevatedButton(
+        onPressed: () {
+          Get.back();  // Close dialog
+          downloadAndInstallApk();
+        },
+        child: const Text('Update Now'),
+      ),
+      cancel: TextButton(
+        onPressed: () {
+          Get.back();
+        },
+        child: const Text('Later'),
+      ),
+    );
+  }
+
+  Future<void> downloadAndInstallApk() async {
+    final apkUrl = downloadUrl.value;
+    print('📥 Download URL: $apkUrl');
+
+    // Easiest option - just open the download link in browser
+    if (!await GetUtils.isURL(apkUrl)) {
+      Get.snackbar('Invalid URL', 'The provided download link is invalid.');
+      return;
+    }
+
+    await launchDownloadUrl(apkUrl);
+  }
+
+  Future<void> launchDownloadUrl(String url) async {
+    if (!await launchUrl(Uri.parse(url))) {
+      Get.snackbar('Failed', 'Could not open download link.');
+    }
+  }
   @override
   void onInit() {
     super.onInit();
     _apiHelper = Get.put(ApiHelperImpl());   // Or Get.lazyPut if needed
   }
-  Future<void> downloadAndInstallApk() async {
-    final savedDir = '/storage/emulated/0/Download';
-    final fileName = 'app-latest.apk';
-
-    final taskId = await FlutterDownloader.enqueue(
-      url: downloadUrl.value,
-      savedDir: savedDir,
-      fileName: fileName,
-      showNotification: true,
-      openFileFromNotification: false,
-    );
-
-    FlutterDownloader.registerCallback((id, status, progress) async {
-      if (id == taskId && status == DownloadTaskStatus.complete) {
-        final filePath = '$savedDir/$fileName';
-        await installApk(filePath);
-      }
-    });
-  }
-
-Future<void> installApk(String filePath) async {
-  final fileUri = Uri.file(filePath);
-  if (!await launchUrl(fileUri)) {
-    throw Exception('Could not open APK file for installation.');
-  }
-}
+  
 }
