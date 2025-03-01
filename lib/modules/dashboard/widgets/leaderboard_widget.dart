@@ -91,10 +91,11 @@ class LeaderboardWidget extends GetView<UserPointsController> {
                               final user = _dashboardController.users[
                                   index]; // Adjust according to your actual structure
                               // log("userrrr: ${user.length}");
-                              final currentUser = StorageHelper.getUserName();
+                              final currentUser = _dashboardController.username.value;
                               bool isCurrentUser = user.userName ==
                                   currentUser; // Determine if this row represents the current user
                               return DataRow(
+                                
                                 cells: [
                                   DataCell(Text('${index + 1}',
                                       style: isCurrentUser
