@@ -71,6 +71,16 @@ class TrackingWidget extends StatelessWidget {
                           ),
                         ),
                       ),
+                      Center(
+                          child: ramadan_day % 2 == 0
+                              ? Text(
+                                  "আজ ${ramadan_day} রমাদ্বন। আজ শেষ দশকের একটি (জোড়) রাত। আজ রাতেও 'আমাল করুন।জোড় রাতেও লাইলাতুল ক্বদর হতে পারে।(ক্বদের বিশেষ 'আমাল পেতে ডানপাশের অ্যারো বাটনে ক্লিক করুন)",
+                                  style: TextStyle(color: AppColors.primary),
+                                )
+                              : Text(
+                                  "আজ ${ramadan_day} রমাদ্বন। আজ শেষ দশকের বিজোড় রাত।  বিজোড় রাতে বেশি বেশি 'আমাল করুন।সারারাত ধরে 'আমাল করুন।  বিজোড় রাতগুলিতে লাইলাতুল ক্বদর হওয়ার সম্ভাবনা প্রবল।(ক্বদের বিশেষ 'আমাল পেতে ডানপাশের অ্যারো বাটনে ক্লিক করুন)",
+                                  style: TextStyle(color: AppColors.primary),
+                                )),
 
                       // ✅ Mapping over tracking options
                       ...controller.trackingOptions.map<Widget>((option) {
@@ -88,7 +98,8 @@ class TrackingWidget extends StatelessWidget {
                                     : checked
                                         ? Icon(Icons.check_circle,
                                             color: AppColors.primary)
-                                        : const Icon(Icons.hourglass_empty_rounded,
+                                        : const Icon(
+                                            Icons.hourglass_empty_rounded,
                                             color: Colors.red),
                             activeColor:
                                 checked ? AppColors.primary : Colors.red,
@@ -128,7 +139,8 @@ class TrackingWidget extends StatelessWidget {
                                     : checked
                                         ? Icon(Icons.check_circle,
                                             color: AppColors.primary)
-                                        : const Icon(Icons.hourglass_empty_rounded,
+                                        : const Icon(
+                                            Icons.hourglass_empty_rounded,
                                             color: Colors.red),
                             activeColor:
                                 checked ? AppColors.primary : Colors.red,

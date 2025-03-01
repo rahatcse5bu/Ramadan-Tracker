@@ -362,6 +362,15 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                           type: 'switch',
                           slug: 'general_tracking'),
                     ),
+                  // ramadanDay>20?  Container(
+                  //     key: _quickjumpController.sectionKeys['qadr']
+                  //         ?['key'], // Assign Global Key,
+
+                  //     child: TrackingWidget(
+                  //         ramadan_day: ramadanDay,
+                  //         type: 'switch',
+                  //         slug: 'qadr_tracking'),
+                  //   ):Container(),
                     Container(
                         key: _quickjumpController.sectionKeys['other']
                             ?['key'], // Assign Global Key,
