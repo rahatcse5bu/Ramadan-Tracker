@@ -413,4 +413,8 @@ Future<Either<CustomError, List<dynamic>>> fetchTrackingOptions(String slug) asy
       ));
     }
   }
+    @override
+    Future<Response> getLatestVersionInfo() async {
+    return await get('/version.json');
+  }
 }
