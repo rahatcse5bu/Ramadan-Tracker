@@ -28,7 +28,6 @@ class CustomAppBar {
   }) {
     // final AppController appController = Utils.getAppController();
     final DashboardController dashboardController = Get.find();
-    final LanguageController languageController = Get.find();
 
     return AppBar(
       scrolledUnderElevation: 0,
@@ -38,15 +37,16 @@ class CustomAppBar {
               color: AppColors.primary,
             )
           : Text("${dashboardController.totalPoints.value} pts",
-              style: TextStyle(fontSize: 16, color: Colors.white))),
+              style: TextStyle(fontSize: 10.sp, color: Colors.white))),
       centerTitle: centerTitle,
       backgroundColor: backgroundColor ?? AppColors.primary,
       automaticallyImplyLeading: true,
       actions: actions ??
           <Widget>[
             // In your settings screen/widget
-       Obx((){  
-          final languageController = Get.find<LanguageController>();
+            Obx(
+              () {
+                final languageController = Get.find<LanguageController>();
 
                 return DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
@@ -55,7 +55,7 @@ class CustomAppBar {
                     // isExpanded: true,
                     dropdownColor: AppColors.primary,
 
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12.r),
                     style: TextStyle(
                       fontSize: 12.sp,
                       color: Colors.black,
@@ -128,33 +128,43 @@ class CustomAppBar {
                   //   ),
                   // ),
                   PopupMenuItem(
-                    child: InkWell(
-                      onTap: () async {
+                    child: Column(
+                      children: [
+                        Text("${dashboardController.username.value}"),
+                        SizedBox(height: 10.h),
+                        Divider(
+                          color: AppColors.primary,
+                          height: 1,
+                          endIndent: 5.w,
+                          indent: 5.w,
+                        ),
+                        SizedBox(height: 10.h),
+                        InkWell(
+                            onTap: () async {
 // Ensure the LocalStorage is ready before setting items
+                              StorageHelper.removeLanguageSettings();
 
-                        StorageHelper.removeToken();
-                        StorageHelper.removeFullName();
-                        StorageHelper.removeUserData();
-                        StorageHelper.removeUserId();
-                        StorageHelper.removeUserName();
+                              StorageHelper.removeToken();
+                              StorageHelper.removeFullName();
+                              StorageHelper.removeUserData();
+                              StorageHelper.removeUserId();
+                              StorageHelper.removeUserName();
 
-                        // Redirect to login page
-                        Get.toNamed(Routes.login);
-                      },
-                      child: Column(
-                        children: [
-                          Text(dashboardController.username.value),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Icon(
-                            Icons.logout,
-                            color: Colors.white,
-                          ),
-                          SizedBox(width: 10),
-                          Text('Logout'),
-                        ],
-                      ),
+                              // Redirect to login page
+                              Get.toNamed(Routes.login);
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.logout,
+                                  color: Colors.redAccent,
+                                ),
+                                SizedBox(width: 5.h),
+                                Text('Logout'),
+                              ],
+                            )),
+                        SizedBox(height: 6.h),
+                      ],
                     ),
                   ),
                 ];
