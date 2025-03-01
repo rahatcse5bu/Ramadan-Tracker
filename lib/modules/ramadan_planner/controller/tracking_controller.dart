@@ -102,7 +102,7 @@ Future<void> loadUserId() async {
         });
         // After updating, refresh today's points and options.
         fetchTodaysPoint();
-        dashboardController.fetchCurrentUserPoints();
+        dashboardController.fetchDashboardData();
         loadTrackingOptions(isToggling: true);
       },
     );
