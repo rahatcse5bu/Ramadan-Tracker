@@ -74,8 +74,8 @@ class TrackingWidget extends StatelessWidget {
 
                       // ✅ Mapping over tracking options
                       ...controller.trackingOptions.map<Widget>((option) {
-                        bool checked = controller.isUserChecked(
-                            option['users'], 'day${controller.ramadanDay}');
+                        final checked =
+                            controller.checkedStates[option['_id']] ?? false;
 
                         // ✅ Checkbox List
                         if (controller.type == "checkbox") {

@@ -20,7 +20,7 @@ class TrackingController extends GetxController {
   var trackingOptions = <dynamic>[].obs;
   var isLoadingOptions = true.obs;
   var loadingStates = <String, bool>{}.obs;
-
+var checkedStates = <String, bool>{}.obs; // ✅ Precomputed states
   // Observables for today's points
   // var todaysPoint = 0.obs;
   var isLoadingPoint = true.obs;
@@ -30,13 +30,19 @@ class TrackingController extends GetxController {
       {required this.ramadanDay, required this.slug, required this.type});
   final ConfettiController confettiController =
       ConfettiController(duration: const Duration(milliseconds: 5));
+      var userId = ''.obs;  // Store current userId
+
   @override
   void onInit() {
     super.onInit();
+      loadUserId();
+
     loadTrackingOptions();
     // fetchTodaysPoint();
   }
-
+Future<void> loadUserId() async {
+  userId.value = await StorageHelper.getUserId() ?? '';
+}
   /// Loads tracking options using the API helper.
   void loadTrackingOptions({bool isToggling = false}) async {
     if (!isToggling) isLoadingOptions(true);
@@ -47,10 +53,12 @@ class TrackingController extends GetxController {
       },
       (options) {
         trackingOptions.assignAll(options);
-        // Initialize loading states for each option.
-        for (var option in options) {
-          loadingStates[option['_id']] = false;
-        }
+      // Initialize loading & checked states
+      checkedStates.clear();
+      for (var option in options) {
+        loadingStates[option['_id']] = false;
+        checkedStates[option['_id']] = isUserCheckedSync(option['users'], 'day$ramadanDay');
+      }
         isLoadingOptions(false);
       },
     );
@@ -120,15 +128,24 @@ class TrackingController extends GetxController {
   }
 
   /// Helper to check if the current user is included in the option's users for this day.
-  bool isUserChecked(List<dynamic> optionUsers, String day) {
-    String? userId = storage.getItem('_id');
-    if (userId == null) return false;
-    // Adjust condition according to your API's structure.
-    return optionUsers.any((user) =>
-        (user is String && user == userId) ||
-        (user is Map && user['user'] == userId && user['day'] == day));
-  }
+  // bool isUserChecked(List<dynamic> optionUsers, String day) {
+  //   String? userId = storage.getItem('_id');
+  //   if (userId == null) return false;
+  //   // Adjust condition according to your API's structure.
+  //   return optionUsers.any((user) =>
+  //       (user is String && user == userId) ||
+  //       (user is Map && user['user'] == userId && user['day'] == day));
+  // }
+/// Direct synchronous check (userId is already available)
+bool isUserCheckedSync(List<dynamic> optionUsers, String day) {
+  if (userId.value.isEmpty) return false;
 
+  return optionUsers.any((user) =>
+      user is Map &&
+      user.containsKey('user') &&
+      user['user'] == userId.value &&
+      user['day'] == day);
+}
   /// Returns a tracking name based on slug.
   // String getTrackingName() {
   //   switch (slug) {

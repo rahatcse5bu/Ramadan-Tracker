@@ -198,22 +198,54 @@ Future<Either<CustomError, List<SalafQuoteModel>>> fetchSalafQuotes() async {
   }
 
   /// Fetch tracking options for a given slug.
-  @override
-  Future<Either<CustomError, List<dynamic>>> fetchTrackingOptions(
-      String slug) async {
-    final response = await get('trackings/slug/$slug');
-    if (response.statusCode == 200 &&
-        response.body['success'] == true &&
-        response.body['data'].isNotEmpty) {
+  // @override
+  // Future<Either<CustomError, List<dynamic>>> fetchTrackingOptions(
+  //     String slug) async {
+  //   final response = await get('trackings/slug/$slug');
+  //   if (response.statusCode == 200 &&
+  //       response.body['success'] == true &&
+  //       response.body['data'].isNotEmpty) {
+  //     List<dynamic> options = response.body['data'][0]['options'];
+  //     options.sort((a, b) => a["index"].compareTo(b["index"]));
+  //     // Note: Initialize loading states externally if needed.
+  //     return Right(options);
+  //   } else {
+  //     return Left(CustomError(response.statusCode ?? 500,
+  //         message: response.statusText ?? 'Failed to load tracking options'));
+  //   }
+  // }
+@override
+Future<Either<CustomError, List<dynamic>>> fetchTrackingOptions(String slug) async {
+  final response = await get('trackings/slug/$slug');
+
+  if (response.statusCode == 200 &&
+      response.body['success'] == true &&
+      response.body['data'].isNotEmpty) {
+    try {
       List<dynamic> options = response.body['data'][0]['options'];
+
+      // Sort by index
       options.sort((a, b) => a["index"].compareTo(b["index"]));
-      // Note: Initialize loading states externally if needed.
+
+      // Extract users for each option
+      options = options.map((option) {
+        return {
+          ...option,
+          'users': option['users'] ?? [], // Ensure users list exists
+        };
+      }).toList();
+
       return Right(options);
-    } else {
-      return Left(CustomError(response.statusCode ?? 500,
-          message: response.statusText ?? 'Failed to load tracking options'));
+    } catch (e) {
+      return Left(CustomError(500, message: 'Data parsing error: ${e.toString()}'));
     }
+  } else {
+    return Left(CustomError(
+      response.statusCode ?? 500,
+      message: response.statusText ?? 'Failed to load tracking options',
+    ));
   }
+}
 
   /// Add points for a user.
   @override
