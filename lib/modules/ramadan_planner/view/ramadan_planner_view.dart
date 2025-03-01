@@ -427,43 +427,43 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
               : SizedBox.shrink()), // Hide when not needed
         ],
       ),
-          bottomNavigationBar: Obx(
-        () => BottomNavigationBar(
-          // iconSize: 16.sp,
-          // unselectedLabelStyle: TextStyle(fontSize: 11.sp),
-          backgroundColor: Colors.white,
-          currentIndex: navController.currentIndex.value,
-          showSelectedLabels: true,
-          // onTap: controller.changeTab,
-          onTap: (index) {
-            if (index == 1) {
-              mainController.openMoreBottomSheet();
-            } 
-            else if (index == 2) {
-              mainController.openMoreBottomSheet();
-            } 
-            else {
-              navController.changeTab(index);
-            }
-          },
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: TranslationKeys.home.tr,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.leaderboard),
-              label: TranslationKeys.leaderBoard.tr,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.more_horiz),
-              label: TranslationKeys.more.tr,
-            ),
-          ],
-          selectedItemColor: AppColors.primary,
-          unselectedItemColor: Colors.grey,
-        ),
-      ),
+      //     bottomNavigationBar: Obx(
+      //   () => BottomNavigationBar(
+      //     // iconSize: 16.sp,
+      //     // unselectedLabelStyle: TextStyle(fontSize: 11.sp),
+      //     backgroundColor: Colors.white,
+      //     currentIndex: navController.currentIndex.value,
+      //     showSelectedLabels: true,
+      //     // onTap: controller.changeTab,
+      //     onTap: (index) {
+      //       if (index == 1) {
+      //         mainController.openMoreBottomSheet();
+      //       } 
+      //       else if (index == 2) {
+      //         mainController.openMoreBottomSheet();
+      //       } 
+      //       else {
+      //         navController.changeTab(index);
+      //       }
+      //     },
+      //     items: [
+      //       BottomNavigationBarItem(
+      //         icon: Icon(Icons.home),
+      //         label: TranslationKeys.home.tr,
+      //       ),
+      //       BottomNavigationBarItem(
+      //         icon: Icon(Icons.leaderboard),
+      //         label: TranslationKeys.leaderBoard.tr,
+      //       ),
+      //       BottomNavigationBarItem(
+      //         icon: Icon(Icons.more_horiz),
+      //         label: TranslationKeys.more.tr,
+      //       ),
+      //     ],
+      //     selectedItemColor: AppColors.primary,
+      //     unselectedItemColor: Colors.grey,
+      //   ),
+      // ),
     );
   }
 }
