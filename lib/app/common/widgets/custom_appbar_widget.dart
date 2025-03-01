@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../modules/dashboard/controller/dashboard_controller.dart';
+import '../../../modules/dashboard/controller/user_points_controller.dart';
+import '../../../modules/ramadan_planner/controller/quick_jump_section_controller.dart';
+import '../../../modules/ramadan_planner/controller/ramadan_planner_controller.dart';
+import '../../../modules/ramadan_planner/controller/tracking_controller.dart';
 import '../../constants/app_color.dart';
 import '../../routes/app_pages.dart';
 import '../../translation/language_controller.dart';
@@ -149,6 +153,12 @@ class CustomAppBar {
                               StorageHelper.removeUserData();
                               StorageHelper.removeUserId();
                               StorageHelper.removeUserName();
+                              Get.delete<DashboardController>(force: true);
+                              Get.delete<UserPointsController>(force: true);
+                              Get.delete<RamadanPlannerController>(force: true);
+                              Get.delete<TrackingController>(force: true);
+                              Get.delete<QuickJumpSectionController>(
+                                  force: true);
 
                               // Redirect to login page
                               Get.toNamed(Routes.login);
@@ -171,29 +181,34 @@ class CustomAppBar {
               },
             ),
           ],
-    leading: Row(
-  children: [
-   leadingWidget!=null? Expanded(
-      child: IconButton(
-        icon: Icon(Icons.arrow_back, color: Colors.white),
-        onPressed: () {
-          Get.back();
-        },
+      leading: Row(
+        children: [
+          leadingWidget != null
+              ? Expanded(
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back, color: Colors.white),
+                    onPressed: () {
+                      Get.back();
+                    },
+                  ),
+                )
+              : Container(
+                  child: SizedBox(
+                    width: 15.w,
+                  ),
+                ),
+          Obx(() => dashboardController.isLoading.value
+              ? CupertinoActivityIndicator(
+                  color: AppColors.primary,
+                )
+              : Expanded(
+                  child: Text(
+                    "${TranslationKeys.rank.tr}:${dashboardController.userRank.value}",
+                    style: TextStyle(fontSize: 12.sp, color: Colors.white),
+                  ),
+                )),
+        ],
       ),
-    ):Container(child: SizedBox(width: 15.w,),),
-    Obx(() => dashboardController.isLoading.value
-        ? CupertinoActivityIndicator(
-            color: AppColors.primary,
-          )
-        : Expanded(
-          child: Text(
-              "${TranslationKeys.rank.tr}:${dashboardController.userRank.value}",
-              style: TextStyle(fontSize: 12.sp, color: Colors.white),
-            ),
-        )),
-  ],
-),
-
     );
   }
 }
