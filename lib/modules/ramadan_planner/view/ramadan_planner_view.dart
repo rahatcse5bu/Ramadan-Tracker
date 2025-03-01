@@ -71,7 +71,7 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "আজকের পয়েন্ট: ${controller.todaysPoint.value}",
+                              "${ TranslationKeys.todayPoint.tr}: ${controller.todaysPoint.value}",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20.sp,
@@ -120,7 +120,7 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      "আজকের হাদিস",
+                                      "${TranslationKeys.todayHadidth.tr}",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white,
@@ -186,7 +186,7 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      "আজকের আয়াত",
+                                      "${TranslationKeys.todayVerse.tr}",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20.sp,

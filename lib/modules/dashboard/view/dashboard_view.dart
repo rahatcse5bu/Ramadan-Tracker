@@ -31,7 +31,7 @@ class DashboardView extends GetView<DashboardController> {
               QuoteWidget(
                   title: "নির্বাচিত হাদিস",
                   // text: controller.ajkerHadith.value,
-                  text: controller.HadithList.value.first.enText,
+                  text: controller.HadithList.first.enText,
                   type: 'ajker_hadith'),
               QuoteWidget(
                   title: "সালাফদের বক্তব্য",

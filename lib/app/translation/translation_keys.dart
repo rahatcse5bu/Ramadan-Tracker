@@ -23,14 +23,27 @@ class TranslationKeys {
   static const String rank = 'rank';
   static const String pointsDisclaimer = 'points_disclaimer';
 
-    static const String home = 'home';
+  static const String home = 'home';
   static const String duas = 'duas';
   static const String more = 'more';
-    static const String koroniyo = 'koroniyo';
+  static const String koroniyo = 'koroniyo';
   static const String borjoniyo = 'borjoniyo';
   static const String ramadaneBorjoniyo = 'ramadaneBorjoniyo';
   static const String ramadaneKoroniyo = 'ramadaneKoroniyo';
   static const String today = 'today';
+  static const String todayHadidth = 'todayHadidth';
+  static const String todayVerse = 'todayVerse';
+  static const String todayPoint = 'todayPoint';
+
+  //trackings
+  static const nightTracking = 'nightTracking';
+  static const fajrTracking = 'fajrTracking';
+  static const zuhrTracking = 'zuhrTracking';
+  static const asrTracking = 'asrTracking';
+  static const afternoonTracking = 'afternoonTracking';
+  static const qadrTracking = 'qadrTracking';
+  static const generalTracking = 'generalTracking';
+  static const eveningTracking = 'eveningTracking';
 }
 
 // lib/app/translations/bn_BD/bn_bd_translations.dart
@@ -59,12 +72,23 @@ final Map<String, String> bnBd = {
   TranslationKeys.home: 'হোম',
   TranslationKeys.duas: "দু'আ সমুহ",
   TranslationKeys.more: 'আরও',
-    TranslationKeys.koroniyo: 'করণীয়',
+  TranslationKeys.koroniyo: 'করণীয়',
   TranslationKeys.borjoniyo: 'বর্জনীয়',
   TranslationKeys.ramadaneBorjoniyo: 'রমাদ্বনে বর্জনীয়',
   TranslationKeys.ramadaneKoroniyo: 'রমাদ্বনে করণীয়',
   TranslationKeys.today: 'আজ',
-  
+  TranslationKeys.todayHadidth: 'আজকের হাদিস',
+  TranslationKeys.todayVerse: 'আজকের আয়াত',
+  TranslationKeys.todayPoint: 'আজকের পয়েন্ট',
+  //trackings
+  TranslationKeys.nightTracking: 'রাত ট্র্যাকিং',
+  TranslationKeys.fajrTracking: 'ফজর ট্র্যাকিং',
+  TranslationKeys.zuhrTracking: 'যোহর ট্র্যাকিং',
+  TranslationKeys.asrTracking: 'আসর ট্র্যাকিং',
+  TranslationKeys.afternoonTracking: 'বিকেল ট্র্যাকিং',
+  TranslationKeys.qadrTracking: 'ক্বদর ট্র্যাকিং',
+  TranslationKeys.generalTracking: 'অত্যন্ত প্রয়োজনীয়',
+  TranslationKeys.eveningTracking: 'সন্ধ্যা ট্র্যাকিং',
 };
 
 // lib/app/translations/en_US/en_us_translations.dart
@@ -93,9 +117,21 @@ final Map<String, String> enUs = {
   TranslationKeys.home: 'Home',
   TranslationKeys.duas: 'List of Dua',
   TranslationKeys.more: 'More',
-    TranslationKeys.koroniyo: 'Koroniyo',
+  TranslationKeys.koroniyo: 'Koroniyo',
   TranslationKeys.borjoniyo: 'Borjoniyo',
-   TranslationKeys.ramadaneBorjoniyo: 'Restricted For Ramadan',
-   TranslationKeys.ramadaneKoroniyo: 'Admirable For Ramadan',
-   TranslationKeys.today: 'Today',
+  TranslationKeys.ramadaneBorjoniyo: 'Restricted For Ramadan',
+  TranslationKeys.ramadaneKoroniyo: 'Admirable For Ramadan',
+  TranslationKeys.today: 'Today',
+  TranslationKeys.todayHadidth: "Today's Hadidth",
+  TranslationKeys.todayVerse: "Today's Verse",
+  TranslationKeys.todayPoint: "Today's Point",
+  //trackings
+  TranslationKeys.nightTracking: 'Night Tracking',
+  TranslationKeys.fajrTracking: 'Fajr Tracking',
+  TranslationKeys.zuhrTracking: 'Zuhr Tracking',
+  TranslationKeys.asrTracking: 'Asr Tracking',
+  TranslationKeys.afternoonTracking: 'Afternoon Tracking',
+  TranslationKeys.qadrTracking: 'Qadr Tracking',
+  TranslationKeys.generalTracking: 'General Tracking',
+  TranslationKeys.eveningTracking: 'Evening Tracking',
 };

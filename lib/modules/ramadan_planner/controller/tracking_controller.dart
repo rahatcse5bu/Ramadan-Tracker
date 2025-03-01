@@ -4,6 +4,7 @@ import 'package:localstorage/localstorage.dart';
 
 import '../../../app/apis/api_helper.dart';
 import '../../../app/common/storage/storage_controller.dart';
+import '../../../app/translation/translation_keys.dart';
 import '../../dashboard/controller/dashboard_controller.dart';
 import 'ramadan_planner_controller.dart';
 
@@ -129,28 +130,50 @@ class TrackingController extends GetxController {
   }
 
   /// Returns a tracking name based on slug.
-  String getTrackingName() {
-    switch (slug) {
-      case 'night_tracking':
-        return "রাত ট্রাকিং:";
-      case 'fajr_tracking':
-        return "ফজর ট্রাকিং";
-      case 'zuhr_tracking':
-        return "যোহর ট্রাকিং";
-      case 'asr_tracking':
-        return "আসর ট্রাকিং";
-      case 'afternoon_tracking':
-        return "বিকেল ট্রাকিং";
-      case 'qadr_tracking':
-        return "ক্বদর ট্রাকিং:";
-      case 'general_tracking':
-        return "অত্যন্ত প্রয়োজনীয়";
-      case 'evening_tracking':
-        return "সন্ধ্যা ট্রাকিং";
-      default:
-        return "";
-    }
+  // String getTrackingName() {
+  //   switch (slug) {
+  //     case 'night_tracking':
+  //       return "রাত ট্রাকিং:";
+  //     case 'fajr_tracking':
+  //       return "ফজর ট্রাকিং";
+  //     case 'zuhr_tracking':
+  //       return "যোহর ট্রাকিং";
+  //     case 'asr_tracking':
+  //       return "আসর ট্রাকিং";
+  //     case 'afternoon_tracking':
+  //       return "বিকেল ট্রাকিং";
+  //     case 'qadr_tracking':
+  //       return "ক্বদর ট্রাকিং:";
+  //     case 'general_tracking':
+  //       return "অত্যন্ত প্রয়োজনীয়";
+  //     case 'evening_tracking':
+  //       return "সন্ধ্যা ট্রাকিং";
+  //     default:
+  //       return "";
+  //   }
+  // }
+String getTrackingName() {
+  switch (slug) {
+    case 'night_tracking':
+      return TranslationKeys.nightTracking.tr;
+    case 'fajr_tracking':
+      return TranslationKeys.fajrTracking.tr;
+    case 'zuhr_tracking':
+      return TranslationKeys.zuhrTracking.tr;
+    case 'asr_tracking':
+      return TranslationKeys.asrTracking.tr;
+    case 'afternoon_tracking':
+      return TranslationKeys.afternoonTracking.tr;
+    case 'qadr_tracking':
+      return TranslationKeys.qadrTracking.tr;
+    case 'general_tracking':
+      return TranslationKeys.generalTracking.tr;
+    case 'evening_tracking':
+      return TranslationKeys.eveningTracking.tr;
+    default:
+      return "";
   }
+}
 
   @override
   void onClose() {
