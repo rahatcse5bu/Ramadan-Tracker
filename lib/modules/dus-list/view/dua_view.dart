@@ -25,6 +25,7 @@ class DuaView extends GetView<DuaController> {
                 height: 10.h,
               ),
               Card(
+                color: Colors.white,
                 elevation: 5,
                 child: Padding(
                     padding: const EdgeInsets.all(10.0),
