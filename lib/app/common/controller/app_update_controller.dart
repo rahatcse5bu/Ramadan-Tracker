@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:ramadan_tracker/app/constants/app_color.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../apis/api_helper.dart';
@@ -52,25 +54,58 @@ class AppUpdateController extends GetxController {
     return 0;
   }
 
-  void showUpdateDialog() {
-    Get.defaultDialog(
-      title: 'Update Available',
-      content: const Text('A new version of the app is available. Please update to continue.'),
-      confirm: ElevatedButton(
+
+void showUpdateDialog() {
+  Get.defaultDialog(
+    title: '🔔 Update Available',
+    titleStyle: TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+      color: Colors.blueAccent,
+    ),
+    contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+    content: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          'A new version of the app is available. Please update to continue.',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 16),
+        ),
+        const SizedBox(height: 10),
+        Icon(Icons.system_update, size: 40, color: AppColors.primary),
+      ],
+    ),
+    barrierDismissible: false, // Force user to make a choice
+    radius: 8,
+    actions: [
+      TextButton(
+        onPressed: () {
+          Get.back();  // Close dialog
+        },
+        child: Text(
+          'Later',
+          style: TextStyle(color: Colors.grey[700]),
+        ),
+      ),
+      SizedBox(width: 15.w,),
+      ElevatedButton(
         onPressed: () {
           Get.back();  // Close dialog
           downloadAndInstallApk();
         },
-        child: const Text('Update Now'),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6),
+          ),
+        ),
+        child: const Text('Update Now',style: TextStyle(color: Colors.white),),
       ),
-      cancel: TextButton(
-        onPressed: () {
-          Get.back();
-        },
-        child: const Text('Later'),
-      ),
-    );
-  }
+    ],
+  );
+}
+
 
   Future<void> downloadAndInstallApk() async {
     final apkUrl = downloadUrl.value;

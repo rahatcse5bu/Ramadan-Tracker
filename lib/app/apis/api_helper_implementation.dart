@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get_connect/connect.dart';
+import 'package:http/http.dart' as http;
 import 'package:ramadan_tracker/modules/dus-list/models/dua_model.dart';
 import '../../modules/borjoniyo/models/borjoniyo_model.dart';
 import '../../modules/dashboard/models/user_model.dart';
@@ -415,7 +417,7 @@ Future<Either<CustomError, List<dynamic>>> fetchTrackingOptions(String slug) asy
   }
     @override
   Future<Map<String, dynamic>> fetchLatestVersion() async {
-    final response = await get('app-update-check'); // Replace with your actual URL
+    final response = await http.get(Uri.parse('https://ramadan-tracker-app-info.vercel.app/api/v1/app-info')); // Replace with your actual URL
     
 
     if (response.statusCode == 200) {
@@ -423,6 +425,8 @@ Future<Either<CustomError, List<dynamic>>> fetchTrackingOptions(String slug) asy
 
       if (json['success'] == true && json['data'] != null) {
         final data = json['data']; // Direct map (not a list anymore)
+        debugPrint("download_link ${data['download_link']}");
+        debugPrint("version ${data['version']}");
         return {
           "version": data['version'],
           "download_link": data['download_link'],
