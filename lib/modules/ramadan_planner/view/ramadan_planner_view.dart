@@ -329,7 +329,7 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
                                         linkColor: AppColors.primary,
                                         style: TextStyle(
                                             fontStyle: FontStyle.italic,
-                                            fontSize: 12.sp),
+                                            fontSize: 18.sp),
                                       ),
                                 SizedBox(height: 10.h),
                                 controller.isLoadingDua.value
