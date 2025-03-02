@@ -53,6 +53,24 @@ class AppUpdateController extends GetxController {
     }
     return 0;
   }
+Future<bool> checkForUpdateWithResult() async {
+  try {
+    final updateInfo = await _apiHelper.fetchLatestVersion();
+    latestVersion.value = updateInfo['version'];
+    downloadUrl.value = updateInfo['download_link'];
+
+    final packageInfo = await PackageInfo.fromPlatform();
+    final currentVersion = packageInfo.version;
+
+    if (_isUpdateAvailable(currentVersion, latestVersion.value)) {
+      showUpdateDialog();
+      return true; // Update needed, stop further navigation
+    }
+  } catch (e) {
+    print('❌ Error checking for update: $e');
+  }
+  return false; // No update required
+}
 
 
 void showUpdateDialog() {

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ramadan_tracker/app/routes/app_pages.dart';
 import '../../../app/apis/api_helper.dart';
+import '../../../app/constants/app_color.dart';
 import '../models/register_model.dart';
 
 class RegisterController extends GetxController {
@@ -36,7 +37,7 @@ class RegisterController extends GetxController {
       (response) {
         Fluttertoast.showToast(
           msg: "আপনার রেজি সফল হয়েছে",
-          backgroundColor: Colors.green,
+          backgroundColor: AppColors.primary,
           textColor: Colors.white,
         );
 
