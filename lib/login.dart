@@ -4,7 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:localstorage/localstorage.dart';
 import 'dart:convert';
 
-import 'package:ramadan_tracker/colors.dart';
+import 'app/constants/app_color.dart';
+
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -75,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.PrimaryColor,
+        backgroundColor: AppColors.primary,
         title: Text(
           'Login',
           style: TextStyle(color: Colors.white),
@@ -87,14 +88,18 @@ class _LoginScreenState extends State<LoginScreen> {
         padding: const EdgeInsets.all(26.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Container(
+              color: AppColors.primary,
+              child: Image.asset("images/Ramadan_Tracker.png")),
             TextFormField(
               controller: _identifierController,
               decoration: InputDecoration(
                 labelText: 'Username/Email',
                 border: OutlineInputBorder(
                   borderSide:
-                      BorderSide(color: AppColors.PrimaryColor), // Border color
+                      BorderSide(color: AppColors.primary), // Border color
                   borderRadius: BorderRadius.circular(10.0), // Border radius
                 ),
               ),
@@ -106,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 labelText: 'Password',
                 border: OutlineInputBorder(
                   borderSide:
-                      BorderSide(color: AppColors.PrimaryColor), // Border color
+                      BorderSide(color: AppColors.primary), // Border color
                   borderRadius: BorderRadius.circular(10.0), // Border radius
                 ),
               ),
@@ -125,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               10.0), // Adjust the radius according to your preference
                         ),
                         foregroundColor: Colors.white,
-                        backgroundColor: AppColors.PrimaryColor, // Text color
+                        backgroundColor: AppColors.primary, // Text color
                       ),
                       onPressed: _login,
                       child: Text('Login',style: TextStyle(fontSize: 20,color:Colors.white),),
