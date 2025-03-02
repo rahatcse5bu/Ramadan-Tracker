@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../Credit.dart';
 import '../../../Tracking-Old.dart';
 import '../../../app/common/controller/nav_controller.dart';
+import '../../../app/common/utils/ramadan_utils.dart';
 import '../../../app/constants/app_color.dart';
 import '../../../app/translation/language_controller.dart';
 import '../../../app/translation/translation_keys.dart';
@@ -42,7 +43,7 @@ class RamadanPlannerView extends GetView<RamadanPlannerController> {
         ),
         backgroundColor: AppColors.primary,
         title: Text(
-          '$ramadanDay রমাদ্বন ${controller.currentYear.value}',
+          '$ramadanDay${Utils.getNumberSuffix(ramadanDay)} রমাদ্বন ${controller.currentYear.value}',
           style: TextStyle(color: Colors.white, fontSize: 18.sp),
         ),
         centerTitle: true,
