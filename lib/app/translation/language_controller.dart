@@ -8,24 +8,21 @@ class LanguageController extends GetxController {
 
   Locale? get appLocale => _appLocale.value;
 
-  @override
-  void onInit() {
-    _loadSavedLocale();
-    super.onInit();
-  }
-
-  Future<void> _loadSavedLocale() async {
+  Future<void> loadLocale() async {
     final languageCode = await StorageHelper.getLanguageCode();
     final countryCode = await StorageHelper.getCountryCode();
     if (languageCode != null && countryCode != null) {
       _appLocale.value = Locale(languageCode, countryCode);
+    } else {
+      _appLocale.value = const Locale('bn', 'BD'); // Default if no saved language
     }
+    Get.updateLocale(_appLocale.value!);
   }
 
   Future<void> changeLanguage(String languageCode, String countryCode) async {
     await StorageHelper.setLanguage(languageCode, countryCode);
     _appLocale.value = Locale(languageCode, countryCode);
     Get.updateLocale(_appLocale.value!);
-    update(); // Force UI update
+    update(); // Force UI update if needed
   }
 }

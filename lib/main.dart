@@ -13,7 +13,10 @@ import 'modules/dashboard/controller/dashboard_controller.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize();
-    Get.lazyPut(() => LanguageController());
+   final languageController = Get.put(LanguageController());  // Direct put (not lazy)
+
+  // Ensure locale is loaded before app starts
+  await languageController.loadLocale();   // New function you will add below
   Get.lazyPut(() => DashboardController());
   Get.lazyPut(() => AppUpdateController());
 
@@ -47,7 +50,7 @@ class MyApp extends StatelessWidget {
           // Localization
           translations: AppTranslation(),
           locale: Get.find<LanguageController>().appLocale ?? Get.deviceLocale,
-          fallbackLocale: const Locale('en', 'US'), // Default to English
+          fallbackLocale: const Locale('bn', 'BD'), // Default to Bangla
         );
       },
     );

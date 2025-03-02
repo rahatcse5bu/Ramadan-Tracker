@@ -72,7 +72,7 @@ class QuoteWidget extends GetWidget<DashboardController> {
           displayTitle = TranslationKeys.salafQuotes.tr;
           break;
         default:
-          displayTitle = text;
+          displayTitle = title;
       }
 
       // **Dynamic displayText update**
@@ -121,7 +121,7 @@ class QuoteWidget extends GetWidget<DashboardController> {
                       color: AppColors.primary),
                   child: Center(
                     child: Text(
-                      "$displayTitle",
+                      "${displayTitle}",
                       style: TextStyle(
                           // fontStyle: FontStyle.italic,
                           fontSize: 20,
