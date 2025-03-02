@@ -201,12 +201,10 @@ class CustomAppBar {
               ? CupertinoActivityIndicator(
                   color: AppColors.primary,
                 )
-              : Expanded(
-                  child: Text(
-                    "${TranslationKeys.rank.tr}:${dashboardController.userRank.value}",
-                    style: TextStyle(fontSize: 12.sp, color: Colors.white),
-                  ),
-                )),
+              : Text(
+                "${TranslationKeys.rank.tr}:${dashboardController.userRank.value}${Utils.getNumberSuffix(dashboardController.userRank.value)}",
+                style: TextStyle(fontSize: 12.sp, color: Colors.white),
+              )),
         ],
       ),
     );
