@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ramadan_tracker/Data/data.dart';
 
+import '../../../app/common/utils/ramadan_utils.dart';
 import '../../../app/constants/app_color.dart';
 import '../../../app/routes/app_pages.dart';
 import '../../../app/translation/translation_keys.dart';
@@ -29,15 +30,15 @@ class RamadanDaysList extends GetWidget<DashboardController> {
                   tileColor: i + 1 > 20 ? Colors.grey[250] : Colors.white,
                   title: i + 1 == calculate2025RamadanDate() &&
                           controller.current_month == "Ramadan"
-                      ? Text('${TranslationKeys.ramadan.tr} - ${controller.ramadanList[i]} (${TranslationKeys.today.tr}) ')
+                      ? Text('${TranslationKeys.ramadan.tr} - ${controller.ramadanList[i]}${Utils.getNumberSuffix(controller.ramadanList[i])} (${TranslationKeys.today.tr}) ')
                       : i + 1 > 20
                           ? Text(
-                              '${TranslationKeys.ramadan.tr} - ${controller.ramadanList[i]} ',
+                              '${TranslationKeys.ramadan.tr} - ${controller.ramadanList[i]}${Utils.getNumberSuffix(controller.ramadanList[i])} ',
                               style: TextStyle(
                                   color: AppColors.primary,
                                   fontWeight: FontWeight.bold),
                             )
-                          : Text('${TranslationKeys.ramadan.tr} - ${controller.ramadanList[i]} '),
+                          : Text('${TranslationKeys.ramadan.tr} - ${controller.ramadanList[i]}${Utils.getNumberSuffix(controller.ramadanList[i])} '),
                   subtitle: i + 1 > 20
                       ? Text(
                           '${  TranslationKeys.trackRamadan.tr}',
